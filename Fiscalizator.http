@@ -1,0 +1,6 @@
+@Fiscalizator_HostAddress = http://localhost:5068
+
+GET {{Fiscalizator_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
