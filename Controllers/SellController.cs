@@ -2,21 +2,21 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 [ApiController]
-[Route("Route(\"api/fiscalize\")")]
-public class FiscalController : Controller
+[Route("Route(\"api/Sell\")")]
+public class SellController : Controller
 {
     private readonly FiscalizationService _fiscalizationService;
 
-    public FiscalController(FiscalizationService fiscalizationService)
+    public SellController(FiscalizationService fiscalizationService)
     {
         _fiscalizationService = fiscalizationService;
     }
 
     [HttpPost]
     [Produces("application/xml"), Consumes("application/xml")]
-    public ActionResult<BillResponse> Fiscalize([FromBody] BillRequest request)
+    public ActionResult<OperationResponse> Fiscalize([FromBody] BillRequest request)
     {
-        var response = _fiscalizationService.ProcessOperation(request);
+        var response = _fiscalizationService.Sell(request);
         return Ok(response);
     }
 }

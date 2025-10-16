@@ -1,11 +1,9 @@
-﻿using System.Xml.Serialization;
+﻿using Fiscalizator.FiscalizationClasses;
+using System.Xml.Serialization;
 
-public class BillRequest
+public class BillRequest 
     {
-    [XmlElement("id")]
-    public string Id { get; set; }
-
-    [XmlElement("amount")]
+    [XmlElement("Amount")]
     public decimal Amount { get; set; }
 }
 

@@ -1,11 +1,6 @@
-﻿using System.Xml.Serialization;
-namespace Fiscalizator.FiscalizationClasses
+﻿namespace Fiscalizator.FiscalizationClasses
 {
-    [XmlRoot("response")]
-    public class BillResponse
+    public class BillResponse : OperationResponse
     {
-        public string Status { get; set; }
-        public string Message { get; set; }
-
     }
 }
