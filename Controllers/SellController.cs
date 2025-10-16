@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses;
+﻿using Fiscalizator.FiscalizationClasses.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 [ApiController]

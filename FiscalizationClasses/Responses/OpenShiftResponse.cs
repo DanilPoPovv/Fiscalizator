@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Serialization;
-namespace Fiscalizator.FiscalizationClasses
+namespace Fiscalizator.FiscalizationClasses.Responses
 {
     public class OpenShiftResponse : OperationResponse
     {

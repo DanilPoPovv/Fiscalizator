@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-namespace Fiscalizator.FiscalizationClasses
+namespace Fiscalizator.FiscalizationClasses.Responses
 {
     [XmlRoot("Response")]
     public class OperationResponse

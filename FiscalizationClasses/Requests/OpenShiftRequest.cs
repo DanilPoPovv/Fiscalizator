@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace Fiscalizator.FiscalizationClasses
+namespace Fiscalizator.FiscalizationClasses.Requests
 {
-    public class OpenShiftRequest 
+    public class OpenShiftRequest
     {
         [XmlElement("Cashier")]
         public string? Cashier { get; set; }

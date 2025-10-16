@@ -1,9 +1,8 @@
-﻿namespace Fiscalizator.FiscalizationClasses
+﻿namespace Fiscalizator.FiscalizationClasses.Responses
 {
-    public class CloseShiftRequest 
+    public class CloseShiftResponse : OperationResponse
     {
         public DateTime CloseShiftTime { get; set; }
-
         public string? Cashier { get; set; }
     }
 }

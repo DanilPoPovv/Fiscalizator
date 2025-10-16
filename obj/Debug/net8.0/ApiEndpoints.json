@@ -9,13 +9,13 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.CloseShiftRequest",
+        "Type": "Fiscalizator.FiscalizationClasses.Requests.CloseShiftRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Fiscalizator.FiscalizationClasses.OperationResponse",
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
         "MediaTypes": [
           "application/xml"
         ],
@@ -39,7 +39,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Fiscalizator.FiscalizationClasses.OperationResponse",
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
         "MediaTypes": [
           "application/xml"
         ],
@@ -57,13 +57,13 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.OpenShiftRequest",
+        "Type": "Fiscalizator.FiscalizationClasses.Requests.OpenShiftRequest",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Fiscalizator.FiscalizationClasses.OperationResponse",
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
         "MediaTypes": [
           "application/xml"
         ],

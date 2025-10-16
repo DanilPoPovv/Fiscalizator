@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses;
+﻿using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.Logger;
 using Fiscalizator.OperationHandlers;
 using System.Diagnostics;
@@ -35,30 +36,6 @@ public class FiscalizationService
         operationResponse = _closeShiftHandler.ProcessCloseShift(closeShiftRequest);
         return operationResponse;
     }
-
-    //public OperationResponse ProcessOperation(OperationRequest request)
-    //{
-    //    _logger.FileLog($"Processing operation of type: {request.Type}");
-
-    //    OperationResponse operationResponse;
-    //    switch (request.Type)
-    //    {
-    //        case OperationType.Sale:
-    //            operationResponse = _billHandler.ProcessBill(request.BillRequest);
-    //            break;
-    //        case OperationType.OpenShift:
-    //            operationResponse = _openShiftHandler.OpenShift(request.OpenShiftRequest);
-    //            break;
-    //        case OperationType.CloseShift:
-    //            operationResponse = _closeShiftHandler.ProcessCloseShift(request.CloseShiftRequest);
-    //            break;
-    //        default:
-    //            operationResponse = new OperationResponse { Message = "Что то пошло не так", Status = "Error" };
-    //            break;
-
-    //    }
-    //    return operationResponse;
-
     }
 
 

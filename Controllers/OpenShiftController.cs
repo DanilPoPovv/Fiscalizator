@@ -1,6 +1,7 @@
-﻿using Fiscalizator.FiscalizationClasses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Fiscalizator.OperationHandlers;
+using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.FiscalizationClasses.Responses;
 namespace Fiscalizator.Controllers
 {
     [ApiController]

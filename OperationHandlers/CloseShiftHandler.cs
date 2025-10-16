@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses;
+﻿using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.Logger;
 using System.Security.Cryptography.X509Certificates;
 
