@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "ContainingType": "FiscalController",
+    "Method": "Fiscalize",
+    "RelativePath": "Route(\u0022api/fiscalize\u0022)",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "BillRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Fiscalizator.FiscalizationClasses.BillResponse",
+        "MediaTypes": [
+          "application/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

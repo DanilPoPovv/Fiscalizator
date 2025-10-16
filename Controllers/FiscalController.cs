@@ -1,83 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Fiscalizator.FiscalizationClasses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Fiscalizator.Controllers
+[ApiController]
+[Route("Route(\"api/fiscalize\")")]
+public class FiscalController : Controller
 {
-    public class FiscalController : Controller
+    private readonly FiscalizationService _fiscalizationService;
+
+    public FiscalController(FiscalizationService fiscalizationService)
     {
-        // GET: FiscalController
-        public ActionResult Index()
-        {
-            return View();
-        }
+        _fiscalizationService = fiscalizationService;
+    }
 
-        // GET: FiscalController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: FiscalController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: FiscalController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FiscalController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: FiscalController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: FiscalController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: FiscalController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+    [HttpPost]
+    [Produces("application/xml"), Consumes("application/xml")]
+    public ActionResult<BillResponse> Fiscalize([FromBody] BillRequest request)
+    {
+        var response = _fiscalizationService.ProcessOperation(request);
+        return Ok(response);
     }
 }
+

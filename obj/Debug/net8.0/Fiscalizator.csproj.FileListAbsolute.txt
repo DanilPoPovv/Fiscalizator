@@ -30,3 +30,4 @@ C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\obj\Debug\net8.0\refint\F
 C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\obj\Debug\net8.0\Fiscalizator.pdb
 C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\obj\Debug\net8.0\Fiscalizator.genruntimeconfig.cache
 C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\obj\Debug\net8.0\ref\Fiscalizator.dll
+C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\obj\Debug\net8.0\Fiscalizator.sourcelink.json
