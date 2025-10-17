@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="FiscalizationClasses\Models\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Новая папка\" />
   </ItemGroup>
 

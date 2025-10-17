@@ -11,7 +11,6 @@ namespace Fiscalizator.FiscalizationClasses.Validators
 
             if (!ValidCommodity(request.Amount, request.Commodity, out errorMessage))
                 return false;
-
             return true;
         }
         private bool ValidAmount(decimal amount, out string errorMessage)
@@ -36,6 +35,25 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = isValid ? string.Empty : "Sum of commodities does not match the amount.";
             return isValid;
         }
-
+        private bool ValidateTax(Tax tax,int commoditySum, out string errorMessage)
+        {
+            if (tax.Percent >= 100)
+            {
+                errorMessage = "Tax percent cannot be greater than 100.";
+                return false;
+            }
+            if (tax.Percent < 0)
+            {
+                errorMessage = "Tax percent cannot be negative.";
+                return false;
+            }
+            if (tax.Sum != (commoditySum * tax.Percent) / 100)
+            {
+                errorMessage = "Tax sum does not match the calculated value.";
+                return false;
+            }
+            errorMessage = string.Empty;
+            return true;
+        }
     }
 }

@@ -12,5 +12,11 @@ namespace Fiscalizator.FiscalizationClasses.Requests
         public int Quantity { get; set; }
         [XmlElement("Sum")]
         public int CommoditySum { get; set; }
+        [XmlElement("Tax")]
+        public int? Tax { get; set; }
+        [XmlElement("MeasureUnit")]
+        public string MeasureUnit { get; set; } = "ШТ";
+        [XmlElement("Tax")]
+        public Tax? TaxType { get; set; }
     }
 }
