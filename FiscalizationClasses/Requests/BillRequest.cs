@@ -8,5 +8,7 @@ public class BillRequest
     public decimal Amount { get; set; }
     [XmlElement("Commodity")]
     public Commodity[] Commodity { get; set; }
+    [XmlElement("Payment")]
+    public Payment Payment { get; set; }
 }
 

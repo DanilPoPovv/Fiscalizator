@@ -1,4 +1,5 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.Helpers;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
@@ -8,8 +9,9 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         {
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;
-
-            if (!ValidCommodity(request.Amount, request.Commodity, out errorMessage))
+            if (!ValidateCommodity(request.Amount, request.Commodity, out errorMessage))
+                return false;
+            if (!ValidatePayment(request.Payment, request.Amount, out errorMessage)) 
                 return false;
             return true;
         }
@@ -19,7 +21,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = isValid ? string.Empty : "Amount must be greater than zero.";
             return isValid;
         }
-        private bool ValidCommodity(decimal amount,Commodity[] commodities, out string errorMessage)
+        private bool ValidateCommodity(decimal amount,Commodity[] commodities, out string errorMessage)
         {
             if (commodities == null || commodities.Length == 0)
             {
@@ -29,13 +31,27 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             int commoditiesSum = 0;
             foreach (var commodity in commodities)
             {
+                if (commodity.Price * commodity.Quantity != commodity.Sum)
+                {
+                    errorMessage = $"Commodity sum for {commodity.Name} is incorrect.";
+                    return false;
+                }
                 commoditiesSum += commodity.Price * commodity.Quantity;
+                if (commodity.Tax != null)
+                {
+                    bool isValidTax = ValidateTax(commodity.Tax, commoditiesSum, out string taxErrorMessage);
+                    if (!isValidTax)
+                    {
+                        errorMessage = taxErrorMessage;
+                        return false;
+                    }
+                }
             }
             bool isValid = commoditiesSum == amount;
             errorMessage = isValid ? string.Empty : "Sum of commodities does not match the amount.";
             return isValid;
         }
-        private bool ValidateTax(Tax tax,int commoditySum, out string errorMessage)
+        private bool ValidateTax(Tax tax, int commoditySum, out string errorMessage)
         {
             if (tax.Percent >= 100)
             {
@@ -55,5 +71,36 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = string.Empty;
             return true;
         }
+        private bool ValidatePayment(Payment payment, decimal billAmount, out string errorMessage)
+        {
+            if (!EnumHelper.IsDefined<PaymentType>(payment.PaymentType))
+            {
+                errorMessage = $"Invalid payment type: {payment.PaymentType}";
+                return false;
+            }
+            var paymentType = Enum.Parse<PaymentType>(payment.PaymentType, true);
+
+            if (payment.Amount < 0)
+            {
+                errorMessage = "Payment amount cannot be negative.";
+                return false;
+            }
+
+            if (payment.Amount > billAmount && paymentType != PaymentType.CASH)
+            {
+                errorMessage = "Payment amount cannot exceed bill amount for non-cash payments.";
+                return false;
+            }
+
+            if (payment.Amount < billAmount)
+            {
+                errorMessage = "Payment amount cannot be less than bill amount.";
+                return false;
+            }
+
+            errorMessage = string.Empty;
+            return true;
+        }
+
     }
 }

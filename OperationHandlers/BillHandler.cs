@@ -30,7 +30,6 @@ namespace Fiscalizator.OperationHandlers
                 Message = $"Bill processing failed: {errorMessage}"
             };
 
-
         }
     }
 }
