@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.Logger;
-using Fiscalizator.OperationHandlers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 

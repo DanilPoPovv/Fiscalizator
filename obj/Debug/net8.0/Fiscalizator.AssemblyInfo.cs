@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fiscalizator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbcdc4b52799fb3d66b2e4f17673a7cf801d550e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c6275ac4468655ff765474f972f78c120f9bc4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fiscalizator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fiscalizator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

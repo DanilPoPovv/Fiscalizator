@@ -22,7 +22,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = isValid ? string.Empty : "Amount must be greater than zero.";
             return isValid;
         }
-        private bool ValidateCommodity(decimal amount,Commodity[] commodities, out string errorMessage)
+        private bool ValidateCommodity(decimal amount,CommodityDTO[] commodities, out string errorMessage)
         {
             if (commodities == null || commodities.Length == 0)
             {
@@ -52,7 +52,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = isValid ? string.Empty : "Sum of commodities does not match the amount.";
             return isValid;
         }
-        private bool ValidateTax(Tax tax, int commoditySum, out string errorMessage)
+        private bool ValidateTax(TaxDTO tax, int commoditySum, out string errorMessage)
         {
             if (tax.Percent >= 100)
             {
@@ -72,7 +72,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = string.Empty;
             return true;
         }
-        private bool ValidatePayment(Payment payment, decimal billAmount, out string errorMessage)
+        private bool ValidatePayment(PaymentDTO payment, decimal billAmount, out string errorMessage)
         {
             if (!EnumHelper.IsDefined<PaymentType>(payment.PaymentType))
             {

@@ -4,7 +4,7 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using System.ComponentModel.DataAnnotations;
 using Fiscalizator.FiscalizationClasses.Dto;
 
-namespace Fiscalizator.OperationHandlers
+namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class BillHandler
     {

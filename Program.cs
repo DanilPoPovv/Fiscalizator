@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Serialization;
-using Fiscalizator.OperationHandlers;
 using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
+using Fiscalizator.FiscalizationClasses.OperationHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 

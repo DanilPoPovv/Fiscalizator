@@ -1,7 +1,7 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Responses;
 
-namespace Fiscalizator.OperationHandlers
+namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class CloseShiftHandler
     {
