@@ -50,6 +50,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FluentNHibernate": {
+              "target": "Package",
+              "version": "[3.4.1, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[6.1.2, )"
+            },
+            "NHibernate": {
+              "target": "Package",
+              "version": "[5.6.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"

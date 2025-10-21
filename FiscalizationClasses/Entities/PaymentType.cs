@@ -1,4 +1,4 @@
-﻿namespace Fiscalizator.FiscalizationClasses.Requests
+﻿namespace Fiscalizator.FiscalizationClasses.Entities
 {
     public enum PaymentType
     {

@@ -2,6 +2,7 @@
 using Fiscalizator.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Responses;
+using Fiscalizator.FiscalizationClasses.Dto;
 namespace Fiscalizator.Controllers
 {
     [ApiController]
@@ -16,7 +17,7 @@ namespace Fiscalizator.Controllers
         }
         [HttpPost]
         [Produces("application/xml"), Consumes("application/xml")]
-        public ActionResult<OperationResponse> OpenShift(OpenShiftRequest request)
+        public ActionResult<OperationResponse> OpenShift(OpenShiftDTO request)
         {
             OperationResponse response;
             response = _openShiftHandler.OpenShift(request);

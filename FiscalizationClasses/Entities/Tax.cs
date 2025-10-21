@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Fiscalizator.FiscalizationClasses.Requests
+namespace Fiscalizator.FiscalizationClasses.Entities
 {
     public class Tax
     {

@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Responses;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 [ApiController]
@@ -16,7 +17,7 @@ public class SellController : Controller
     [Produces("application/xml"), Consumes("application/xml")]
     public ActionResult<OperationResponse> Fiscalize([FromBody] BillRequest request)
     {
-        var response = _fiscalizationService.Sell(request);
+        var response = _fiscalizationService.Sell(request.Bill);
         return Ok(response);
     }
 }

@@ -1,6 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Requests;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Responses;
-using Fiscalizator.Logger;
 namespace Fiscalizator.OperationHandlers
 {
     public class OpenShiftHandler
@@ -12,7 +11,7 @@ namespace Fiscalizator.OperationHandlers
             _logger = logger;
         }
 
-        public OpenShiftResponse OpenShift(OpenShiftRequest request)
+        public OpenShiftResponse OpenShift(OpenShiftDTO request)
         {
             _logger.FileLog($"Shift has been opened at {request.OpenShiftTime}");
             return new OpenShiftResponse { Message = "Shift opened successfully", OpenShiftTime = request.OpenShiftTime, Cashier = request.Cashier };

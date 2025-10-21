@@ -1,11 +1,12 @@
-﻿using Fiscalizator.FiscalizationClasses.Requests;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Helpers;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class BillValidator : IBillValidator
     {
-        public bool ValidateBill(BillRequest request, out string errorMessage)
+        public bool ValidateBill(BillDTO request, out string errorMessage)
         {
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;

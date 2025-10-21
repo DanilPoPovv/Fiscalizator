@@ -1,7 +1,9 @@
-﻿namespace Fiscalizator.FiscalizationClasses.Validators
+﻿using Fiscalizator.FiscalizationClasses.Dto;
+
+namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public interface IBillValidator
     {
-        public bool ValidateBill(BillRequest request,out string errorMessage);
+        public bool ValidateBill(BillDTO request,out string errorMessage);
     }
 }

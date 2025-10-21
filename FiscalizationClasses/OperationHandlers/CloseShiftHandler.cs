@@ -1,7 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Requests;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Responses;
-using Fiscalizator.Logger;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Fiscalizator.OperationHandlers
 {
@@ -14,7 +12,7 @@ namespace Fiscalizator.OperationHandlers
             _logger = logger;
         }
 
-        public CloseShiftResponse ProcessCloseShift(CloseShiftRequest request)
+        public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
         {
             _logger.FileLog($"Shift has been closed at {request.CloseShiftTime}");
 

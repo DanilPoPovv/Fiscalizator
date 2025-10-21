@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Requests.CloseShiftRequest",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.CloseShiftDTO",
         "IsRequired": true
       }
     ],
@@ -57,7 +57,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Requests.OpenShiftRequest",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.OpenShiftDTO",
         "IsRequired": true
       }
     ],

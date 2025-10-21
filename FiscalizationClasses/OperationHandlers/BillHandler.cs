@@ -2,6 +2,7 @@
 using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
 using System.ComponentModel.DataAnnotations;
+using Fiscalizator.FiscalizationClasses.Dto;
 
 namespace Fiscalizator.OperationHandlers
 {
@@ -16,7 +17,7 @@ namespace Fiscalizator.OperationHandlers
             _validator = validator;
         }
 
-        public OperationResponse ProcessBill(BillRequest request)
+        public OperationResponse ProcessBill(BillDTO request)
         {
             bool isBillValid = _validator.ValidateBill(request, out string errorMessage);
             if (isBillValid)
