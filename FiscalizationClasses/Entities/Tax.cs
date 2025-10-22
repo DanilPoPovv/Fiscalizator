@@ -4,12 +4,9 @@ namespace Fiscalizator.FiscalizationClasses.Entities
 {
     public class Tax
     {
-        [XmlElement("TaxType")]
-        public string TaxType { get; set; }
-        [XmlElement("Percent")]
-        public decimal Percent { get; set; }
-        [XmlElement("Sum")]
-        public decimal Sum { get; set; }
+        public virtual string TaxType { get; set; }
+        public virtual decimal Percent { get; set; }
+        public virtual decimal TaxSum { get; set; }
 
     }
 }
