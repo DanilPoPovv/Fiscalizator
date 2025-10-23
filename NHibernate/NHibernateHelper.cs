@@ -16,7 +16,6 @@ public static class NHibernateHelper
         {
             if (_sessionFactory == null)
             {
-                // Конфигурация NHibernate
                 var cfg = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012
                         .ConnectionString(@"Server=dpopov\ROFLANIZATOR;Database=Roflanizator;Integrated Security=True;")
@@ -29,9 +28,9 @@ public static class NHibernateHelper
                     .BuildConfiguration();
 
                 var update = new SchemaUpdate(cfg);
+
                 update.Execute(true, true);
 
-                // Создание фабрики сессий
                 _sessionFactory = cfg.BuildSessionFactory();
             }
 
@@ -39,7 +38,6 @@ public static class NHibernateHelper
         }
     }
 
-    // Удобный метод для открытия сессии
     public static ISession OpenSession()
     {
         return SessionFactory.OpenSession();

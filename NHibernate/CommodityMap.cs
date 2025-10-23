@@ -7,7 +7,7 @@ namespace Fiscalizator.NHibernate
     {
         public CommodityMap()
         {
-            Table("Commodities"); // исправлено имя таблицы
+            Table("Commodities"); 
 
             Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.Name).Not.Nullable();
@@ -18,7 +18,7 @@ namespace Fiscalizator.NHibernate
             Component(x => x.Tax, m =>
             {
                 m.Map(x => x.TaxType).Not.Nullable();
-                m.Map(x => x.Percent).Not.Nullable();
+                m.Map(x => x.TaxPercent).Not.Nullable();
                 m.Map(x => x.TaxSum).Not.Nullable();
             });
 

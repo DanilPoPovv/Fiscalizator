@@ -3,6 +3,8 @@ using System.Xml.Serialization;
 using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
+using Fiscalizator.FiscalizationClasses.Entities;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,13 +20,20 @@ builder.Services.AddScoped<CloseShiftHandler>();
 builder.Services.AddScoped<OpenShiftHandler>();
 builder.Services.AddScoped<BillValidator>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-NHibernateHelper.OpenSession();
+var s = NHibernateHelper.OpenSession();
+using (var session = NHibernateHelper.OpenSession())
+using (var transaction = session.BeginTransaction())
+{
+    var Cashier = new Cashier() { Name ="Cashier" };
+    session.Save(Cashier);
+
+    transaction.Commit();
+}
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

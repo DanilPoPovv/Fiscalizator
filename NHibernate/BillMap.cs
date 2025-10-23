@@ -18,8 +18,7 @@ namespace Fiscalizator.NHibernate
                 m.Map(x => x.PaymentType);
             });
 
-            // Название коллекции должно совпадать с тем, что в сущности Bill
-            HasMany(x => x.Commodities) // предполагаю, что в Bill: public virtual IList<Commodity> Commodities { get; set; }
+            HasMany(x => x.Commodities) 
                 .KeyColumn("BillId")
                 .Cascade.All()
                 .Inverse();
