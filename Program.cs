@@ -22,15 +22,6 @@ builder.Services.AddScoped<BillValidator>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var s = NHibernateHelper.OpenSession();
-using (var session = NHibernateHelper.OpenSession())
-using (var transaction = session.BeginTransaction())
-{
-    var Cashier = new Cashier() { Name ="Cashier" };
-    session.Save(Cashier);
-
-    transaction.Commit();
-}
 
 var app = builder.Build();
 

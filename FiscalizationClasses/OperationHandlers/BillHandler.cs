@@ -3,6 +3,7 @@ using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
 using System.ComponentModel.DataAnnotations;
 using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.Mappers;
 
 namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
@@ -10,6 +11,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     {
         private readonly Logger.Logger _logger;
         private readonly BillValidator _validator;
+        private readonly BillMapper _mapper = new BillMapper();
 
         public BillHandler(Logger.Logger logger, BillValidator validator)
         {
@@ -22,6 +24,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             bool isBillValid = _validator.ValidateBill(request, out string errorMessage);
             if (isBillValid)
             {
+                var session = NHibernateHelper.SessionFactory.OpenSession();
+                session.Save(_mapper.MapToModel(request, _validator.MapCommodities(request.Commodity)));
                 _logger.FileLog($"Processing bill for amount: {request.Amount}");
                 return new BillResponse { Message = "Bill processed successfully" };
             }
