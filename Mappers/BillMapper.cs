@@ -13,6 +13,10 @@ namespace Fiscalizator.Mappers
             {
                 Amount = billDto.Amount,
                 OperationDateTime = billDto.OperationDateTime,
+                Kkm = new Kkm
+                {
+                    SerialNumber = billDto.SerialNumber
+                },
                 Payment = new Payment
                 {
                     PaymentType = billDto.Payment.PaymentType
@@ -21,7 +25,7 @@ namespace Fiscalizator.Mappers
                 {
                     Name = billDto.Cashier.Name
                 },
-                Commodities = new List<Commodity>()
+                Commodities = new List<Commodity>(),
             };
 
             foreach (var item in billDto.Commodity)

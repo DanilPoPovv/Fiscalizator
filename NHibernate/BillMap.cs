@@ -27,6 +27,16 @@ namespace Fiscalizator.NHibernate
                 .Column("CashierId")
                 .Cascade.SaveUpdate()
                 .Nullable();
+
+            References(x => x.Kkm)
+                .Column("KkmId")
+                .Cascade.SaveUpdate()
+                .Not.Nullable();
+
+            References(x => x.Shift)
+                .Column("ShiftId")
+                .Cascade.SaveUpdate()
+                .Not.Nullable();
         }
     }
 }

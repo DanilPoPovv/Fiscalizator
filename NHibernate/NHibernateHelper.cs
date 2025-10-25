@@ -18,13 +18,15 @@ public static class NHibernateHelper
             {
                 var cfg = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012
-                        .ConnectionString(@"Server=dpopov\ROFLANIZATOR;Database=Roflanizator;Integrated Security=True;")
+                        .ConnectionString(@"Server=DESKTOP-E7O5CEM\MYSQLSERV;Database=Roflanizator;Integrated Security=True;")
                         .Driver<NHibernate.Driver.SqlClientDriver>()
                         .ShowSql())
                     .Mappings(m => m.FluentMappings
                         .AddFromAssemblyOf<CommodityMap>()
                         .AddFromAssemblyOf<BillMap>()
-                        .AddFromAssemblyOf<CashierMap>())
+                        .AddFromAssemblyOf<CashierMap>()
+                        .AddFromAssemblyOf<KkmMapper>()
+                        .AddFromAssemblyOf<ShiftMapper>())
                     .BuildConfiguration();
 
                 var update = new SchemaUpdate(cfg);

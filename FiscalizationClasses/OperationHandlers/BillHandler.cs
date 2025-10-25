@@ -12,13 +12,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         private readonly Logger.Logger _logger;
         private readonly BillValidator _validator;
         private readonly BillMapper _mapper = new BillMapper();
-        private readonly UnitOfWork _unitOfWork;
-
         public BillHandler(Logger.Logger logger, BillValidator validator)
         {
             _logger = logger;
             _validator = validator;
-            _unitOfWork = new UnitOfWork(NHibernateHelper.SessionFactory);
         }
 
         public OperationResponse ProcessBill(BillDTO request)
@@ -38,6 +35,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             Bill billEntity = _mapper.MapToModel(request);
 
             using var uow = new UnitOfWork(NHibernateHelper.SessionFactory);
+            billEntity.Kkm = uow.kkmRepository.GetBySerialNumber(request.SerialNumber);
+            billEntity.Shift = uow.shiftRepository.GetCurrentKkmShift(billEntity.Kkm);
             uow.Bills.Add(billEntity);
             uow.Commit();
 

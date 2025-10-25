@@ -9,7 +9,8 @@ namespace Fiscalizator.Repository
     {
         private readonly ISession _session;
         private readonly ITransaction _transaction;
-
+        public KkmRepository kkmRepository {  get; }
+        public ShiftRepository shiftRepository { get; }
         public IRepository<Bill> Bills { get; }
         public IRepository<Commodity> Commodities { get; }
         public UnitOfWork(ISessionFactory sessionFactory)
@@ -18,6 +19,8 @@ namespace Fiscalizator.Repository
             _transaction = _session.BeginTransaction();
             Bills = new Repository<Bill>(_session);
             Commodities = new Repository<Commodity>(_session);
+            kkmRepository = new KkmRepository(_session);
+            shiftRepository = new ShiftRepository(_session);
         }
 
         public void Commit()

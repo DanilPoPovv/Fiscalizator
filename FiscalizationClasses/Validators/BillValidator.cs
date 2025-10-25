@@ -1,6 +1,7 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Helpers;
+using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
@@ -8,6 +9,8 @@ namespace Fiscalizator.FiscalizationClasses.Validators
     {
         public bool ValidateBill(BillDTO request, out string errorMessage)
         {
+            if (!ValidateKkm(request.SerialNumber, out errorMessage))
+                return false;    
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;
             if (!ValidateCommodity(request.Amount, request.Commodity, out errorMessage))
@@ -102,6 +105,18 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = string.Empty;
             return true;
         }
-
+        private bool ValidateKkm(int serialNumber,out string errorMessage)
+        {
+            using UnitOfWork unitOfWork = new UnitOfWork(NHibernateHelper.SessionFactory);
+            Kkm kkm = unitOfWork.kkmRepository.GetBySerialNumber(serialNumber);
+            unitOfWork.Commit();
+            if (kkm == null)
+            {
+                errorMessage = $"There is no kkm with {serialNumber} serialNumber";
+                return false ;
+            }
+            errorMessage = string.Empty;
+            return true;
+        }
     }
 }

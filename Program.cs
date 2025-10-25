@@ -3,12 +3,11 @@ using System.Xml.Serialization;
 using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
+using Fiscalizator.NHibernate;
 using Fiscalizator.FiscalizationClasses.Entities;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;

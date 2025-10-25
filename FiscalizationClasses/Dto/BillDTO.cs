@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using Fiscalizator.FiscalizationClasses.Entities;
+using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
@@ -8,6 +9,8 @@ namespace Fiscalizator.FiscalizationClasses.Dto
         public decimal Amount { get; set; }
         [XmlElement("OperationDateTime")]
         public DateTime OperationDateTime { get; set; } = DateTime.Now;
+        [XmlElement("SerialNumber")]
+        public int SerialNumber { get; set; }
         [XmlElement("Commodity")]
         public CommodityDTO[] Commodity { get; set; }
         [XmlElement("Payment")]
