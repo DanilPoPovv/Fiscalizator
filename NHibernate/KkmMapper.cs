@@ -9,7 +9,7 @@ namespace Fiscalizator.NHibernate
         {
             Table("Kkm");
             Id(x => x.Id).GeneratedBy.Identity();
-            Map(x => x.SerialNumber).Not.Nullable();
+            Map(x => x.SerialNumber).Not.Nullable().Unique();
             Map(x => x.Location).Nullable();
 
             HasMany(x => x.Shifts).KeyColumn("KkmId").Cascade.None().Inverse();

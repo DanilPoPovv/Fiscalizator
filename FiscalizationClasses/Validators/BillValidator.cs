@@ -107,12 +107,10 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         }
         private bool ValidateKkm(int serialNumber,out string errorMessage)
         {
-            using UnitOfWork unitOfWork = new UnitOfWork(NHibernateHelper.SessionFactory);
-            Kkm kkm = unitOfWork.kkmRepository.GetBySerialNumber(serialNumber);
-            unitOfWork.Commit();
-            if (kkm == null)
+            KkmRepository kkmRepo = new KkmRepository(NHibernateHelper.OpenSession());
+            if (!kkmRepo.HasSerialNumber(serialNumber))
             {
-                errorMessage = $"There is no kkm with {serialNumber} serialNumber";
+                errorMessage = $"There is no kkm with serialNumber {serialNumber}";
                 return false ;
             }
             errorMessage = string.Empty;
