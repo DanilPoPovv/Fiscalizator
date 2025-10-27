@@ -8,7 +8,7 @@ namespace Fiscalizator.Repository
 
         public Shift GetCurrentKkmShift(Kkm kkm)
         {
-            return _session.Query<Shift>().FirstOrDefault(s => s.Kkm.Id == kkm.Id && s.ClosureDateTime != null);
+            return _session.Query<Shift>().FirstOrDefault(s => s.Kkm.Id == kkm.Id && s.ClosureDateTime == null);
         }
     }
 }
