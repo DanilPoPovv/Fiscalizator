@@ -18,7 +18,7 @@ public static class NHibernateHelper
             {
                 var cfg = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012
-                        .ConnectionString(@"Server=DESKTOP-E7O5CEM\MYSQLSERV;Database=Roflanizator;Integrated Security=True;")
+                        .ConnectionString(@"Server=dpopov\ROFLANIZATOR;Database=Roflanizator;Integrated Security=True;")
                         .Driver<NHibernate.Driver.SqlClientDriver>()
                         .ShowSql())
                     .Mappings(m => m.FluentMappings

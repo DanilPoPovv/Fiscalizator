@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ДАНИЛ\\source\\repos\\Fiscalizator\\Fiscalizator.csproj": {}
+    "C:\\Users\\dpopov\\Source\\Repos\\Fiscalizator\\Fiscalizator\\Fiscalizator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ДАНИЛ\\source\\repos\\Fiscalizator\\Fiscalizator.csproj": {
+    "C:\\Users\\dpopov\\Source\\Repos\\Fiscalizator\\Fiscalizator\\Fiscalizator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ДАНИЛ\\source\\repos\\Fiscalizator\\Fiscalizator.csproj",
+        "projectUniqueName": "C:\\Users\\dpopov\\Source\\Repos\\Fiscalizator\\Fiscalizator\\Fiscalizator.csproj",
         "projectName": "Fiscalizator",
-        "projectPath": "C:\\Users\\ДАНИЛ\\source\\repos\\Fiscalizator\\Fiscalizator.csproj",
-        "packagesPath": "C:\\Users\\ДАНИЛ\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ДАНИЛ\\source\\repos\\Fiscalizator\\obj\\",
+        "projectPath": "C:\\Users\\dpopov\\Source\\Repos\\Fiscalizator\\Fiscalizator\\Fiscalizator.csproj",
+        "packagesPath": "C:\\Users\\dpopov\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dpopov\\Source\\Repos\\Fiscalizator\\Fiscalizator\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ДАНИЛ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dpopov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.318/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

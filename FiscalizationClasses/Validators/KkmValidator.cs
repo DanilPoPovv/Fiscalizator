@@ -5,6 +5,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
     public class KkmValidator 
     {
         private Kkm kkm;
+        private Shift currentShift;
         public bool ValidateKkm(int serialNumber,DateTime billTime, out string errorMessage)
         {
             if (!ValidateSerialNumber(serialNumber,out errorMessage))
@@ -29,21 +30,26 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         }
         private bool ValidateShiftOpen(out string errorMessage)
         {
-            Shift curentShift = kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
-            if (curentShift == null)
+            currentShift = kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
+            if (currentShift == null)
             {
                 errorMessage = $"No opened shift for this KKM";
                 return false ;
             }
             errorMessage = string.Empty;
             return true;
-        }
+        }                  
         private bool ValidateBillTime(DateTime billTime, out string errorMessage)
         {
-            var lastBill = kkm.Bills.OrderByDescending(b => b.OperationDateTime).First();
-            if (lastBill.OperationDateTime > billTime)
+            var lastBill = currentShift.Bills.OrderByDescending(b => b.OperationDateTime).FirstOrDefault();
+            if (lastBill != null && billTime < lastBill.OperationDateTime)
             {
-                errorMessage = "Current check is earlier than last";
+                errorMessage = $"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}";
+                return false;
+            }
+            if (lastBill == null && billTime < currentShift.OpeningDateTime)
+            {
+                errorMessage = $"Bill time {billTime} is earlier than shift opening time {currentShift.OpeningDateTime}";
                 return false;
             }
             errorMessage = string.Empty;
