@@ -5,15 +5,10 @@ using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class BillValidator : IBillValidator
+    public class BillValidator : IValidator<BillDTO>
     {
-        private readonly KkmValidator _kmkValidator = new KkmValidator();
-        public bool ValidateBill(BillDTO request, out string errorMessage)
-        {
-            if (!_kmkValidator.ValidateKkm(request.SerialNumber,request.OperationDateTime,out errorMessage))
-                return false;
-            if (!ValidateKkm(request.SerialNumber, out errorMessage))
-                return false;    
+        public bool Validate(BillDTO request, ValidationContext validationContext, out string errorMessage)
+        { 
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;
             if (!ValidateCommodity(request.Amount, request.Commodity, out errorMessage))
@@ -105,18 +100,6 @@ namespace Fiscalizator.FiscalizationClasses.Validators
                 return false;
             }
 
-            errorMessage = string.Empty;
-            return true;
-        }
-        private bool ValidateKkm(int serialNumber,out string errorMessage)
-        {
-            KkmRepository kkmRepository = new KkmRepository(NHibernateHelper.OpenSession());
-            Kkm kkm = kkmRepository.GetBySerialNumber(serialNumber);
-            if (kkm == null)
-            {
-                errorMessage = $"There is no kkm with {serialNumber} serialNumber";
-                return false ;
-            }
             errorMessage = string.Empty;
             return true;
         }

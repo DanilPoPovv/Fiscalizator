@@ -10,17 +10,17 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     public class BillHandler
     {
         private readonly Logger.Logger _logger;
-        private readonly BillValidator _validator;
+        private readonly ValidatorManager _validatorManager;
         private readonly BillMapper _mapper = new BillMapper();
-        public BillHandler(Logger.Logger logger, BillValidator validator)
+        public BillHandler(Logger.Logger logger, ValidatorManager validatorManager)
         {
             _logger = logger;
-            _validator = validator;
+            _validatorManager = validatorManager;
         }
 
         public OperationResponse ProcessBill(BillDTO request)
         {
-            bool isBillValid = _validator.ValidateBill(request, out string errorMessage);
+            bool isBillValid = _validatorManager.ValidateAll(request, out string errorMessage);
             if (!isBillValid)
             {
                 _logger.FileLog($"Bill processing failed: {errorMessage}");

@@ -1,26 +1,26 @@
 ﻿using Fiscalizator.Repository;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Dto;
+using System.ComponentModel.DataAnnotations;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class KkmValidator 
+    public class KkmValidator : IValidator<BillDTO>
     {
-        private Kkm kkm;
-        private Shift currentShift;
-        public bool ValidateKkm(int serialNumber,DateTime billTime, out string errorMessage)
+        public bool Validate(BillDTO billDTO, ValidationContext validationContext, out string errorMessage)
         {
-            if (!ValidateSerialNumber(serialNumber,out errorMessage))
+            if (!ValidateSerialNumber(billDTO.SerialNumber, validationContext, out errorMessage))
                 return false;
-            if (!ValidateShiftOpen(out errorMessage))
+            if (!ValidateShiftOpen(validationContext, out errorMessage))
                 return false; 
-            if (!ValidateBillTime(billTime,out errorMessage))
+            if (!ValidateBillTime(billDTO.OperationDateTime,out errorMessage, validationContext))
                 return false;
             return true;
         }
-        private bool ValidateSerialNumber(int serialNumber, out string errorMessage) 
+        private bool ValidateSerialNumber(int serialNumber, ValidationContext validationContext, out string errorMessage) 
         {
             KkmRepository kkmRepo = new KkmRepository(NHibernateHelper.OpenSession());
-            kkm = kkmRepo.GetBySerialNumber(serialNumber);
-            if (kkm == null)
+            validationContext.kkm = kkmRepo.GetBySerialNumber(serialNumber);
+            if (validationContext.kkm == null)
             {
                 errorMessage = $"There is no kkm with {serialNumber} serialNumber";
                 return false;
@@ -28,28 +28,28 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             errorMessage = string.Empty;
             return true;
         }
-        private bool ValidateShiftOpen(out string errorMessage)
+        private bool ValidateShiftOpen(ValidationContext validationContext, out string errorMessage)
         {
-            currentShift = kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
-            if (currentShift == null)
+            validationContext.currentShift = validationContext.kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
+            if (validationContext.currentShift == null)
             {
                 errorMessage = $"No opened shift for this KKM";
                 return false ;
             }
             errorMessage = string.Empty;
             return true;
-        }                  
-        private bool ValidateBillTime(DateTime billTime, out string errorMessage)
+        }     
+        private bool ValidateBillTime(DateTime billTime, out string errorMessage, ValidationContext validationContext)
         {
-            var lastBill = currentShift.Bills.OrderByDescending(b => b.OperationDateTime).FirstOrDefault();
-            if (lastBill != null && billTime < lastBill.OperationDateTime)
+            var lastBill = validationContext.currentShift.Bills.OrderByDescending(b => b.OperationDateTime).FirstOrDefault();
+            if (lastBill != null && billTime <= lastBill.OperationDateTime)
             {
                 errorMessage = $"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}";
                 return false;
             }
-            if (lastBill == null && billTime < currentShift.OpeningDateTime)
+            else if (lastBill == null && billTime < validationContext.currentShift.OpeningDateTime)
             {
-                errorMessage = $"Bill time {billTime} is earlier than shift opening time {currentShift.OpeningDateTime}";
+                errorMessage = $"Bill time {billTime} is earlier than shift opening time {validationContext.currentShift.OpeningDateTime}";
                 return false;
             }
             errorMessage = string.Empty;

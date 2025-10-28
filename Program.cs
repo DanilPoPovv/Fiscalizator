@@ -6,6 +6,7 @@ using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.NHibernate;
 using Fiscalizator.FiscalizationClasses.Entities;
 using System.Globalization;
+using Fiscalizator.FiscalizationClasses.Dto;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -19,6 +20,9 @@ builder.Services.AddScoped<CloseShiftHandler>();
 builder.Services.AddScoped<OpenShiftHandler>();
 builder.Services.AddScoped<BillValidator>();
 
+builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
+builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
+builder.Services.AddScoped<ValidatorManager>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
