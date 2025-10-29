@@ -21,6 +21,7 @@ builder.Services.AddScoped<OpenShiftHandler>();
 builder.Services.AddScoped<BillValidator>();
 
 builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
+builder.Services.AddScoped<IValidator<DateTime>, BillTimeValidator>();
 builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
 builder.Services.AddScoped<ValidatorManager>();
 builder.Services.AddEndpointsApiExplorer();

@@ -37,6 +37,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             using var uow = new UnitOfWork(NHibernateHelper.SessionFactory);
             billEntity.Kkm = uow.kkmRepository.GetBySerialNumber(request.SerialNumber);
             billEntity.Shift = uow.shiftRepository.GetCurrentKkmShift(billEntity.Kkm);
+            billEntity.Cashier = uow.cashierRepository.GetByName(request.Cashier.Name);
             uow.Bills.Add(billEntity);
             uow.Commit();
 

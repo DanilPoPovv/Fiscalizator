@@ -14,6 +14,7 @@ namespace Fiscalizator.NHibernate
 
             HasMany(x => x.Shifts).KeyColumn("KkmId").Cascade.None().Inverse();
             HasMany(x => x.Bills).KeyColumn("KkmId").Cascade.None().Inverse();
+
         }
     }
 }
