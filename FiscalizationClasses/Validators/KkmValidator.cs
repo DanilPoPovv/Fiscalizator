@@ -41,7 +41,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         }     
         private bool ValidateBillTime(DateTime billTime, out string errorMessage, ValidationContext validationContext)
         {
-            var lastBill = validationContext.currentShift.Bills.OrderByDescending(b => b.OperationDateTime).FirstOrDefault();
+            var lastBill = validationContext.currentShift.Bills.Last();
             if (lastBill != null && billTime <= lastBill.OperationDateTime)
             {
                 errorMessage = $"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}";
