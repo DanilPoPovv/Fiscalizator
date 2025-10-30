@@ -4,7 +4,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class ValidationContext
     {
-        public Kkm kkm { get; set; }    
-        public Shift currentShift { get; set; }
+        public Kkm Kkm { get; set; }    
+        public Shift СurrentShift { get; set; }
     }
 }

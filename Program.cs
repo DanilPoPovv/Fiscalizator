@@ -20,10 +20,15 @@ builder.Services.AddScoped<CloseShiftHandler>();
 builder.Services.AddScoped<OpenShiftHandler>();
 builder.Services.AddScoped<BillValidator>();
 
+builder.Services.AddScoped(typeof(ValidatorManager<>));
+
 builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
-builder.Services.AddScoped<IValidator<DateTime>, BillTimeValidator>();
+
+builder.Services.AddScoped<IValidator<BillDTO>, OpenShiftValidator>();
+
+builder.Services.AddScoped<IValidator<BillDTO>, BillTimeValidator>();
+
 builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
-builder.Services.AddScoped<ValidatorManager>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

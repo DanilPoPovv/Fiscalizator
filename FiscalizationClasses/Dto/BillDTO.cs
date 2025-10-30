@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class BillDTO
+    public class BillDTO 
     {
         [XmlElement("Amount")]
         public decimal Amount { get; set; }

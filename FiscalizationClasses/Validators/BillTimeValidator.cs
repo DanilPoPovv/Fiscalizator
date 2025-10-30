@@ -3,14 +3,13 @@ using Fiscalizator.FiscalizationClasses.Entities;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class BillTimeValidator : IValidator<DateTime>
+    public class BillTimeValidator : IValidator<BillDTO>
     {
-        private readonly DateTime ShiftDuration = new DateTime(0, 0, 0, 24, 0, 0);
-        public bool Validate(DateTime billTime, ValidationContext validationContext, out string errorMessage)
+        public bool Validate(BillDTO request, ValidationContext validationContext, out string errorMessage)
         {
-            if (!ValidateLaterThanShiftOutOfTime(billTime, out errorMessage, validationContext.currentShift))
+            if (!ValidateLaterThanShiftOutOfTime(request.OperationDateTime, out errorMessage, validationContext.СurrentShift))
                 return false;
-            if (!ValidateEarlierThanLastBill(billTime, out errorMessage, validationContext.currentShift))
+            if (!ValidateEarlierThanLastBill(request.OperationDateTime, out errorMessage, validationContext.СurrentShift))
                 return false;
             return true;
         }

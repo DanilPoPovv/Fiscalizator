@@ -1,17 +1,16 @@
-﻿using Fiscalizator.Repository;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
-using Fiscalizator.FiscalizationClasses.Dto;
 using System.ComponentModel.DataAnnotations;
+
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class KkmValidator : IValidator<BillDTO>
+    public class OpenShiftValidator : IValidator<BillDTO>
     {
         public bool Validate(BillDTO request, ValidationContext validationContext, out string errorMessage)
         {
-            if (!Helpers.KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext, out errorMessage))
+            if (!Helpers.ShiftHelper.CheckShiftOpened(validationContext, out errorMessage))
                 return false;
             return true;
         }
-
     }
 }

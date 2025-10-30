@@ -8,7 +8,7 @@ namespace Fiscalizator.Repository
 
         public Kkm GetBySerialNumber(int serialNumber) 
         {
-            return _session.Query<Kkm>().FirstOrDefault(k => k.SerialNumber == serialNumber);
+            return _session.Query<Kkm>().FirstOrDefault(k => k.SerialNumber == serialNumber)!;
         }
         public bool HasSerialNumber(int serialNumber)
         {

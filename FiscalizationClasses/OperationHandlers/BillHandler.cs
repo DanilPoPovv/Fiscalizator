@@ -10,9 +10,9 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     public class BillHandler
     {
         private readonly Logger.Logger _logger;
-        private readonly ValidatorManager _validatorManager;
+        private readonly ValidatorManager<BillDTO> _validatorManager;
         private readonly BillMapper _mapper = new BillMapper();
-        public BillHandler(Logger.Logger logger, ValidatorManager validatorManager)
+        public BillHandler(Logger.Logger logger, ValidatorManager<BillDTO> validatorManager)
         {
             _logger = logger;
             _validatorManager = validatorManager;
