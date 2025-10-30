@@ -1,14 +1,13 @@
 ﻿using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.Repository;
-
+using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.Helpers
 {
     public static class KkmHelper
     {
-        public static bool ValidateSerialNumber(int serialNumber, ValidationContext context, out string errorMessage)
+        public static bool ValidateSerialNumber(int serialNumber, ValidationContext context, ISession session, out string errorMessage)
         {
-            NHibernateHelper.OpenSession();
-            var repo = new KkmRepository(NHibernateHelper.OpenSession());
+            var repo = new KkmRepository(session);
             context.Kkm = repo.GetBySerialNumber(serialNumber);
 
             if (context.Kkm == null)

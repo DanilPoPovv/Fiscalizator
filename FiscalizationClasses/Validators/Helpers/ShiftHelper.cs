@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.Helpers
 {
     public static class ShiftHelper
     {
-        public static bool CheckShiftOpened(ValidationContext validationContext, out string errorMessage)
+        public static bool CheckShiftOpened(ValidationContext validationContext, ISession session, out string errorMessage)
         {
             var shift = validationContext.Kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
             validationContext.СurrentShift = shift;

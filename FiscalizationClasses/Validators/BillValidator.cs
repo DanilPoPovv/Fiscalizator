@@ -2,12 +2,12 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Helpers;
 using Fiscalizator.Repository;
-
+using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class BillValidator : IValidator<BillDTO>
     {
-        public bool Validate(BillDTO request, ValidationContext validationContext, out string errorMessage)
+        public bool Validate(BillDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
         { 
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;

@@ -15,9 +15,9 @@ namespace Fiscalizator.Repository
         public IRepository<Bill> Bills { get; }
         public IRepository<Commodity> Commodities { get; }
 
-        public UnitOfWork(ISessionFactory sessionFactory)
+        public UnitOfWork(ISession session)
         {
-            _session = sessionFactory.OpenSession();
+            _session = session;
             _transaction = _session.BeginTransaction();
             Bills = new Repository<Bill>(_session);
             Commodities = new Repository<Commodity>(_session);
