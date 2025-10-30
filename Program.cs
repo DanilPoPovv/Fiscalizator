@@ -7,6 +7,7 @@ using Fiscalizator.NHibernate;
 using Fiscalizator.FiscalizationClasses.Entities;
 using System.Globalization;
 using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -23,12 +24,13 @@ builder.Services.AddScoped<BillValidator>();
 builder.Services.AddScoped(typeof(ValidatorManager<>));
 
 builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
-
 builder.Services.AddScoped<IValidator<BillDTO>, OpenShiftValidator>();
-
 builder.Services.AddScoped<IValidator<BillDTO>, BillTimeValidator>();
-
 builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
+
+builder.Services.AddScoped<IValidator<CloseShiftDTO>, CloseShiftValidator>();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
