@@ -23,7 +23,6 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
         {
-            ///TODO : Add validationContext return from ValidateAll
             if (!_validatorManager.ValidateAll(request,_session, out string errorMessage))
             {
                 _logger.FileLog($"Close shift processing failed: {errorMessage}");
@@ -37,11 +36,19 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             Shift shift = validationContext.СurrentShift;
             shift.Kkm = validationContext.Kkm;
 
-            shift.ClosureDateTime = shift.Bills.Last().OperationDateTime.AddSeconds(1);
+            var closeShiftDate = shift.Bills.LastOrDefault();
+            if (closeShiftDate == null)
+            {
+                shift.ClosureDateTime = shift.OpeningDateTime.AddSeconds(1);
+            }
+            else
+            {
+                shift.ClosureDateTime = closeShiftDate.OperationDateTime.AddSeconds(1);
+            }
+            
             _unitOfWork.shiftRepository.CloseShift(shift);
             _unitOfWork.Commit();
             return new CloseShiftResponse { Message = $"Close shift processed successfully at {shift.ClosureDateTime} shift number is {shift.ShiftNumber}", CloseShiftTime = (DateTime)shift.ClosureDateTime };
-
         }
     }
 }
