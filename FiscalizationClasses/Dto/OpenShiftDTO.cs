@@ -6,8 +6,10 @@ namespace Fiscalizator.FiscalizationClasses.Dto
     {
         [XmlElement("Cashier")]
         public string? Cashier { get; set; }
-        [XmlElement("CloseDateTime")]
-        public DateTime OpenShiftTime { get; set; }
+        [XmlElement("SerialNumber")]
+        public int SerialNumber { get; set; }
+        [XmlElement("OpenShiftTime")]
+        public DateTime OpenShiftTime { get; set; } = DateTime.Now;
 
     }
 }

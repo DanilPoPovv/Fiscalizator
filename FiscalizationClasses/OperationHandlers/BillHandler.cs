@@ -13,7 +13,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         private readonly Logger.Logger _logger;
         private readonly ValidatorManager<BillDTO> _validatorManager;
         private readonly BillMapper _mapper = new BillMapper();
-        ISession _session;
+        private readonly ISession _session;
         public BillHandler(Logger.Logger logger, ValidatorManager<BillDTO> validatorManager)
         {
             _logger = logger;

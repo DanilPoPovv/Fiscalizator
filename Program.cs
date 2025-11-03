@@ -1,14 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Xml.Serialization;
-using Fiscalizator.Logger;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
-using Fiscalizator.NHibernate;
-using Fiscalizator.FiscalizationClasses.Entities;
-using System.Globalization;
 using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
-using Fiscalizator.Repository;
+using Fiscalizator.FiscalizationClasses.Validators.OpenShift;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -24,13 +18,13 @@ builder.Services.AddScoped<BillValidator>();
 
 builder.Services.AddScoped(typeof(ValidatorManager<>));
 builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
-builder.Services.AddScoped<IValidator<BillDTO>, OpenShiftValidator>();
+builder.Services.AddScoped<IValidator<BillDTO>, Fiscalizator.FiscalizationClasses.Validators.OpenShiftValidator>();
 builder.Services.AddScoped<IValidator<BillDTO>, BillTimeValidator>();
 builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
-
 builder.Services.AddScoped<IValidator<CloseShiftDTO>, CloseShiftValidator>();
 
-
+builder.Services.AddScoped<IValidator<OpenShiftDTO>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.OpenShiftValidator>();
+builder.Services.AddScoped<IValidator<OpenShiftDTO>, OpenShiftTimeValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
