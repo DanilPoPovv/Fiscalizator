@@ -6,9 +6,7 @@ namespace Fiscalizator.FiscalizationClasses.Entities
     {
         public virtual int Id{ get; set; }
         public virtual string Name { get; set; }
-
         public virtual IList<Bill> Bills { get; set; }
-
         public Cashier()
         {
             Bills = new List<Bill>();

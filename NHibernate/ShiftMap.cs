@@ -3,9 +3,9 @@ using FluentNHibernate.Mapping;
 
 namespace Fiscalizator.NHibernate
 {
-    public class ShiftMapper : ClassMap<Shift>
+    public class ShiftMap : ClassMap<Shift>
     {
-        public ShiftMapper() 
+        public ShiftMap() 
         { 
             Id(x => x.Id).GeneratedBy.Identity();
             Map(x => x.OpeningDateTime).Not.Nullable();

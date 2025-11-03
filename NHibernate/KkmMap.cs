@@ -3,9 +3,9 @@ using Fiscalizator.FiscalizationClasses.Entities;
 
 namespace Fiscalizator.NHibernate
 {
-    public class KkmMapper : ClassMap<Kkm>
+    public class KkmMap : ClassMap<Kkm>
     {
-        public KkmMapper() 
+        public KkmMap() 
         {
             Table("Kkm");
             Id(x => x.Id).GeneratedBy.Identity();
@@ -15,6 +15,9 @@ namespace Fiscalizator.NHibernate
             HasMany(x => x.Shifts).KeyColumn("KkmId").Cascade.None().Inverse();
             HasMany(x => x.Bills).KeyColumn("KkmId").Cascade.None().Inverse();
 
+            References(x => x.Client)
+                .Column("ClientId")
+                .Not.Nullable();
         }
     }
 }

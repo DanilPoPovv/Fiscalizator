@@ -15,7 +15,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         }
         public bool ValidateEarlierThanLastBill(DateTime billTime, out string errorMessage, Shift shift)
         {
-            var lastBill = shift.Bills.Last();
+            var lastBill = shift.Bills.LastOrDefault();
             if (lastBill != null && billTime <= lastBill.OperationDateTime)
             {
                 errorMessage = $"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}";

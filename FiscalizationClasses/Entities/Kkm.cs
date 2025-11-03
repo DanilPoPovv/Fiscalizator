@@ -7,6 +7,6 @@
         public virtual string? Location { get; set; }
         public virtual IList<Shift> Shifts { get; set; } = new List<Shift>();
         public virtual IList<Bill> Bills { get; set; } = new List<Bill>();
-
+        public virtual Client Client { get; set; }
     }
 }
