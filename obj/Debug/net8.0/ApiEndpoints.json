@@ -1,5 +1,74 @@
 [
   {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "AddClient",
+    "RelativePath": "api/Client",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "GetClientByName",
+    "RelativePath": "api/Client",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "\u0441lientName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "UpdateClient",
+    "RelativePath": "api/Client/{clientCode}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCode",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "DeleteClient",
+    "RelativePath": "api/Client/{clientCode}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCode",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Fiscalizator.Controllers.CloseShiftController",
     "Method": "CloseShift",
     "RelativePath": "Route(\u0022api/CloseShift\u0022)",

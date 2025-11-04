@@ -7,7 +7,7 @@ namespace Fiscalizator.Controllers
 {
     [ApiController]
     [Route("Route(\"api/CloseShift\")")]
-    public class CloseShiftController : Controller
+    public class CloseShiftController : ControllerBase
     {
         private readonly CloseShiftHandler _closeShiftHandler;
 

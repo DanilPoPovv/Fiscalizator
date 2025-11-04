@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
@@ -7,7 +6,7 @@ namespace Fiscalizator.Controllers
 {
     [ApiController]
     [Route("Route(\"api/ShiftOpen\")")]
-    public class OpenShiftController : Controller
+    public class OpenShiftController : ControllerBase
     {
         private readonly OpenShiftHandler _openShiftHandler;
 

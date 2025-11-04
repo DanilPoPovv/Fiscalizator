@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("Route(\"api/Sell\")")]
-public class SellController : Controller
+public class SellController : ControllerBase
 {
     private readonly FiscalizationService _fiscalizationService;
 

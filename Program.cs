@@ -3,6 +3,8 @@ using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
 using Fiscalizator.FiscalizationClasses.Validators.OpenShift;
+using Fiscalizator.FiscalizationClasses.Services;
+using Fiscalizator.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -10,6 +12,7 @@ builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(op
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 builder.Services.AddScoped<FiscalizationService>();
+builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<Fiscalizator.Logger.Logger>();
 builder.Services.AddScoped<BillHandler>();
 builder.Services.AddScoped<CloseShiftHandler>();

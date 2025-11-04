@@ -12,6 +12,7 @@ namespace Fiscalizator.Repository
         public KkmRepository kkmRepository {  get; }
         public ShiftRepository shiftRepository { get; }
         public CashierRepository cashierRepository { get; }
+        public ClientRepository clientRepository { get; }   
         public IRepository<Bill> Bills { get; }
         public IRepository<Commodity> Commodities { get; }
 
@@ -24,6 +25,7 @@ namespace Fiscalizator.Repository
             kkmRepository = new KkmRepository(_session);
             shiftRepository = new ShiftRepository(_session);
             cashierRepository = new CashierRepository(_session);
+            clientRepository = new ClientRepository(_session);
         }
 
         public void Commit()
