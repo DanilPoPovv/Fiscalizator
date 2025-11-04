@@ -14,14 +14,14 @@ namespace Fiscalizator.Controllers
         {
             _clientService = clientService;
         }
-        [HttpPost]
+        [HttpPost("/Add")]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult AddClient(ClientDTO request)
         {
             _clientService.AddClient(request);
             return Ok();
         }
-        [HttpGet]
+        [HttpGet("/Get")]
         [Produces("application/json")]
         public ActionResult GetClientByName(string сlientName)
         {
@@ -32,14 +32,14 @@ namespace Fiscalizator.Controllers
             }
             return Ok(client);
         }
-        [HttpPut("{clientCode}")]
+        [HttpPut("/Change/{clientCode}")]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult UpdateClient(int clientCode, ClientDTO request)
         {
             _clientService.UpdateClient(clientCode, request);
             return Ok();
         }
-        [HttpDelete("{clientCode}")]
+        [HttpDelete("Delete/{clientCode}")]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult DeleteClient(int clientCode)
         {

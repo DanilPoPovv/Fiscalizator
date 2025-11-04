@@ -6,7 +6,7 @@ using Fiscalizator.FiscalizationClasses.OperationHandlers;
 namespace Fiscalizator.Controllers
 {
     [ApiController]
-    [Route("Route(\"api/CloseShift\")")]
+    [Route("api/CloseShift")]
     public class CloseShiftController : ControllerBase
     {
         private readonly CloseShiftHandler _closeShiftHandler;

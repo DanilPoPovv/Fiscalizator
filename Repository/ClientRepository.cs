@@ -27,5 +27,11 @@ namespace Fiscalizator.Repository
                 }
             }
         }
+        public List<Kkm> GetAllClientKkm(int ClientCode)
+        {
+            return _session.Query<Client>().Where(c => c.Code == ClientCode)
+                .SelectMany(c => c.Kkms)
+                .ToList();
+        }
     }
 }

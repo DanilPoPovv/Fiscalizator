@@ -1,4 +1,6 @@
-﻿namespace Fiscalizator.FiscalizationClasses.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Fiscalizator.FiscalizationClasses.Entities
 {
     public class Kkm
     {
@@ -7,6 +9,7 @@
         public virtual string? Location { get; set; }
         public virtual IList<Shift> Shifts { get; set; } = new List<Shift>();
         public virtual IList<Bill> Bills { get; set; } = new List<Bill>();
+        [JsonIgnore]
         public virtual Client Client { get; set; }
     }
 }
