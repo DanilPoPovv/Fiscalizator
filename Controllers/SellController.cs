@@ -3,7 +3,7 @@ using Fiscalizator.FiscalizationClasses.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 [ApiController]
-[Route("api/Sell")]
+[Route("Sell")]
 public class SellController : ControllerBase
 {
     private readonly FiscalizationService _fiscalizationService;

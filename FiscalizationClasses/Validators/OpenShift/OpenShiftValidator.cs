@@ -9,8 +9,11 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
             if (!Helpers.KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext, session, out errorMessage))
                 return false;
             if (Helpers.ShiftHelper.CheckShiftOpened(validationContext, session, out errorMessage))
+            {
+                errorMessage = "There is already an opened shift for this KKM.";
                 return false;
-            return true;
+            }
+                return true;
         }
     }
 }

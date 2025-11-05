@@ -17,94 +17,6 @@
   },
   {
     "ContainingType": "Fiscalizator.Controllers.ClientController",
-    "Method": "DeleteClient",
-    "RelativePath": "api/Client/Delete/{clientCode}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.CloseShiftController",
-    "Method": "CloseShift",
-    "RelativePath": "api/CloseShift",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.CloseShiftDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
-        "MediaTypes": [
-          "application/xml"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "SellController",
-    "Method": "Fiscalize",
-    "RelativePath": "api/Sell",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "BillRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
-        "MediaTypes": [
-          "application/xml"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.OpenShiftController",
-    "Method": "OpenShift",
-    "RelativePath": "api/ShiftOpen",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.OpenShiftDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
-        "MediaTypes": [
-          "application/xml"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.ClientController",
     "Method": "UpdateClient",
     "RelativePath": "Change/{clientCode}",
     "HttpMethod": "PUT",
@@ -220,6 +132,46 @@
   },
   {
     "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "DeleteClient",
+    "RelativePath": "Client/Delete/{clientCode}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCode",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.CloseShiftController",
+    "Method": "CloseShift",
+    "RelativePath": "CloseShift",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.CloseShiftDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
+        "MediaTypes": [
+          "application/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
     "Method": "GetClientByName",
     "RelativePath": "Get",
     "HttpMethod": "GET",
@@ -233,5 +185,53 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SellController",
+    "Method": "Fiscalize",
+    "RelativePath": "Sell",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "BillRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
+        "MediaTypes": [
+          "application/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.OpenShiftController",
+    "Method": "OpenShift",
+    "RelativePath": "ShiftOpen",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.OpenShiftDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Fiscalizator.FiscalizationClasses.Responses.OperationResponse",
+        "MediaTypes": [
+          "application/xml"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

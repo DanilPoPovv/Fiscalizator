@@ -34,7 +34,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             Shift shift = new Shift();
             shift.Kkm = validationContext.Kkm;
             shift.OpeningDateTime = request.OpenShiftTime;
-            shift.ShiftNumber = validationContext.Kkm.Shifts.Last() != null ? validationContext.Kkm.Shifts.Last().ShiftNumber + 1 : 1;
+            shift.ShiftNumber = validationContext.Kkm.Shifts.LastOrDefault() != null ? validationContext.Kkm.Shifts.Last().ShiftNumber + 1 : 1;
             _unitOfWork.shiftRepository.Add(shift);
             _unitOfWork.Commit();
             _logger.FileLog($"Shift has been opened at {request.OpenShiftTime}");

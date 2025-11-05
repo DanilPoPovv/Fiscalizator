@@ -5,7 +5,7 @@ using Fiscalizator.FiscalizationClasses.OperationHandlers;
 namespace Fiscalizator.Controllers
 {
     [ApiController]
-    [Route("api/ShiftOpen")]
+    [Route("ShiftOpen")]
     public class OpenShiftController : ControllerBase
     {
         private readonly OpenShiftHandler _openShiftHandler;

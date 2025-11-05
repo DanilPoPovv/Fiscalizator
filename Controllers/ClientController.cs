@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fiscalizator.Controllers
 {
     [ApiController]
-    [Route("api/Client")]
+    [Route("Client")]
     public class ClientController : ControllerBase
     {
         private readonly ClientService _clientService;
