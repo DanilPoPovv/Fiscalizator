@@ -1,42 +1,5 @@
 [
   {
-    "ContainingType": "Fiscalizator.Controllers.ClientController",
-    "Method": "AddClient",
-    "RelativePath": "Add",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.ClientController",
-    "Method": "UpdateClient",
-    "RelativePath": "Change/{clientCode}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Fiscalizator.Controllers.KkmController",
     "Method": "CreateKkm",
     "RelativePath": "Client/{clientCode}/Kkm/createKkm",
@@ -132,6 +95,38 @@
   },
   {
     "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "AddClient",
+    "RelativePath": "Client/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "UpdateClient",
+    "RelativePath": "Client/Change",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientChangeDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
     "Method": "DeleteClient",
     "RelativePath": "Client/Delete/{clientCode}",
     "HttpMethod": "DELETE",
@@ -145,6 +140,40 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "GetClientByName",
+    "RelativePath": "Client/Get",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "\u0441lientName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.ClientController",
+    "Method": "GetAllClients",
+    "RelativePath": "Client/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Fiscalizator.FiscalizationClasses.Entities.Client, Fiscalizator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Fiscalizator.Controllers.CloseShiftController",
@@ -169,22 +198,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.ClientController",
-    "Method": "GetClientByName",
-    "RelativePath": "Get",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "\u0441lientName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "SellController",

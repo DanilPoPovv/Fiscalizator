@@ -33,5 +33,9 @@ namespace Fiscalizator.Repository
                 .SelectMany(c => c.Kkms)
                 .ToList();
         }
+        public List<Client> GetAll()
+        {
+            return _session.Query<Client>().ToList();
+        }
     }
 }

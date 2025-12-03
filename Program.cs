@@ -5,12 +5,23 @@ using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
 using Fiscalizator.FiscalizationClasses.Validators.OpenShift;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.Repository;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalHost", builder =>
+    {
+        builder.WithOrigins("http://127.0.0.1:5500")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped<FiscalizationService>();
 builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<Fiscalizator.Logger.Logger>();
@@ -38,6 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowLocalHost");
 
 app.UseHttpsRedirection();
 

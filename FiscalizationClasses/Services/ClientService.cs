@@ -27,17 +27,24 @@ namespace Fiscalizator.FiscalizationClasses.Services
         {
             _clientRepository.DeleteByCode(code);
         }
-        public void UpdateClient(int clientCode, ClientDTO dto)
+        public void UpdateClient(ClientChangeDTO dto)
         {
             UnitOfWork uow = new UnitOfWork(NHibernateHelper.OpenSession());
-            Client client = uow.clientRepository.GetByCode(clientCode);
-            _clientMapper.Map(dto, client);
+            Client client = uow.clientRepository.GetByCode(dto.OldCode);
+            client.Address = dto.Address;
+            client.Name = dto.Name;
+            client.Code = dto.Code;
             uow.clientRepository.Update(client);
             uow.Commit();
         }
         private Client MapToModel(ClientDTO clientDTO)
         {
             return _clientMapper.Map(clientDTO);
+        }
+        public List<Client> GetAllClients()
+        {
+
+            return _clientRepository.GetAll();
         }
     }
 }

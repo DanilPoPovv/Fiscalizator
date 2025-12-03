@@ -1,5 +1,4 @@
-﻿
-using Fiscalizator.FiscalizationClasses.Entities;
+﻿using Fiscalizator.FiscalizationClasses.Entities;
 using NHibernate;
 using ISession = NHibernate.ISession;
 
