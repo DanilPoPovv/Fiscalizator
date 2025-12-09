@@ -2,9 +2,9 @@
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
 {
-    public class OpenShiftValidator : IValidator<OpenShiftDTO>
+    public class OpenShiftValidator : IValidator<OpenShiftDTO, ValidationContext>
     {
-        public bool Validate(OpenShiftDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(OpenShiftDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         {
             if (!Helpers.KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext, session, out errorMessage))
                 return false;

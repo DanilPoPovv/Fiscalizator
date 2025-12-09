@@ -1,30 +1,59 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Services;
+using Fiscalizator.FiscalizationClasses.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace Fiscalizator.Controllers
 {
-    [Route("Client/{clientCode}/Kkm")]
+    [Route("Client/Kkm")]
+    [ApiController]
     public class KkmController : ControllerBase
     {
-        private readonly KkmService _kkmService = new KkmService();
+        KkmService _kkmService;
+        public KkmController (KkmService kkmService)
+        {
+            _kkmService = kkmService;
+        }
         [HttpPost("createKkm")]
         public ActionResult CreateKkm(int clientCode, KkmDTO kkmDTO)
         {
-            _kkmService.AddKKm(clientCode, kkmDTO);
-            return Ok();
+            try
+            {
+                _kkmService.AddKkm(clientCode, kkmDTO);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+            }
         }
         [HttpPut("updateKkm")]
-        public ActionResult UpdateKkm(int clientCode, KkmDTO kkmDTO)
+        [Consumes("application/json"), Produces("application/json")]
+        public ActionResult UpdateKkm(KkmUpdateDTO kkmDTO)
         {
-            _kkmService.UpdateKkm(kkmDTO);
-            return Ok();
+            try
+            {
+                _kkmService.UpdateKkm(kkmDTO);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+            }
         }
         [HttpDelete("deleteKkm")]
-        public ActionResult DeleteKkm(KkmDTO kkmDTO)
+        public ActionResult DeleteKkm(int serialNumber)
         {
-            _kkmService.DeleteKkm(kkmDTO);
+            _kkmService.DeleteKkm(serialNumber);
             return Ok();
         }
         [HttpGet("getKkms")]

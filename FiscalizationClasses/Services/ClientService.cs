@@ -2,6 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Mappers;
 using Fiscalizator.Repository;
+using FluentNHibernate.Conventions;
 using FluentNHibernate.Data;
 
 namespace Fiscalizator.FiscalizationClasses.Services
@@ -25,7 +26,14 @@ namespace Fiscalizator.FiscalizationClasses.Services
         }
         public void DeleteClient(int code)
         {
-            _clientRepository.DeleteByCode(code);
+            UnitOfWork uow = new UnitOfWork(NHibernateHelper.OpenSession());
+            Client client = uow.clientRepository.GetByCode(code);
+            if (client.Kkms.Count > 0)
+            {
+                throw new InvalidOperationException("Cannot delete client with associated KKMs.");
+            }
+            uow.clientRepository.Delete(client);
+            uow.Commit();
         }
         public void UpdateClient(ClientChangeDTO dto)
         {

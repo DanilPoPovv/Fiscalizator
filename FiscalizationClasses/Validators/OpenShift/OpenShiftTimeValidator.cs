@@ -3,9 +3,9 @@ using Fiscalizator.FiscalizationClasses.Entities;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
 {
-    public class OpenShiftTimeValidator : IValidator<OpenShiftDTO>
+    public class OpenShiftTimeValidator : IValidator<OpenShiftDTO, ValidationContext>
     {
-        public bool Validate(OpenShiftDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(OpenShiftDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         {
             if (request.OpenShiftTime > DateTime.Now)
             {

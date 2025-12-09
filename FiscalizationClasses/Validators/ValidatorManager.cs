@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class ValidatorManager<TRequest>
+    public class ValidatorManager<TRequest,TContext> where TContext : IValidationContext
     {
-        private readonly IEnumerable<IValidator<TRequest>> _validators;
-        private readonly ValidationContext _validationContext = new ValidationContext();
-        public ValidatorManager(IEnumerable<IValidator<TRequest>> validators)
+        private readonly IEnumerable<IValidator<TRequest,TContext>> _validators;
+        private readonly TContext _validationContext;
+        public ValidatorManager(IEnumerable<IValidator<TRequest,TContext>> validators)
         {
             _validators = validators;
         }
 
-        public bool ValidateAll(TRequest request, ISession session,out string errorMessage)
+        public bool ValidateAll(TRequest request, ISession session,out string errorMessage, TContext validationContext = null)
         {
             foreach (var validator in _validators)
             {
-                if (!validator.Validate(request, _validationContext, session, out errorMessage))
+                if (!validator.Validate(request, session, out errorMessage, validationContext))
                     return false;
             }
 
             errorMessage = string.Empty;
             return true;
         }
-        public ValidationContext GetValidationContext() => _validationContext;
     }
 }

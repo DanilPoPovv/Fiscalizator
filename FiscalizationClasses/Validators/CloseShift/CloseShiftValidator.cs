@@ -5,9 +5,9 @@ using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.CloseShift
 {
-    public class CloseShiftValidator : IValidator<CloseShiftDTO>
+    public class CloseShiftValidator : IValidator<CloseShiftDTO,ValidationContext>
     {
-        public bool Validate(CloseShiftDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(CloseShiftDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         {
             if (!KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext,session, out errorMessage))
                 return false;

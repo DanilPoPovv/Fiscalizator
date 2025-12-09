@@ -5,9 +5,9 @@ using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class BillValidator : IValidator<BillDTO>
+    public class BillValidator : IValidator<BillDTO, ValidationContext>
     {
-        public bool Validate(BillDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         { 
             if (!ValidAmount(request.Amount, out errorMessage))
                 return false;

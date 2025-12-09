@@ -1,43 +1,93 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.Mappers;
 using Fiscalizator.NHibernate;
 using Fiscalizator.Repository;
+using NHibernate;
+using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Services
 {
-    public class KkmService 
+    public class KkmService
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly ISession _session;
         private readonly KkmMapper _kkmMapper = new KkmMapper();
-        public KkmService()
+        private readonly IValidator<KkmDTO, KkmValidationContext> _validator;
+        private readonly IValidator<KkmUpdateDTO,KkmValidationContext> _validatorUpdate;
+        private readonly KkmRepository _kkmRepository;
+        private readonly ClientRepository _clientRepository;
+
+        public KkmService(IValidator<KkmDTO, KkmValidationContext> validator)
         {
-            _unitOfWork = new UnitOfWork(NHibernateHelper.OpenSession());   
-            _kkmMapper = new KkmMapper();   
+            _session = NHibernateHelper.OpenSession();
+            _validator = validator;
+            _kkmRepository = new KkmRepository(_session);
+            _clientRepository = new ClientRepository(_session);
         }
-        public void AddKKm(int ClientCode, KkmDTO kkmDTO)
+
+        public void AddKkm(int clientCode, KkmDTO kkmDTO)
         {
-            Kkm kkm = _kkmMapper.Map(kkmDTO);
-            kkm.Client = _unitOfWork.clientRepository.GetByCode(ClientCode);
-            _unitOfWork.kkmRepository.Add(kkm);
-            _unitOfWork.Commit();
+            var validationContext = new KkmValidationContext();
+
+            if (!_validator.Validate(kkmDTO, _session, out var errorMessage, validationContext))
+            {
+                throw new Exception(errorMessage);
+            }
+
+            var kkm = _kkmMapper.Map(kkmDTO);
+            kkm.Client = validationContext.Client;
+
+            using (var transaction = _session.BeginTransaction())
+            {
+                _kkmRepository.Add(kkm);
+                transaction.Commit();
+            }
         }
-        public void UpdateKkm(KkmDTO kkmDTO)
+        public void UpdateKkm(KkmUpdateDTO kkmDTO)
         {
-            var kkm = _unitOfWork.kkmRepository.GetBySerialNumber(kkmDTO.SerialNumber);
+            var validationContext = new KkmValidationContext();
+            if (!_validatorUpdate.Validate(kkmDTO, _session, out var errorMessage, validationContext))
+            {
+                throw new Exception(errorMessage);
+            }
+            Kkm kkm = validationContext.Kkm;
+            kkm.SerialNumber = kkmDTO.NewSerialNumber;
             kkm.Location = kkmDTO.Location;
-            _unitOfWork.kkmRepository.Update(kkm);
-            _unitOfWork.Commit();
+            using (var transaction = _session.BeginTransaction())
+            {
+                try
+                {
+                    _kkmRepository.Update(kkm);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Something went wrong while adding KKM");
+                }
+            }
         }
-        public void DeleteKkm(KkmDTO kkmDTO) 
+        public void DeleteKkm(int serialNumber) 
         {
-            var kkm = _unitOfWork.kkmRepository.GetBySerialNumber(kkmDTO.SerialNumber);
-            _unitOfWork.kkmRepository.Delete(kkm);
-            _unitOfWork.Commit();   
+            var kkm = _kkmRepository.GetBySerialNumber(serialNumber);
+            using (var transaction = _session.BeginTransaction())
+            {
+                try
+                {
+                    _kkmRepository.Delete(kkm);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw new Exception("Something went wrong while deleting KKM");
+                }
+            }
         }
         public List<Kkm> GetAllClientKkm(int Clientcode)
         {
-            List<Kkm> kkms = _unitOfWork.clientRepository.GetAllClientKkm(Clientcode);
+            List<Kkm> kkms = _clientRepository.GetAllClientKkm(Clientcode);
             return kkms;
         }
     }

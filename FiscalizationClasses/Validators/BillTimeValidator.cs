@@ -3,9 +3,9 @@ using Fiscalizator.FiscalizationClasses.Entities;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class BillTimeValidator : IValidator<BillDTO>
+    public class BillTimeValidator : IValidator<BillDTO, ValidationContext>
     {
-        public bool Validate(BillDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         {
             if (!ValidateLaterThanShiftOutOfTime(request.OperationDateTime, out errorMessage, validationContext.СurrentShift))
                 return false;

@@ -4,9 +4,9 @@ using Fiscalizator.FiscalizationClasses.Dto;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class KkmValidator : IValidator<BillDTO>
+    public class KkmValidator : IValidator<BillDTO,ValidationContext>
     {
-        public bool Validate(BillDTO request, ValidationContext validationContext, ISession session, out string errorMessage)
+        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
         {
             if (!Helpers.KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext, session ,out errorMessage))
                 return false;

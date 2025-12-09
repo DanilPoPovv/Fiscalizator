@@ -10,9 +10,9 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     {
         private readonly Logger.Logger _logger;
         private readonly ISession _session;
-        private readonly ValidatorManager<OpenShiftDTO> _validatorManager;
+        private readonly ValidatorManager<OpenShiftDTO,ValidationContext> _validatorManager;
         private readonly UnitOfWork _unitOfWork;
-        public OpenShiftHandler(Logger.Logger logger, ValidatorManager<OpenShiftDTO> validatorManager)
+        public OpenShiftHandler(Logger.Logger logger, ValidatorManager<OpenShiftDTO,ValidationContext> validatorManager)
         {
             _logger = logger;
             _session = NHibernateHelper.OpenSession();
@@ -22,7 +22,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
         public OpenShiftResponse OpenShift(OpenShiftDTO request)
         {
-            if (!_validatorManager.ValidateAll(request, _session, out string errorMessage))
+            ValidationContext validationContext = new ValidationContext();
+            if (!_validatorManager.ValidateAll(request, _session, out string errorMessage, validationContext))
             {
                 _logger.FileLog($"Open shift processing failed: {errorMessage}");
                 return new OpenShiftResponse
@@ -30,7 +31,6 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                     Message = $"Open shift processing failed: {errorMessage}"
                 };
             }
-            ValidationContext validationContext = _validatorManager.GetValidationContext();
             Shift shift = new Shift();
             shift.Kkm = validationContext.Kkm;
             shift.OpeningDateTime = request.OpenShiftTime;

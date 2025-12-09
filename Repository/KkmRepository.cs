@@ -10,9 +10,9 @@ namespace Fiscalizator.Repository
         {
             return _session.Query<Kkm>().FirstOrDefault(k => k.SerialNumber == serialNumber)!;
         }
-        public bool HasSerialNumber(int serialNumber)
-        {
-            return _session.Query<Kkm>().Any(k => k.SerialNumber == serialNumber);
-        }
+        //public bool HasSerialNumber(int serialNumber)
+        //{
+        //    return _session.Query<Kkm>().Any(k => k.SerialNumber == serialNumber);
+        //}
     }
 }

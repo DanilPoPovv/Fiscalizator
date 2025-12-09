@@ -10,10 +10,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     public class CloseShiftHandler
     {
         private readonly Logger.Logger _logger;
-        private readonly ValidatorManager<CloseShiftDTO> _validatorManager;
+        private readonly ValidatorManager<CloseShiftDTO, ValidationContext> _validatorManager;
         private readonly UnitOfWork _unitOfWork;
         private ISession _session;
-        public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO> validator)
+        public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO, ValidationContext> validator)
         {
             _logger = logger;
             _session = NHibernateHelper.SessionFactory.OpenSession();
@@ -23,7 +23,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
         {
-            if (!_validatorManager.ValidateAll(request,_session, out string errorMessage))
+            ValidationContext validationContext = new ValidationContext();
+            if (!_validatorManager.ValidateAll(request,_session, out string errorMessage,validationContext))
             {
                 _logger.FileLog($"Close shift processing failed: {errorMessage}");
                 return new CloseShiftResponse
@@ -32,7 +33,6 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 };
             }
             _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
-            ValidationContext validationContext = _validatorManager.GetValidationContext();
             Shift shift = validationContext.СurrentShift;
             shift.Kkm = validationContext.Kkm;
 

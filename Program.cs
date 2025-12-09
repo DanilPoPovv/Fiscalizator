@@ -6,6 +6,7 @@ using Fiscalizator.FiscalizationClasses.Validators.OpenShift;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.Repository;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -29,16 +30,21 @@ builder.Services.AddScoped<BillHandler>();
 builder.Services.AddScoped<CloseShiftHandler>();
 builder.Services.AddScoped<OpenShiftHandler>();
 builder.Services.AddScoped<BillValidator>();
+builder.Services.AddScoped<KkmService>();
 
-builder.Services.AddScoped(typeof(ValidatorManager<>));
-builder.Services.AddScoped<IValidator<BillDTO>, KkmValidator>();
-builder.Services.AddScoped<IValidator<BillDTO>, Fiscalizator.FiscalizationClasses.Validators.OpenShiftValidator>();
-builder.Services.AddScoped<IValidator<BillDTO>, BillTimeValidator>();
-builder.Services.AddScoped<IValidator<BillDTO>, BillValidator>();
-builder.Services.AddScoped<IValidator<CloseShiftDTO>, CloseShiftValidator>();
+builder.Services.AddScoped(typeof(ValidatorManager<,>));
+builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, KkmValidator>();
+builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShiftValidator>();
+builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, BillTimeValidator>();
+builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, BillValidator>();
+builder.Services.AddScoped<IValidator<CloseShiftDTO,ValidationContext>, CloseShiftValidator>();
 
-builder.Services.AddScoped<IValidator<OpenShiftDTO>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.OpenShiftValidator>();
-builder.Services.AddScoped<IValidator<OpenShiftDTO>, OpenShiftTimeValidator>();
+builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.OpenShiftValidator>();
+builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, OpenShiftTimeValidator>();
+
+builder.Services.AddScoped<IValidator<KkmDTO, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
+builder.Services.AddScoped<IValidator<KkmUpdateDTO, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

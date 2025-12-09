@@ -28,7 +28,7 @@ namespace Fiscalizator.Controllers
             Client client = _clientService.GetClientByName(сlientName);
             if (client == null)
             {
-                return NotFound(new { message = "Client Not Found"});
+                return NotFound(new { error = "Client Not Found"});
             }
             return Ok(client);
         }
@@ -36,15 +36,37 @@ namespace Fiscalizator.Controllers
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult UpdateClient(ClientChangeDTO request)
         {
-            _clientService.UpdateClient(request);
-            return Ok();
+            try
+            {
+                _clientService.UpdateClient(request);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+            }
         }
         [HttpDelete("Delete/{clientCode}")]
-        [Produces("application/json"), Consumes("application/json")]
+        [Produces("application/json")]
         public ActionResult DeleteClient(int clientCode)
         {
-            _clientService.DeleteClient(clientCode);
-            return Ok();
+            try
+            {
+                _clientService.DeleteClient(clientCode);
+                return Ok();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+            }
         }
         [HttpGet("GetAll")]
         [Produces("application/json")]

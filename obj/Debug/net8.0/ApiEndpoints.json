@@ -1,99 +1,5 @@
 [
   {
-    "ContainingType": "Fiscalizator.Controllers.KkmController",
-    "Method": "CreateKkm",
-    "RelativePath": "Client/{clientCode}/Kkm/createKkm",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "SerialNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Location",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.KkmController",
-    "Method": "DeleteKkm",
-    "RelativePath": "Client/{clientCode}/Kkm/deleteKkm",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "SerialNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Location",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "clientCode",
-        "Type": "",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.KkmController",
-    "Method": "GetAllClientKkms",
-    "RelativePath": "Client/{clientCode}/Kkm/getKkms",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.KkmController",
-    "Method": "UpdateKkm",
-    "RelativePath": "Client/{clientCode}/Kkm/updateKkm",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "SerialNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "Location",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "Fiscalizator.Controllers.ClientController",
     "Method": "AddClient",
     "RelativePath": "Client/Add",
@@ -174,6 +80,75 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.KkmController",
+    "Method": "CreateKkm",
+    "RelativePath": "Client/Kkm/createKkm",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCode",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "kkmDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.KkmController",
+    "Method": "DeleteKkm",
+    "RelativePath": "Client/Kkm/deleteKkm",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serialNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.KkmController",
+    "Method": "GetAllClientKkms",
+    "RelativePath": "Client/Kkm/getKkms",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCode",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Fiscalizator.Controllers.KkmController",
+    "Method": "UpdateKkm",
+    "RelativePath": "Client/Kkm/updateKkm",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "kkmDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Fiscalizator.Controllers.CloseShiftController",

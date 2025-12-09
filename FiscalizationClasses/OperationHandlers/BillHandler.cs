@@ -11,10 +11,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     public class BillHandler
     {
         private readonly Logger.Logger _logger;
-        private readonly ValidatorManager<BillDTO> _validatorManager;
+        private readonly ValidatorManager<BillDTO, ValidationContext> _validatorManager;
         private readonly BillMapper _mapper = new BillMapper();
         private readonly ISession _session;
-        public BillHandler(Logger.Logger logger, ValidatorManager<BillDTO> validatorManager)
+        public BillHandler(Logger.Logger logger, ValidatorManager<BillDTO,ValidationContext> validatorManager)
         {
             _logger = logger;
             _validatorManager = validatorManager;
@@ -23,6 +23,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
         public OperationResponse ProcessBill(BillDTO request)
         {
+            ///TODO Add validation context with necessary data
             bool isBillValid = _validatorManager.ValidateAll(request, _session, out string errorMessage);
             if (!isBillValid)
             {
