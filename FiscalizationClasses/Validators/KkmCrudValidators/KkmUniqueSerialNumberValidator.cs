@@ -18,6 +18,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators
                 return false;
             }
             validationContext.Client = client;
+            validationContext.Kkm = existingKkm;
             errorMessage = null;
             return true;
         }

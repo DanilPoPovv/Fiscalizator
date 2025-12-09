@@ -18,10 +18,11 @@ namespace Fiscalizator.FiscalizationClasses.Services
         private readonly KkmRepository _kkmRepository;
         private readonly ClientRepository _clientRepository;
 
-        public KkmService(IValidator<KkmDTO, KkmValidationContext> validator)
+        public KkmService(IValidator<KkmDTO, KkmValidationContext> validator, IValidator<KkmUpdateDTO,KkmValidationContext> updateValidator)
         {
             _session = NHibernateHelper.OpenSession();
             _validator = validator;
+            _validatorUpdate = updateValidator;
             _kkmRepository = new KkmRepository(_session);
             _clientRepository = new ClientRepository(_session);
         }
@@ -47,11 +48,11 @@ namespace Fiscalizator.FiscalizationClasses.Services
         public void UpdateKkm(KkmUpdateDTO kkmDTO)
         {
             var validationContext = new KkmValidationContext();
-            if (!_validatorUpdate.Validate(kkmDTO, _session, out var errorMessage, validationContext))
+            if (!_validatorUpdate.Validate(kkmDTO, _session,out string errorMessage, validationContext))
             {
                 throw new Exception(errorMessage);
             }
-            Kkm kkm = validationContext.Kkm;
+            var kkm = validationContext.Client.Kkms.FirstOrDefault(k => k.SerialNumber == kkmDTO.OldSerialNumber);
             kkm.SerialNumber = kkmDTO.NewSerialNumber;
             kkm.Location = kkmDTO.Location;
             using (var transaction = _session.BeginTransaction())
