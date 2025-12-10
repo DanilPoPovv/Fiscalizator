@@ -1,19 +1,24 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
-using Fiscalizator.FiscalizationClasses.Validators.Helpers;
+using Fiscalizator.FiscalizationClasses.Validators.BaseCheckServices;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.CloseShift
 {
     public class CloseShiftValidator : IValidator<CloseShiftDTO,ValidationContext>
     {
-        public bool Validate(CloseShiftDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
+        private readonly KkmCheckService _kkmCheckService;
+        private readonly KkmCheckShiftOpenedService _shiftCheckService;
+        public CloseShiftValidator()
         {
-            if (!KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext,session, out errorMessage))
-                return false;
-            if (!ShiftHelper.CheckShiftOpened(validationContext,session, out errorMessage))
-                return false;
-            return true;
+            _kkmCheckService = new KkmCheckService();
+            _shiftCheckService = new KkmCheckShiftOpenedService();
+        }
+        public void Validate(CloseShiftDTO request, ISession session, ValidationContext validationContext)
+        {
+            _kkmCheckService.EnsureKkmExists(request.SerialNumber, session, validationContext);
+            _shiftCheckService.CheckShiftOpened(validationContext);
         }
     }
 }

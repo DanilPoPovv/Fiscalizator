@@ -1,43 +1,41 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using ISession = NHibernate.ISession;
+
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class BillTimeValidator : IValidator<BillDTO, ValidationContext>
     {
-        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
+        public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
         {
-            if (!ValidateLaterThanShiftOutOfTime(request.OperationDateTime, out errorMessage, validationContext.СurrentShift))
-                return false;
-            if (!ValidateEarlierThanLastBill(request.OperationDateTime, out errorMessage, validationContext.СurrentShift))
-                return false;
-            return true;
+            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.CurrentShift);
+            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.CurrentShift);
         }
-        public bool ValidateEarlierThanLastBill(DateTime billTime, out string errorMessage, Shift shift)
+
+        private void ValidateEarlierThanLastBill(DateTime billTime, Shift shift)
         {
             var lastBill = shift.Bills.LastOrDefault();
+
             if (lastBill != null && billTime <= lastBill.OperationDateTime)
             {
-                errorMessage = $"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}";
-                return false;
+                throw new BillException($"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}.");
             }
-            else if (lastBill == null && billTime < shift.OpeningDateTime)
+
+            if (lastBill == null && billTime < shift.OpeningDateTime)
             {
-                errorMessage = $"Bill time {billTime} is earlier than shift opening time {shift.OpeningDateTime}";
-                return false;
+                throw new BillException($"Bill time {billTime} is earlier than shift opening time {shift.OpeningDateTime}.");
             }
-            errorMessage = string.Empty;
-            return true;
         }
-        public bool ValidateLaterThanShiftOutOfTime(DateTime billTime, out string errorMessage, Shift shift)
+
+        private void ValidateLaterThanShiftOutOfTime(DateTime billTime, Shift shift)
         {
-            if (billTime > shift.OpeningDateTime.AddHours(24))
+            var shiftEndTime = shift.OpeningDateTime.AddHours(24);
+            if (billTime > shiftEndTime)
             {
-                errorMessage = $"Bill time {billTime} is later than shift out of time {shift.OpeningDateTime.AddHours(24)}";
-                return false;
+                throw new BillException($"Bill time {billTime} is later than shift out of time {shiftEndTime}.");
             }
-            errorMessage = string.Empty;
-            return true;
         }
     }
 }

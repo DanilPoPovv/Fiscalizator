@@ -2,16 +2,21 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Dto;
 using ISession = NHibernate.ISession;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Fiscalizator.FiscalizationClasses.Validators.BaseCheckServices;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class KkmValidator : IValidator<BillDTO,ValidationContext>
     {
-        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
+        private readonly KkmCheckService _kkmCheckService;
+        public KkmValidator()
         {
-            if (!Helpers.KkmHelper.ValidateSerialNumber(request.SerialNumber, validationContext, session ,out errorMessage))
-                return false;
-            return true;
+            _kkmCheckService = new KkmCheckService();
         }
-
+        public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
+        {
+            _kkmCheckService.EnsureKkmExists(request.SerialNumber, session, validationContext);
+        }
     }
 }

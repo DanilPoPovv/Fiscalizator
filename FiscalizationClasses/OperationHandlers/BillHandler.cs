@@ -5,6 +5,7 @@ using Fiscalizator.Mappers;
 using Fiscalizator.Repository;
 using Fiscalizator.FiscalizationClasses.Entities;
 using ISession = NHibernate.ISession;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 
 namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
@@ -23,30 +24,37 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
         public OperationResponse ProcessBill(BillDTO request)
         {
-            ///TODO Add validation context with necessary data
-            bool isBillValid = _validatorManager.ValidateAll(request, _session, out string errorMessage);
-            if (!isBillValid)
+            try
             {
-                _logger.FileLog($"Bill processing failed: {errorMessage}");
+                ValidationContext validationContext = new ValidationContext();
+                _validatorManager.ValidateAll(request, _session, validationContext);
+
+                _logger.FileLog($"Processing bill for amount: {request.Amount}");
+
+                CreateNewBill(request, validationContext);
+
+                return new BillResponse { Message = "Bill processed successfully" };
+            }
+            catch (Exception ex)
+            {
                 return new BillResponse
                 {
-                    Message = $"Bill processing failed: {errorMessage}"
+                    Message = $"Bill processing failed: {ex.Message}"
                 };
             }
-
-            _logger.FileLog($"Processing bill for amount: {request.Amount}");
-
-            Bill billEntity = _mapper.MapToModel(request);
-
-
+        }
+        private void CreateNewBill(BillDTO request, ValidationContext validationContext)
+        {
+            Bill bill = new Bill
+            {
+                Kkm = validationContext.Kkm,
+                Shift = validationContext.CurrentShift,
+                Amount = request.Amount,
+                OperationDateTime = request.OperationDateTime,
+            };
             using var uow = new UnitOfWork(_session);
-            billEntity.Kkm = uow.kkmRepository.GetBySerialNumber(request.SerialNumber);
-            billEntity.Shift = uow.shiftRepository.GetCurrentKkmShift(billEntity.Kkm);
-            billEntity.Cashier = uow.cashierRepository.GetByName(request.Cashier.Name);
-            uow.Bills.Add(billEntity);
+            uow.Bills.Add(bill);
             uow.Commit();
-
-            return new BillResponse { Message = "Bill processed successfully" };
         }
 
     }

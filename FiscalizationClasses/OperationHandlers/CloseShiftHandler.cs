@@ -2,6 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.FiscalizationClasses.Validators;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 
@@ -24,31 +25,45 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
         {
             ValidationContext validationContext = new ValidationContext();
-            if (!_validatorManager.ValidateAll(request,_session, out string errorMessage,validationContext))
+
+            try
             {
-                _logger.FileLog($"Close shift processing failed: {errorMessage}");
+                _validatorManager.ValidateAll(request, _session, validationContext);
+
+                _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
+
+                Shift shift = validationContext.CurrentShift;
+                shift.Kkm = validationContext.Kkm;
+
+                var lastBill = shift.Bills.LastOrDefault();
+                if (lastBill == null)
+                {
+                    shift.ClosureDateTime = shift.OpeningDateTime.AddSeconds(1);
+                }
+                else
+                {
+                    shift.ClosureDateTime = lastBill.OperationDateTime.AddSeconds(1);
+                }
+
+                _unitOfWork.shiftRepository.CloseShift(shift);
+                _unitOfWork.Commit();
+
                 return new CloseShiftResponse
                 {
-                    Message = $"Close shift processing failed: {errorMessage}"
+                    Message = $"Close shift processed successfully at {shift.ClosureDateTime} shift number is {shift.ShiftNumber}",
+                    CloseShiftTime = (DateTime)shift.ClosureDateTime
                 };
             }
-            _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
-            Shift shift = validationContext.СurrentShift;
-            shift.Kkm = validationContext.Kkm;
+            catch (Exception ex)
+            {
+                _logger.FileLog($"Close shift processing failed: {ex.Message}");
 
-            var closeShiftDate = shift.Bills.LastOrDefault();
-            if (closeShiftDate == null)
-            {
-                shift.ClosureDateTime = shift.OpeningDateTime.AddSeconds(1);
+                return new CloseShiftResponse
+                {
+                    Message = $"Close shift processing failed: {ex.Message}"
+                };
             }
-            else
-            {
-                shift.ClosureDateTime = closeShiftDate.OperationDateTime.AddSeconds(1);
-            }
-            
-            _unitOfWork.shiftRepository.CloseShift(shift);
-            _unitOfWork.Commit();
-            return new CloseShiftResponse { Message = $"Close shift processed successfully at {shift.ClosureDateTime} shift number is {shift.ShiftNumber}", CloseShiftTime = (DateTime)shift.ClosureDateTime };
         }
+
     }
 }

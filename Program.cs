@@ -7,6 +7,7 @@ using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.Repository;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>

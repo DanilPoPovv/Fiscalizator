@@ -1,6 +1,7 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Mappers;
 using Fiscalizator.NHibernate;
 using Fiscalizator.Repository;
@@ -31,10 +32,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
         {
             var validationContext = new KkmValidationContext();
 
-            if (!_validator.Validate(kkmDTO, _session, out var errorMessage, validationContext))
-            {
-                throw new Exception(errorMessage);
-            }
+            _validator.Validate(kkmDTO, _session, validationContext);
 
             var kkm = _kkmMapper.Map(kkmDTO);
             kkm.Client = validationContext.Client;
@@ -48,10 +46,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
         public void UpdateKkm(KkmUpdateDTO kkmDTO)
         {
             var validationContext = new KkmValidationContext();
-            if (!_validatorUpdate.Validate(kkmDTO, _session,out string errorMessage, validationContext))
-            {
-                throw new Exception(errorMessage);
-            }
+            _validatorUpdate.Validate(kkmDTO, _session, validationContext);
             var kkm = validationContext.Client.Kkms.FirstOrDefault(k => k.SerialNumber == kkmDTO.OldSerialNumber);
             kkm.SerialNumber = kkmDTO.NewSerialNumber;
             kkm.Location = kkmDTO.Location;
@@ -79,10 +74,10 @@ namespace Fiscalizator.FiscalizationClasses.Services
                     _kkmRepository.Delete(kkm);
                     transaction.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw new Exception("Something went wrong while deleting KKM");
+                    throw new Exception($"Something went wrong while deleting KKM {ex.Message}");
                 }
             }
         }

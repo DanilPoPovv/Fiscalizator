@@ -1,10 +1,11 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using FluentNHibernate;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public interface IValidator <T,V> where V : IValidationContext
     {
-        public bool Validate(T validate, ISession session, out string errorMessage, V validationContext = null!);
+        public void Validate(T validate, ISession session, V validationContext = null!);
     }
 }

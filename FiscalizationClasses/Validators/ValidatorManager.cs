@@ -1,4 +1,5 @@
-﻿using NHibernate.Id.Insert;
+﻿using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using NHibernate.Id.Insert;
 using System.Collections.Generic;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators
@@ -12,16 +13,12 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             _validators = validators;
         }
 
-        public bool ValidateAll(TRequest request, ISession session,out string errorMessage, TContext validationContext = null)
+        public void ValidateAll(TRequest request, ISession session, TContext validationContext = null)
         {
             foreach (var validator in _validators)
             {
-                if (!validator.Validate(request, session, out errorMessage, validationContext))
-                    return false;
+                validator.Validate(request, session, validationContext);
             }
-
-            errorMessage = string.Empty;
-            return true;
         }
     }
 }

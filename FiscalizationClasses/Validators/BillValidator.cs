@@ -1,107 +1,76 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Helpers;
-using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
+
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
     public class BillValidator : IValidator<BillDTO, ValidationContext>
     {
-        public bool Validate(BillDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
-        { 
-            if (!ValidAmount(request.Amount, out errorMessage))
-                return false;
-            if (!ValidateCommodity(request.Amount, request.Commodity, out errorMessage))
-                return false;
-            if (!ValidatePayment(request.Payment, request.Amount, out errorMessage)) 
-                return false;
-            return true;
-        }
-        private bool ValidAmount(decimal amount, out string errorMessage)
+        public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
         {
-            bool isValid = amount > 0;
-            errorMessage = isValid ? string.Empty : "Amount must be greater than zero.";
-            return isValid;
+            ValidateAmount(request.Amount);
+            ValidateCommodity(request.Amount, request.Commodity);
+            ValidatePayment(request.Payment, request.Amount);
         }
-        private bool ValidateCommodity(decimal amount,CommodityDTO[] commodities, out string errorMessage)
+
+        private void ValidateAmount(decimal amount)
+        {
+            if (amount <= 0)
+                throw new BillException("Amount must be greater than zero.");
+        }
+
+        private void ValidateCommodity(decimal amount, CommodityDTO[] commodities)
         {
             if (commodities == null || commodities.Length == 0)
-            {
-                errorMessage = "At least one commodity is required.";
-                return false;
-            }
+                throw new BillException("At least one commodity is required.");
+
             int commoditiesSum = 0;
+
             foreach (var commodity in commodities)
             {
                 if (commodity.Price * commodity.Quantity != commodity.Sum)
-                {
-                    errorMessage = $"Commodity sum for {commodity.Name} is incorrect.";
-                    return false;
-                }
+                    throw new BillException($"Commodity sum for '{commodity.Name}' is incorrect.");
+
                 commoditiesSum += commodity.Price * commodity.Quantity;
+
                 if (commodity.Tax != null)
-                {
-                    bool isValidTax = ValidateTax(commodity.Tax, commoditiesSum, out string taxErrorMessage);
-                    if (!isValidTax)
-                    {
-                        errorMessage = taxErrorMessage;
-                        return false;
-                    }
-                }
+                    ValidateTax(commodity.Tax, commoditiesSum);
             }
-            bool isValid = commoditiesSum == amount;
-            errorMessage = isValid ? string.Empty : "Sum of commodities does not match the amount.";
-            return isValid;
+
+            if (commoditiesSum != amount)
+                throw new BillException("Sum of commodities does not match the bill amount.");
         }
-        private bool ValidateTax(TaxDTO tax, int commoditySum, out string errorMessage)
+
+        private void ValidateTax(TaxDTO tax, int commoditySum)
         {
             if (tax.Percent >= 100)
-            {
-                errorMessage = "Tax percent cannot be greater than 100.";
-                return false;
-            }
+                throw new BillException("Tax percent cannot be greater than or equal to 100.");
+
             if (tax.Percent < 0)
-            {
-                errorMessage = "Tax percent cannot be negative.";
-                return false;
-            }
+                throw new BillException("Tax percent cannot be negative.");
+
             if (tax.Sum != (commoditySum * tax.Percent) / 100)
-            {
-                errorMessage = "Tax sum does not match the calculated value.";
-                return false;
-            }
-            errorMessage = string.Empty;
-            return true;
+                throw new BillException("Tax sum does not match the calculated value.");
         }
-        private bool ValidatePayment(PaymentDTO payment, decimal billAmount, out string errorMessage)
+
+        private void ValidatePayment(PaymentDTO payment, decimal billAmount)
         {
             if (!EnumHelper.IsDefined<PaymentType>(payment.PaymentType))
-            {
-                errorMessage = $"Invalid payment type: {payment.PaymentType}";
-                return false;
-            }
+                throw new BillException($"Invalid payment type: {payment.PaymentType}");
+
             var paymentType = Enum.Parse<PaymentType>(payment.PaymentType, true);
 
             if (payment.Amount < 0)
-            {
-                errorMessage = "Payment amount cannot be negative.";
-                return false;
-            }
+                throw new BillException("Payment amount cannot be negative.");
 
             if (payment.Amount > billAmount && paymentType != PaymentType.CASH)
-            {
-                errorMessage = "Payment amount cannot exceed bill amount for non-cash payments.";
-                return false;
-            }
+                throw new BillException("Payment amount cannot exceed bill amount for non-cash payments.");
 
             if (payment.Amount < billAmount)
-            {
-                errorMessage = "Payment amount cannot be less than bill amount.";
-                return false;
-            }
-
-            errorMessage = string.Empty;
-            return true;
+                throw new BillException("Payment amount cannot be less than bill amount.");
         }
     }
 }

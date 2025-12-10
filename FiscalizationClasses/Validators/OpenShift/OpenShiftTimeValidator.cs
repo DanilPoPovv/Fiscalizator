@@ -1,33 +1,30 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
 {
     public class OpenShiftTimeValidator : IValidator<OpenShiftDTO, ValidationContext>
     {
-        public bool Validate(OpenShiftDTO request, ISession session, out string errorMessage, ValidationContext validationContext)
+        public void Validate(OpenShiftDTO request, ISession session, ValidationContext validationContext)
         {
             if (request.OpenShiftTime > DateTime.Now)
             {
-                errorMessage = "Opening date and time cannot be in the future.";
-                return false;
+                throw new ShiftException("Opening date and time cannot be in the future.");
             }
-            if (validationContext.СurrentShift == null)
+            if (validationContext.CurrentShift == null)
             {
                 Shift lastShift = validationContext.Kkm.Shifts.LastOrDefault();
                 if (lastShift == null)
                 {
-                    errorMessage = string.Empty;
-                    return true;
+                    return;
                 }
                 else if (request.OpenShiftTime < lastShift.ClosureDateTime)
                 {
-                    errorMessage = "Opening date and time cannot be earlier than the last shift's closing date and time.";
-                    return false;
+                    throw new ShiftException("Opening date and time cannot be earlier than the last shift's closing date and time.");
                 }
             }
-            errorMessage = string.Empty;
-            return true;
         }
     
     }

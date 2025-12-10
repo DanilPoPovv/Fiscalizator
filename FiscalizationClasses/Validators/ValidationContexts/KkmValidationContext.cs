@@ -1,6 +1,6 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.FiscalizationClasses.Validators
+namespace Fiscalizator.FiscalizationClasses.Validators.ValidationContexts
 {
     public class KkmValidationContext : IValidationContext
     {
