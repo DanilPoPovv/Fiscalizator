@@ -5,7 +5,7 @@ namespace Fiscalizator.FiscalizationClasses.Responses
     public class OpenShiftResponse : OperationResponse
     {
         [XmlElement("OpenShiftTime")]
-        public DateTime OpenShiftTime { get; set; }
+        public DateTimeOffset OpenShiftTime { get; set; }
         [XmlElement("Cashier")]
         public string? Cashier { get; set; }
     }

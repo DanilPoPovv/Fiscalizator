@@ -9,7 +9,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
     {
         public void Validate(OpenShiftDTO request, ISession session, ValidationContext validationContext)
         {
-            if (request.OpenShiftTime > DateTime.Now)
+            if (request.OpenShiftTime > DateTimeOffset.Now)
             {
                 throw new ShiftException("Opening date and time cannot be in the future.");
             }

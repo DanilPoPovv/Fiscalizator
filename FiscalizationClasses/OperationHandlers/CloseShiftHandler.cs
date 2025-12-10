@@ -50,8 +50,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
                 return new CloseShiftResponse
                 {
-                    Message = $"Close shift processed successfully at {shift.ClosureDateTime} shift number is {shift.ShiftNumber}",
-                    CloseShiftTime = (DateTime)shift.ClosureDateTime
+                    Message = $"Close shift processed successfully at {shift.ClosureDateTime} shift number is {shift.ShiftNumber}",                   
                 };
             }
             catch (Exception ex)
