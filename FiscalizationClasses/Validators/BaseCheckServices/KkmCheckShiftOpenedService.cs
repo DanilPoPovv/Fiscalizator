@@ -8,10 +8,10 @@ namespace Fiscalizator.FiscalizationClasses.Validators.BaseCheckServices
     {
         public void CheckShiftOpened(ValidationContext context)
         {
-            Shift shift = context.Kkm.Shifts.LastOrDefault(s => s.ClosureDateTime == null);
-            if (shift == null && context.Kkm.Shifts.Count > 1)
+            Shift shift = context.Kkm.Shifts.LastOrDefault();
+            if (shift.ClosureDateTime == null && shift == null)
             {
-                throw new ShiftException("No opened shift for this KKM");
+                throw new ShiftException("No opened shift for this kkm");
             }
             context.CurrentShift = shift;
         }

@@ -37,10 +37,14 @@ builder.Services.AddScoped(typeof(ValidatorManager<,>));
 builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, KkmValidator>();
 builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShiftValidator>();
 builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, BillTimeValidator>();
-builder.Services.AddScoped<IValidator<BillDTO,ValidationContext>, BillValidator>();
-builder.Services.AddScoped<IValidator<CloseShiftDTO,ValidationContext>, CloseShiftValidator>();
+builder.Services.AddScoped<IValidator<BillDTO, ValidationContext>, BillValidator>();
 
-builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.OpenShiftValidator>();
+builder.Services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, CloseShiftValidator>();
+builder.Services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.CloseShift.ShiftClosedValidator>();
+
+
+builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.OpenShiftBaseValidator>();
+builder.Services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, Fiscalizator.FiscalizationClasses.Validators.OpenShift.ShiftOpenedValidator>();
 builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, OpenShiftTimeValidator>();
 
 builder.Services.AddScoped<IValidator<KkmDTO, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();

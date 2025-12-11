@@ -9,21 +9,18 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
     {
         public void Validate(OpenShiftDTO request, ISession session, ValidationContext validationContext)
         {
-            if (request.OpenShiftTime > DateTimeOffset.Now)
+            Shift lastShift = validationContext.Kkm.Shifts.LastOrDefault();
+            if (lastShift == null)
+            {
+                throw new ShiftException("There is no previous shift for this KKM.");
+            }
+            else if (request.OpenShiftTime > DateTime.Now)
             {
                 throw new ShiftException("Opening date and time cannot be in the future.");
             }
-            if (validationContext.CurrentShift == null)
+            else if (request.OpenShiftTime <= lastShift.ClosureDateTime)
             {
-                Shift lastShift = validationContext.Kkm.Shifts.LastOrDefault();
-                if (lastShift == null)
-                {
-                    return;
-                }
-                else if (request.OpenShiftTime < lastShift.ClosureDateTime)
-                {
-                    throw new ShiftException("Opening date and time cannot be earlier than the last shift's closing date and time.");
-                }
+                throw new ShiftException("Opening date and time cannot be earlier or equal than the last shift's closing date and time.");
             }
         }
     
