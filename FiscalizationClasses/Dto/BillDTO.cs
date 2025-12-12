@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class BillDTO : ICashierRequest 
+    public class BillDTO : ICashierRequest, IKkmRequest
     {
         private DateTime _operationDateTime;
         [XmlElement("Amount")]
