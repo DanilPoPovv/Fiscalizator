@@ -10,5 +10,6 @@ namespace Fiscalizator.FiscalizationClasses.Entities
         public virtual string Address { get; set; }
         [JsonIgnore]
         public virtual IList<Kkm> Kkms { get; set; }
+        public virtual IList<Cashier> Cashiers { get; set; }
     }
 }

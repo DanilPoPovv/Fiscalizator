@@ -18,6 +18,11 @@ namespace Fiscalizator.NHibernate
                 .KeyColumn("ClientId")
                 .Cascade.All()
                 .Inverse();
+
+            HasMany(x => x.Cashiers)
+                .KeyColumn("ClientId")
+                .Cascade.All()
+                .Inverse();
         }
     }
 }

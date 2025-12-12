@@ -45,13 +45,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         }
         private void CreateNewBill(BillDTO request, ValidationContext validationContext)
         {
-            Bill bill = new Bill
-            {
-                Kkm = validationContext.Kkm,
-                Shift = validationContext.CurrentShift,
-                Amount = request.Amount,
-                OperationDateTime = request.OperationDateTime,
-            };
+            Bill bill = _mapper.MapToModel(request);
+            bill.Kkm = validationContext.Kkm;
+            bill.Shift = validationContext.CurrentShift;
+            bill.Cashier = validationContext.Cashier;
             using var uow = new UnitOfWork(_session);
             uow.Bills.Add(bill);
             uow.Commit();

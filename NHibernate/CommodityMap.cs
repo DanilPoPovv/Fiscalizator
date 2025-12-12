@@ -17,9 +17,9 @@ namespace Fiscalizator.NHibernate
 
             Component(x => x.Tax, m =>
             {
-                m.Map(x => x.TaxType).Not.Nullable();
-                m.Map(x => x.TaxPercent).Not.Nullable();
-                m.Map(x => x.TaxSum).Not.Nullable();
+                m.Map(x => x.TaxType).Nullable();
+                m.Map(x => x.TaxPercent).Nullable();
+                m.Map(x => x.TaxSum).Nullable();
             });
 
             Map(x => x.MeasureUnit).Not.Nullable().Default("'ШТ'");

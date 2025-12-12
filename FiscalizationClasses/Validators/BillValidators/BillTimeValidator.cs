@@ -5,7 +5,7 @@ using Fiscalizator.FiscalizationClasses.Validators.Helpers;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using ISession = NHibernate.ISession;
 
-namespace Fiscalizator.FiscalizationClasses.Validators
+namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
 {
     public class BillTimeValidator : IValidator<BillDTO, ValidationContext>
     {

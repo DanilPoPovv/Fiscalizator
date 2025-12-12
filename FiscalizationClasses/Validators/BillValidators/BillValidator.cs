@@ -5,8 +5,11 @@ using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Helpers;
 using ISession = NHibernate.ISession;
 
-namespace Fiscalizator.FiscalizationClasses.Validators
+namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
 {
+    /// <summary>
+    /// TODO : In the future need to separete all these validations into smaller validators
+    /// </summary>
     public class BillValidator : IValidator<BillDTO, ValidationContext>
     {
         public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
@@ -52,7 +55,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
             if (tax.Percent < 0)
                 throw new BillException("Tax percent cannot be negative.");
 
-            if (tax.Sum != (commoditySum * tax.Percent) / 100)
+            if (tax.Sum != commoditySum * tax.Percent / 100)
                 throw new BillException("Tax sum does not match the calculated value.");
         }
 

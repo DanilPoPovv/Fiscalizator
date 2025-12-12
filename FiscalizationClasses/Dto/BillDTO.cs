@@ -1,9 +1,10 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Requests;
 using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class BillDTO 
+    public class BillDTO : ICashierRequest 
     {
         private DateTime _operationDateTime;
         [XmlElement("Amount")]
@@ -18,5 +19,6 @@ namespace Fiscalizator.FiscalizationClasses.Dto
         public PaymentDTO Payment { get; set; }
         [XmlElement("Cashier")]
         public CashierDTO Cashier { get; set; }
+        public string CashierName => Cashier?.Name ?? string.Empty;
     }
 }

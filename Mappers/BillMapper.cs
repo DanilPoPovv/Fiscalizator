@@ -25,6 +25,7 @@ namespace Fiscalizator.Mappers
                 {
                     Name = billDto.Cashier.Name
                 },
+                
                 Commodities = new List<Commodity>(),
             };
 

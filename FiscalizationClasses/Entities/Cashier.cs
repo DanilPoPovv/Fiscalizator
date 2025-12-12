@@ -11,5 +11,8 @@ namespace Fiscalizator.FiscalizationClasses.Entities
         {
             Bills = new List<Bill>();
         }
+        public virtual int ClientId { get; set; }
+        public virtual Client Client { get; set; }
+
     }
 }

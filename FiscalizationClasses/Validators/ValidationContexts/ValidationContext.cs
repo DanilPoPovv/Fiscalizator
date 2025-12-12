@@ -6,5 +6,6 @@ namespace Fiscalizator.FiscalizationClasses.Validators.ValidationContexts
     {
         public Kkm Kkm { get; set; }
         public Shift CurrentShift { get; set; }
+        public Cashier Cashier { get; set; }
     }
 }

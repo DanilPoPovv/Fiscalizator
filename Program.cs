@@ -8,6 +8,8 @@ using Fiscalizator.Repository;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
+using Fiscalizator.FiscalizationClasses.Validators.GlobalValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -50,6 +52,7 @@ builder.Services.AddScoped<IValidator<OpenShiftDTO,ValidationContext>, OpenShift
 builder.Services.AddScoped<IValidator<KkmDTO, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
 builder.Services.AddScoped<IValidator<KkmUpdateDTO, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
 
+builder.Services.AddScoped<IGlobalValidator<ValidationContext>, GlobalCashierValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

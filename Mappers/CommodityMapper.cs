@@ -14,16 +14,19 @@ namespace Fiscalizator.Mappers
                 Price = commodityDto.Price,
                 Quantity = commodityDto.Quantity,
                 Sum = commodityDto.Sum,
-                Tax = new Tax
-                {
-                    TaxPercent = commodityDto.Tax.Percent,
-                    TaxType = commodityDto.Tax.TaxType,
-                    TaxSum = commodityDto.Tax.Sum
+                Tax = commodityDto.Tax == null
+                ? null
+                : new Tax
+                 {
+                TaxPercent = commodityDto.Tax.Percent,
+                TaxType = commodityDto.Tax.TaxType,
+                TaxSum = commodityDto.Tax.Sum
                 },
                 MeasureUnit = commodityDto.MeasureUnit,
                 Bill = bill
             };
-            
+
+
         }
     }
 }
