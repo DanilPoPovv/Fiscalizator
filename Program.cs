@@ -1,13 +1,3 @@
-using Fiscalizator.FiscalizationClasses.Validators;
-using Fiscalizator.FiscalizationClasses.OperationHandlers;
-using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
-using Fiscalizator.FiscalizationClasses.Validators.OpenShift;
-using Fiscalizator.FiscalizationClasses.Services;
-using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
-using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
-using Fiscalizator.FiscalizationClasses.Validators.GlobalValidators;
 using Fiscalizator.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);

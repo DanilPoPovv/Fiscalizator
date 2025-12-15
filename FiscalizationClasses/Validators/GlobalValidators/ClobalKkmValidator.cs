@@ -7,11 +7,11 @@ using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class ClobalKkmValidator : IGlobalValidator<ValidationContext>
+    public class GlobalKkmValidator : IGlobalValidator<ValidationContext>
     {
         public void Validate(object request, ISession session, ValidationContext validationContext)
         {
-            if (request is not IKkmRequest kkmRequest)
+            if (request is not ISerialNumberRequire kkmRequest)
             {
                 return;
             }
@@ -19,7 +19,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
             Kkm kkm = kkmRepository.GetBySerialNumber(kkmRequest.SerialNumber);
             if (kkm == null)
             {
-                throw new KkmException($"Kkm with serial number {kkmRequest.SerialNumber} does not exist.");
+                throw new KkmException($"Kkm with serial number {kkmRequest.SerialNumber} does not exist.123");
             }
             validationContext.Kkm = kkm;
         }

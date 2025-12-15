@@ -1,11 +1,12 @@
-﻿using System.Xml.Serialization;
+﻿using Fiscalizator.FiscalizationClasses.Requests;
+using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class OpenShiftDTO
+    public class OpenShiftDTO : ISerialNumberRequire, ICashierNameRequire
     {
-        [XmlElement("Cashier")]
-        public string? Cashier { get; set; }
+        [XmlElement("CashierName")]
+        public string CashierName { get; set; }
         [XmlElement("SerialNumber")]
         public int SerialNumber { get; set; }
         [XmlElement("OpenShiftTime")]

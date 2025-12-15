@@ -11,7 +11,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
         CashierRepository _cashierRepository;
         public void Validate(object request, ISession session, ValidationContext validationContext)
         {
-            if (request is not ICashierRequest cashierRequest)
+            if (request is not ICashierNameRequire cashierRequest)
                return;
             _cashierRepository = new CashierRepository(session);
             var cashier = _cashierRepository.GetByName(cashierRequest.CashierName);

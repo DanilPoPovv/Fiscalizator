@@ -10,9 +10,9 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
         public void Validate(OpenShiftDTO request, ISession session, ValidationContext validationContext)
         {
             Shift lastShift = validationContext.Kkm.Shifts.LastOrDefault();
-            if (lastShift == null)
+            if (lastShift == null && validationContext.Kkm.Shifts.Count == 0)
             {
-                throw new ShiftException("There is no previous shift for this KKM.");
+                return;
             }
             else if (request.OpenShiftTime > DateTime.Now)
             {

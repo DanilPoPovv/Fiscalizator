@@ -18,17 +18,16 @@ namespace Fiscalizator.Helpers
             services.AddScoped(typeof(ValidatorManager<,>));
 
             // Bill validators
-            services.AddScoped<IValidator<BillDTO, ValidationContext>, KkmValidator>();
-            services.AddScoped<IValidator<BillDTO, ValidationContext>, OpenShiftValidator>();
+            //services.AddScoped<IValidator<BillDTO, ValidationContext>, OpenShiftValidator>();
             services.AddScoped<IValidator<BillDTO, ValidationContext>, BillTimeValidator>();
             services.AddScoped<IValidator<BillDTO, ValidationContext>, BillValidator>();
 
             // Close shift
-            services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, CloseShiftValidator>();
+            //services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, CloseShiftValidator>();
             services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, ShiftClosedValidator>();
 
             // Open shift
-            services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftBaseValidator>();
+            //services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftBaseValidator>();
             services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, ShiftOpenedValidator>();
             services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftTimeValidator>();
 
@@ -37,7 +36,9 @@ namespace Fiscalizator.Helpers
             services.AddScoped<IValidator<KkmUpdateDTO, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
 
             // Global
+            services.AddScoped<IGlobalValidator<ValidationContext>, GlobalKkmValidator>();
             services.AddScoped<IGlobalValidator<ValidationContext>, GlobalCashierValidator>();
+            services.AddScoped<IGlobalValidator<ValidationContext>, GlobalShiftOpenValidator>();    
 
             return services;
         }

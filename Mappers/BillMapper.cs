@@ -21,10 +21,6 @@ namespace Fiscalizator.Mappers
                 {
                     PaymentType = billDto.Payment.PaymentType
                 },
-                Cashier = new Cashier
-                {
-                    Name = billDto.Cashier.Name
-                },
                 
                 Commodities = new List<Commodity>(),
             };

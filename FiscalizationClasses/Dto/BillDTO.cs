@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class BillDTO : ICashierRequest, IKkmRequest
+    public class BillDTO : ICashierNameRequire, ISerialNumberRequire, IOpenShiftRequire 
     {
         private DateTime _operationDateTime;
         [XmlElement("Amount")]
@@ -17,8 +17,8 @@ namespace Fiscalizator.FiscalizationClasses.Dto
         public CommodityDTO[] Commodity { get; set; }
         [XmlElement("Payment")]
         public PaymentDTO Payment { get; set; }
-        [XmlElement("Cashier")]
-        public CashierDTO Cashier { get; set; }
-        public string CashierName => Cashier?.Name ?? string.Empty;
+        [XmlElement("CashierName")]
+        public string CashierName { get; set; }
+
     }
 }
