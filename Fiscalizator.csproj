@@ -17,4 +17,12 @@
     <Folder Include="Новая папка\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\FiscalizationClasses\Validators\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\dpopov\Source\Repos\Fiscalizator\Fiscalizator\FiscalizationClasses\Validators\.editorconfig" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using ISession = NHibernate.ISession;

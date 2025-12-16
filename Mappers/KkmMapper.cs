@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Kkm;
 using Fiscalizator.FiscalizationClasses.Entities;
 
 namespace Fiscalizator.Mappers

@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Requests

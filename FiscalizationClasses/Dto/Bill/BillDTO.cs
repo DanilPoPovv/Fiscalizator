@@ -1,12 +1,10 @@
-﻿using Fiscalizator.FiscalizationClasses.Entities;
-using Fiscalizator.FiscalizationClasses.Requests;
+﻿using Fiscalizator.FiscalizationClasses.Requests;
 using System.Xml.Serialization;
 
-namespace Fiscalizator.FiscalizationClasses.Dto
+namespace Fiscalizator.FiscalizationClasses.Dto.Bill
 {
-    public class BillDTO : ICashierNameRequire, ISerialNumberRequire, IOpenShiftRequire 
+    public class BillDTO : ICashierNameRequire, ISerialNumberRequire, IOpenShiftRequire
     {
-        private DateTime _operationDateTime;
         [XmlElement("Amount")]
         public decimal Amount { get; set; }
         [XmlElement("OperationDateTime")]

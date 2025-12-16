@@ -1,10 +1,10 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+﻿using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.Mappers;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Dto.Client;
 
 public class ClientService
 {

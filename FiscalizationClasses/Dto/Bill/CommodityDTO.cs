@@ -1,7 +1,7 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 using System.Xml.Serialization;
 
-namespace Fiscalizator.FiscalizationClasses.Dto
+namespace Fiscalizator.FiscalizationClasses.Dto.Bill
 {
     public class CommodityDTO
     {

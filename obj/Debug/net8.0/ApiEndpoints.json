@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Client.ClientDTO",
         "IsRequired": true
       }
     ],
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientChangeDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Client.ClientChangeDTO",
         "IsRequired": true
       }
     ],
@@ -41,7 +41,7 @@
     "Parameters": [
       {
         "Name": "clientDeleteDTO",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDeleteDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Client.ClientDeleteDTO",
         "IsRequired": true
       },
       {
@@ -80,7 +80,7 @@
     "Parameters": [
       {
         "Name": "kkmDTO",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Kkm.KkmDTO",
         "IsRequired": true
       }
     ],
@@ -96,7 +96,7 @@
     "Parameters": [
       {
         "Name": "deleteDTO",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmDeleteDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Kkm.KkmDeleteDTO",
         "IsRequired": true
       }
     ],
@@ -128,7 +128,7 @@
     "Parameters": [
       {
         "Name": "kkmDTO",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmUpdateDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Kkm.KkmUpdateDTO",
         "IsRequired": true
       }
     ],
@@ -144,7 +144,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.CloseShiftDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Shift.CloseShiftDTO",
         "IsRequired": true
       }
     ],
@@ -192,7 +192,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Fiscalizator.FiscalizationClasses.Dto.OpenShiftDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.Shift.OpenShiftDTO",
         "IsRequired": true
       }
     ],

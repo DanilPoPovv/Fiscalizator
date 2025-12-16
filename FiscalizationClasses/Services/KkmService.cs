@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Kkm;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;

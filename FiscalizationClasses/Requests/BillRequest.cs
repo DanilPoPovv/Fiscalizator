@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
 using System.Xml.Serialization;
 
 public class BillRequest 

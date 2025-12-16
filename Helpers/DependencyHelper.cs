@@ -1,5 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
+﻿using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
 using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
 using Fiscalizator.FiscalizationClasses.Validators.GlobalValidators;
 using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
@@ -9,6 +8,10 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.ClientCrudValidator;
+using Fiscalizator.FiscalizationClasses.Dto.Bill;
+using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Dto.Shift;
+using Fiscalizator.FiscalizationClasses.Dto.Kkm;
 
 namespace Fiscalizator.Helpers
 {

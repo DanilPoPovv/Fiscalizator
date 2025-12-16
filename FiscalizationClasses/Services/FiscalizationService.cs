@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
+using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Responses;

@@ -1,11 +1,11 @@
 ﻿using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.FiscalizationClasses.Validators;
-using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.Mappers;
 using Fiscalizator.Repository;
 using Fiscalizator.FiscalizationClasses.Entities;
 using ISession = NHibernate.ISession;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Dto.Bill;
 
 namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {

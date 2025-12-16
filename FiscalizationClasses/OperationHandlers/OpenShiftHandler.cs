@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.FiscalizationClasses.Validators;

@@ -1,6 +1,6 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
 
-namespace Fiscalizator.FiscalizationClasses.Dto
+namespace Fiscalizator.FiscalizationClasses.Dto.Kkm
 {
     public class KkmDeleteDTO : ISerialNumberRequire
     {
