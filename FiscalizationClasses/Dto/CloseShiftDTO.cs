@@ -8,7 +8,7 @@ namespace Fiscalizator.FiscalizationClasses.Dto
     {
         [XmlElement("SerialNumber")]
         public int SerialNumber { get; set; }
-        [XmlElement("Cashier")]
+        [XmlElement("CashierName")]
         public string CashierName { get; set; }
     }
 }

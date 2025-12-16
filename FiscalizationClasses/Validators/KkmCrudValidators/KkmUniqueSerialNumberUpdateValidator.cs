@@ -3,7 +3,6 @@ using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
-using NHibernate.Mapping.ByCode.Impl;
 using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators

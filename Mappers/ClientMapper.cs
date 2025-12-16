@@ -9,14 +9,14 @@ namespace Fiscalizator.Mappers
         {
             return new Client
             {
-                Code = dto.Code,
+                Code = dto.ClientCode,
                 Name = dto.Name,
                 Address = dto.Address
             };
         }
         public void Map(ClientDTO dto, Client existingClient)
         {
-            existingClient.Code = dto.Code;
+            existingClient.Code = dto.ClientCode;
             existingClient.Name = dto.Name;
             existingClient.Address = dto.Address;
         }

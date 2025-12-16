@@ -40,25 +40,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "clientCode",
-        "Type": "System.Int32",
+        "Name": "clientDeleteDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.ClientDeleteDTO",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Fiscalizator.Controllers.ClientController",
-    "Method": "GetClientByName",
-    "RelativePath": "Client/Get",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
+      },
       {
-        "Name": "\u0441lientName",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "clientCode",
+        "Type": "",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -90,11 +79,6 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "clientCode",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
         "Name": "kkmDTO",
         "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmDTO",
         "IsRequired": true
@@ -111,9 +95,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "serialNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "deleteDTO",
+        "Type": "Fiscalizator.FiscalizationClasses.Dto.KkmDeleteDTO",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

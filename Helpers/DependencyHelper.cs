@@ -8,6 +8,7 @@ using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Services;
+using Fiscalizator.FiscalizationClasses.Validators.ClientCrudValidator;
 
 namespace Fiscalizator.Helpers
 {
@@ -34,11 +35,16 @@ namespace Fiscalizator.Helpers
             // KKM
             services.AddScoped<IValidator<KkmDTO, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
             services.AddScoped<IValidator<KkmUpdateDTO, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
-
+            services.AddScoped<IValidator<KkmDeleteDTO, KkmValidationContext>, KkmDeleteValidator>();
+            // Client
+            services.AddScoped<IValidator<ClientDTO, ClientValidationContext>, ClientCreateUniqueValidator>();
+            services.AddScoped<IValidator<ClientChangeDTO, ClientValidationContext>, ClientUpdateUnique>();
+            services.AddScoped<IValidator<ClientDeleteDTO, ClientValidationContext>, ClientDeleteValidator>();
             // Global
-            services.AddScoped<IGlobalValidator<ValidationContext>, GlobalKkmValidator>();
+            services.AddScoped(typeof(IGlobalValidator<>), typeof(GlobalKkmValidator<>));
             services.AddScoped<IGlobalValidator<ValidationContext>, GlobalCashierValidator>();
             services.AddScoped<IGlobalValidator<ValidationContext>, GlobalShiftOpenValidator>();    
+            services.AddScoped<IGlobalValidator<ClientValidationContext>, GlobalClientValidator>();
 
             return services;
         }

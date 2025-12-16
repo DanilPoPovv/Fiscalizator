@@ -1,11 +1,11 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
+using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto
 {
-    public class ClientDTO : IClientCodeRequire
+    public class ClientDeleteDTO : IClientCodeRequire
     {
+        [XmlElement("ClientCode")]
         public int ClientCode { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; } 
     }
 }

@@ -14,25 +14,28 @@ namespace Fiscalizator.FiscalizationClasses.Services
     {
         private readonly ISession _session;
         private readonly KkmMapper _kkmMapper = new KkmMapper();
-        private readonly IValidator<KkmDTO, KkmValidationContext> _validator;
-        private readonly IValidator<KkmUpdateDTO,KkmValidationContext> _validatorUpdate;
+        private readonly ValidatorManager<KkmDTO, KkmValidationContext> _validator;
+        private readonly ValidatorManager<KkmUpdateDTO, KkmValidationContext> _validatorUpdate;
+        private readonly ValidatorManager<KkmDeleteDTO, KkmValidationContext> _validatorDelete;
         private readonly KkmRepository _kkmRepository;
         private readonly ClientRepository _clientRepository;
 
-        public KkmService(IValidator<KkmDTO, KkmValidationContext> validator, IValidator<KkmUpdateDTO,KkmValidationContext> updateValidator)
+        public KkmService(ValidatorManager<KkmDTO, KkmValidationContext> validator, 
+            ValidatorManager<KkmUpdateDTO,KkmValidationContext> updateValidator, ValidatorManager<KkmDeleteDTO, KkmValidationContext> validatorDelete)
         {
             _session = NHibernateHelper.OpenSession();
             _validator = validator;
             _validatorUpdate = updateValidator;
             _kkmRepository = new KkmRepository(_session);
             _clientRepository = new ClientRepository(_session);
+            _validatorDelete = validatorDelete;
         }
 
-        public void AddKkm(int clientCode, KkmDTO kkmDTO)
+        public void AddKkm(KkmDTO kkmDTO)
         {
             var validationContext = new KkmValidationContext();
 
-            _validator.Validate(kkmDTO, _session, validationContext);
+            _validator.ValidateAll(kkmDTO, _session, validationContext);
 
             var kkm = _kkmMapper.Map(kkmDTO);
             kkm.Client = validationContext.Client;
@@ -46,8 +49,8 @@ namespace Fiscalizator.FiscalizationClasses.Services
         public void UpdateKkm(KkmUpdateDTO kkmDTO)
         {
             var validationContext = new KkmValidationContext();
-            _validatorUpdate.Validate(kkmDTO, _session, validationContext);
-            var kkm = validationContext.Client.Kkms.FirstOrDefault(k => k.SerialNumber == kkmDTO.OldSerialNumber);
+            _validatorUpdate.ValidateAll(kkmDTO, _session, validationContext);
+            var kkm = validationContext.Client.Kkms.FirstOrDefault(k => k.SerialNumber == kkmDTO.SerialNumber);
             kkm.SerialNumber = kkmDTO.NewSerialNumber;
             kkm.Location = kkmDTO.Location;
             using (var transaction = _session.BeginTransaction())
@@ -64,9 +67,11 @@ namespace Fiscalizator.FiscalizationClasses.Services
                 }
             }
         }
-        public void DeleteKkm(int serialNumber) 
+        public void DeleteKkm(KkmDeleteDTO deleteDTO) 
         {
-            var kkm = _kkmRepository.GetBySerialNumber(serialNumber);
+            var validationContext = new KkmValidationContext();
+            _validatorDelete.ValidateAll(deleteDTO, _session, validationContext);
+            var kkm = _kkmRepository.GetBySerialNumber(deleteDTO.SerialNumber);
             using (var transaction = _session.BeginTransaction())
             {
                 try

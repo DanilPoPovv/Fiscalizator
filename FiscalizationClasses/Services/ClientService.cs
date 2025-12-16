@@ -1,58 +1,67 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.Mappers;
 using Fiscalizator.Repository;
-using FluentNHibernate.Conventions;
-using FluentNHibernate.Data;
+using ISession = NHibernate.ISession;
+using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.FiscalizationClasses.Services
+public class ClientService
 {
-    public class ClientService 
-    {
-        private readonly ClientRepository _clientRepository;
-        private readonly ClientMapper _clientMapper = new ClientMapper();
-        public ClientService()
-        {
-            _clientRepository = new ClientRepository(NHibernateHelper.OpenSession());
-        }
-        public Client GetClientByName(string name)
-        {
-            return _clientRepository.GetByName(name);
-        }
-        public void AddClient(ClientDTO clientDTO)
-        {
-            Client client = MapToModel(clientDTO);
-            _clientRepository.Add(client);
-        }
-        public void DeleteClient(int code)
-        {
-            UnitOfWork uow = new UnitOfWork(NHibernateHelper.OpenSession());
-            Client client = uow.clientRepository.GetByCode(code);
-            if (client.Kkms.Count > 0)
-            {
-                throw new InvalidOperationException("Cannot delete client with associated KKMs.");
-            }
-            uow.clientRepository.Delete(client);
-            uow.Commit();
-        }
-        public void UpdateClient(ClientChangeDTO dto)
-        {
-            UnitOfWork uow = new UnitOfWork(NHibernateHelper.OpenSession());
-            Client client = uow.clientRepository.GetByCode(dto.OldCode);
-            client.Address = dto.Address;
-            client.Name = dto.Name;
-            client.Code = dto.Code;
-            uow.clientRepository.Update(client);
-            uow.Commit();
-        }
-        private Client MapToModel(ClientDTO clientDTO)
-        {
-            return _clientMapper.Map(clientDTO);
-        }
-        public List<Client> GetAllClients()
-        {
+    private readonly ValidatorManager<ClientDTO, ClientValidationContext> _createValidator;
+    private readonly ValidatorManager<ClientChangeDTO, ClientValidationContext> _updateValidator;
+    private readonly ValidatorManager<ClientDeleteDTO, ClientValidationContext> _deleteValidator;
 
-            return _clientRepository.GetAll();
-        }
+    private readonly ClientRepository _clientRepository;
+    private readonly ClientMapper _clientMapper;
+    private readonly ISession _session;
+
+    public ClientService(
+        ValidatorManager<ClientDTO, ClientValidationContext> createValidator,
+        ValidatorManager<ClientChangeDTO, ClientValidationContext> updateValidator,
+        ValidatorManager<ClientDeleteDTO, ClientValidationContext> deleteValidator
+    )
+    {
+        _session = NHibernateHelper.OpenSession();
+        _createValidator = createValidator;
+        _updateValidator = updateValidator;
+        _deleteValidator = deleteValidator;
+        _clientRepository = new ClientRepository(_session);
+        _clientMapper = new ClientMapper();
+    }
+
+    public void AddClient(ClientDTO dto)
+    {
+        var context = new ClientValidationContext();
+        _createValidator.ValidateAll(dto, _session, context);
+
+        var client = _clientMapper.Map(dto);
+        _clientRepository.Add(client);
+    }
+
+    public void DeleteClient(ClientDeleteDTO dto)
+    {
+        var context = new ClientValidationContext();
+        _deleteValidator.ValidateAll(dto, _session, context);
+
+        _clientRepository.Delete(context.Client);
+    }
+
+    public void UpdateClient(ClientChangeDTO dto)
+    {
+        var context = new ClientValidationContext();
+        _updateValidator.ValidateAll(dto, _session, context);
+
+        var client = context.Client;
+        client.Name = dto.Name;
+        client.Address = dto.Address;
+        client.Code = dto.ClientCode;
+
+        _clientRepository.Update(client);
+    }
+    public List<Client> GetAllClients()
+    {
+    return _clientRepository.GetAll();
     }
 }
+

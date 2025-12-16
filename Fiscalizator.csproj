@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="FiscalizationClasses\Validators\ClientCrudValidator\" />
     <Folder Include="Новая папка\" />
   </ItemGroup>
 
