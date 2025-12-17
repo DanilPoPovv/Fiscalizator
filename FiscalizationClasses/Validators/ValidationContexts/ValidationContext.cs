@@ -2,7 +2,7 @@
 
 namespace Fiscalizator.FiscalizationClasses.Validators.ValidationContexts
 {
-    public class ValidationContext : IValidationContext, IKkmValidationContextRequire
+    public class ValidationContext : IValidationContext, IKkmValidationContextRequire, ICashierValidationContextRequire
     {
         public Kkm Kkm { get; set; }
         public Shift CurrentShift { get; set; }

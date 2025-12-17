@@ -2,6 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Responses;
 using Fiscalizator.FiscalizationClasses.Validators;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
@@ -11,15 +12,17 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     public class CloseShiftHandler
     {
         private readonly Logger.Logger _logger;
-        private readonly ValidatorManager<CloseShiftDTO, ValidationContext> _validatorManager;
+        private readonly ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> _validatorManager;
         private readonly UnitOfWork _unitOfWork;
         private ISession _session;
-        public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO, ValidationContext> validator)
+        private readonly BaseOperationDataAccessor _dataAccessor;
+        public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> validator)
         {
             _logger = logger;
             _session = NHibernateHelper.SessionFactory.OpenSession();
             _unitOfWork = new UnitOfWork(_session);
             _validatorManager = validator;
+            _dataAccessor = new BaseOperationDataAccessor(_session);
         }
 
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
@@ -28,7 +31,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
             try
             {
-                _validatorManager.ValidateAll(request, _session, validationContext);
+                _validatorManager.ValidateAll(request, _dataAccessor, validationContext);
 
                 _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
 

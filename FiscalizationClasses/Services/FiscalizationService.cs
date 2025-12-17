@@ -38,7 +38,7 @@ public class FiscalizationService
         operationResponse = _closeShiftHandler.ProcessCloseShift(closeShiftRequest);
         return operationResponse;
     }
-    }
+}
 
 
 

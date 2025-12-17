@@ -1,18 +1,18 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Helpers;
-using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
 {
     /// <summary>
     /// TODO : In the future need to separete all these validations into smaller validators
     /// </summary>
-    public class BillValidator : IValidator<BillDTO, ValidationContext>
+    public class BillValidator : IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>
     {
-        public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
+        public void Validate(BillDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
         {
             ValidateAmount(request.Amount);
             ValidateCommodity(request.Amount, request.Commodity);

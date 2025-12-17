@@ -7,10 +7,10 @@ namespace Fiscalizator.Repository
     {
         public ShiftRepository(ISession session) : base(session){ }
 
-        public Shift GetCurrentKkmShift(Kkm kkm)
-        {
-            return _session.Query<Shift>().FirstOrDefault(s => s.Kkm.Id == kkm.Id && s.ClosureDateTime == null);
-        }
+        //public Shift GetCurrentKkmShift(Kkm kkm)
+        //{
+        //    return _session.Query<Shift>().FirstOrDefault(s => s.Kkm.Id == kkm.Id && s.ClosureDateTime == null);
+        //}
         public void CloseShift(Shift shift)
         {
             _session.Update(shift);
