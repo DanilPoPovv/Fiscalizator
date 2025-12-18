@@ -16,7 +16,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
             {
                 throw new ShiftException("There is already an opened shift for this KKM.");
             }            
-            validationContext.CurrentShift = shift;
+            validationContext.Shift = shift;
         }
     }
 }

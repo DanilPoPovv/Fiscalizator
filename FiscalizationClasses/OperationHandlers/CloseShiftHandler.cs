@@ -35,7 +35,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
                 _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
 
-                Shift shift = validationContext.CurrentShift;
+                Shift shift = validationContext.Shift;
                 shift.Kkm = validationContext.Kkm;
 
                 var lastBill = shift.Bills.LastOrDefault();

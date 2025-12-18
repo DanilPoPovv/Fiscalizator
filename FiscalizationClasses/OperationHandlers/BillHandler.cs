@@ -50,7 +50,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         {
             Bill bill = _mapper.MapToModel(request);
             bill.Kkm = validationContext.Kkm;
-            bill.Shift = validationContext.CurrentShift;
+            bill.Shift = validationContext.Shift;
             bill.Cashier = validationContext.Cashier;
             using var uow = new UnitOfWork(_session);
             uow.Bills.Add(bill);

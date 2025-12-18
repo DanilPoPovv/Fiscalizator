@@ -9,7 +9,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.ClientCrudValidator
     {
         public void Validate(ClientChangeDTO clientDto, ClientCrudDataAccesor validationData, ClientValidationContext validationContext)
         {
-            if (validationData.Clients.GetByCode(clientDto.ClientCode) != null)
+            if (validationData.Clients.GetByCode(clientDto.NewCode) != null)
             {
                 throw new ClientException("A client with the same code already exists.");
             }

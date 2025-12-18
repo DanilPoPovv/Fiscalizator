@@ -9,8 +9,8 @@ using NHibernate.SqlCommand;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalKkmValidator<TContext,TData> : IGlobalValidator<TContext, TData> where TContext : IValidationContext where TData : IKkmDataAccessor
-    {
+    public class GlobalKkmValidator<TData, TContext> : IGlobalValidator<TData, TContext> where TContext : IValidationContext where TData : IKkmDataAccessor
+    { 
         public void Validate(object request, TData validationData, TContext validationContext)
         {
             if (request is not ISerialNumberRequire kkmRequest)

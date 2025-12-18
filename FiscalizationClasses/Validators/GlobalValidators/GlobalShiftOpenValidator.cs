@@ -1,21 +1,29 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
-using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalShiftOpenValidator : IGlobalValidator<ValidationContext,BaseOperationDataAccessor>
+    public class GlobalShiftOpenValidator<TData, TContext> : IGlobalValidator<TData, TContext>
+        where TData : IShiftDataAccessor
+        where TContext : IValidationContext, IKkmValidationContextRequire, IShiftOpenValidationContextRequire
     {
-        public void Validate(object request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
+        public void Validate(object request, TData validationData,TContext validationContext)
         {
-            if (request is not IOpenShiftRequire shiftOpenRequest)
+            if (request is not IOpenShiftRequire)
                 return;
-            if (validationContext.Kkm.Shifts.LastOrDefault().ClosureDateTime != null)
+
+            var lastShift = validationContext.Kkm.Shifts.LastOrDefault();
+
+            if (lastShift == null || lastShift.ClosureDateTime != null)
             {
                 throw new ShiftException("This operation requires the current shift to be opened.");
             }
+
+            validationContext.Shift = lastShift;
         }
     }
+
 }

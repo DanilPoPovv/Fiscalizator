@@ -8,7 +8,7 @@ using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalClientValidator : IGlobalValidator<ClientValidationContext, IClientDataAccessor>
+    public class GlobalClientValidator : IGlobalValidator<IClientDataAccessor, ClientValidationContext>
     {
         public void Validate(object request, IClientDataAccessor validationData, ClientValidationContext validationContext)
         {

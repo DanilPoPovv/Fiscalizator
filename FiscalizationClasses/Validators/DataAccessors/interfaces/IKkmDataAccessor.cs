@@ -4,6 +4,6 @@ namespace Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces
 {
     public interface IKkmDataAccessor
     {
-        KkmRepository Kkms { get; }
+        public KkmRepository Kkms { get; }
     }
 }

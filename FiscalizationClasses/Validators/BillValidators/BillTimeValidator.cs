@@ -10,8 +10,8 @@ namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
     {
         public void Validate(BillDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
         {
-            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.CurrentShift);
-            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.CurrentShift);
+            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.Shift);
+            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.Shift);
         }
 
         private void ValidateEarlierThanLastBill(DateTime billTime, Shift shift)

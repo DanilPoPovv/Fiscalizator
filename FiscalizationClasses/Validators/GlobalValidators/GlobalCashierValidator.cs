@@ -8,7 +8,7 @@ using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalCashierValidator<TContext,TData> : IGlobalValidator<TContext, TData> where TContext : IValidationContext where TData : ICashierDataAccessor
+    public class GlobalCashierValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TContext : IValidationContext where TData : ICashierDataAccessor
     {
         public void Validate(object request, TData validationData, TContext validationContext)
         {

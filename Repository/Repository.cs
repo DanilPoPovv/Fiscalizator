@@ -18,7 +18,7 @@ namespace Fiscalizator.Repository
         }
         public void Update(T entity)
         {
-             _session.Update(entity);
+            _session.Update(entity);
         }
             public T GetById(int id)
         {

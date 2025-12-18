@@ -13,7 +13,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.CloseShift
                 { 
                 throw new Exception("There is no opened shift for this KKM.");
                 }
-            validationContext.CurrentShift = shift;
+            validationContext.Shift = shift;
         }
     }
 }

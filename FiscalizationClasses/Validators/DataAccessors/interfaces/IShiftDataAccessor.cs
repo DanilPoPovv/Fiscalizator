@@ -4,6 +4,6 @@ namespace Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces
 {
     public interface IShiftDataAccessor
     {
-        ShiftRepository Shifts { get; }
+        public ShiftRepository Shifts { get; }
     }
 }

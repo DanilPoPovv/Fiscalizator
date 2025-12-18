@@ -17,7 +17,7 @@ public class ClientService
     private readonly ClientRepository _clientRepository;
     private readonly ClientMapper _clientMapper;
     private readonly ISession _session;
-    private readonly IClientDataAccessor _dataAccessor;
+    private readonly ClientCrudDataAccesor _dataAccessor;
 
     public ClientService(
         ValidatorManager<ClientDTO, IClientDataAccessor, ClientValidationContext> createValidator,
@@ -45,23 +45,33 @@ public class ClientService
 
     public void DeleteClient(ClientDeleteDTO dto)
     {
+        using var transaction = _session.BeginTransaction();
+
         var context = new ClientValidationContext();
         _deleteValidator.ValidateAll(dto, _dataAccessor, context);
 
         _clientRepository.Delete(context.Client);
+
+        transaction.Commit();
     }
 
     public void UpdateClient(ClientChangeDTO dto)
     {
+        using var transaction = _session.BeginTransaction();
+
         var context = new ClientValidationContext();
         _updateValidator.ValidateAll(dto, _dataAccessor, context);
-        var client = context.Client;
+
+        Client client = context.Client;
         client.Name = dto.Name;
         client.Address = dto.Location;
-        client.Code = dto.ClientCode;
+        client.Code = dto.NewCode;
 
         _clientRepository.Update(client);
+
+        transaction.Commit();
     }
+
     public List<Client> GetAllClients()
     {
     return _clientRepository.GetAll();

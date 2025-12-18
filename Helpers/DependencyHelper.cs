@@ -48,8 +48,8 @@ namespace Fiscalizator.Helpers
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
-            services.AddScoped<IGlobalValidator<ValidationContext, BaseOperationDataAccessor>, GlobalShiftOpenValidator>();    
-            services.AddScoped<IGlobalValidator<ClientValidationContext, IClientDataAccessor>, GlobalClientValidator>();
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
+            services.AddScoped<IGlobalValidator<IClientDataAccessor,ClientValidationContext >, GlobalClientValidator>();
 
             return services;
         }
