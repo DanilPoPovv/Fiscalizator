@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
 using Fiscalizator.FiscalizationClasses.Entities;
 using System.Diagnostics.Metrics;
 

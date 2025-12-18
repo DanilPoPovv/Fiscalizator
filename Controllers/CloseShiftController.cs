@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Responses;
-using Fiscalizator.FiscalizationClasses.Dto;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
+using Fiscalizator.FiscalizationClasses.Dto.Shift;
 namespace Fiscalizator.Controllers
 {
     [ApiController]

@@ -1,13 +1,14 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
 {
-    public class OpenShiftTimeValidator : IValidator<OpenShiftDTO, ValidationContext>
+    public class OpenShiftTimeValidator : IValidator<OpenShiftDTO, BaseOperationDataAccessor, ValidationContext>
     {
-        public void Validate(OpenShiftDTO request, ISession session, ValidationContext validationContext)
+        public void Validate(OpenShiftDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
         {
             Shift lastShift = validationContext.Kkm.Shifts.LastOrDefault();
             if (lastShift == null && validationContext.Kkm.Shifts.Count == 0)

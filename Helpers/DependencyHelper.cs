@@ -1,5 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
+﻿using Fiscalizator.FiscalizationClasses.Validators.BillValidators;
 using Fiscalizator.FiscalizationClasses.Validators.CloseShift;
 using Fiscalizator.FiscalizationClasses.Validators.GlobalValidators;
 using Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators;
@@ -9,6 +8,12 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.ClientCrudValidator;
+using Fiscalizator.FiscalizationClasses.Dto.Bill;
+using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Dto.Shift;
+using Fiscalizator.FiscalizationClasses.Dto.Kkm;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 
 namespace Fiscalizator.Helpers
 {
@@ -16,35 +21,35 @@ namespace Fiscalizator.Helpers
     {
         public static IServiceCollection AddFiscalizatorValidators(this IServiceCollection services)
         {
-            services.AddScoped(typeof(ValidatorManager<,>));
+            services.AddScoped(typeof(ValidatorManager<,,>));
 
             // Bill validators
             //services.AddScoped<IValidator<BillDTO, ValidationContext>, OpenShiftValidator>();
-            services.AddScoped<IValidator<BillDTO, ValidationContext>, BillTimeValidator>();
-            services.AddScoped<IValidator<BillDTO, ValidationContext>, BillValidator>();
+            services.AddScoped<IValidator<BillDTO,BaseOperationDataAccessor, ValidationContext>, BillTimeValidator>();
+            services.AddScoped<IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>, BillValidator>();
 
             // Close shift
             //services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, CloseShiftValidator>();
-            services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, ShiftClosedValidator>();
+            services.AddScoped<IValidator<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext>, ShiftClosedValidator>();
 
             // Open shift
             //services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftBaseValidator>();
-            services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, ShiftOpenedValidator>();
-            services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftTimeValidator>();
+            services.AddScoped<IValidator<OpenShiftDTO, BaseOperationDataAccessor, ValidationContext>, ShiftOpenedValidator>();
+            services.AddScoped<IValidator<OpenShiftDTO, BaseOperationDataAccessor, ValidationContext>, OpenShiftTimeValidator>();
 
             // KKM
-            services.AddScoped<IValidator<KkmDTO, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
-            services.AddScoped<IValidator<KkmUpdateDTO, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
-            services.AddScoped<IValidator<KkmDeleteDTO, KkmValidationContext>, KkmDeleteValidator>();
+            services.AddScoped<IValidator<KkmDTO,KkmCrudDataAccessor, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
+            services.AddScoped<IValidator<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
+            services.AddScoped<IValidator<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmDeleteValidator>();
             // Client
-            services.AddScoped<IValidator<ClientDTO, ClientValidationContext>, ClientCreateUniqueValidator>();
-            services.AddScoped<IValidator<ClientChangeDTO, ClientValidationContext>, ClientUpdateUnique>();
-            services.AddScoped<IValidator<ClientDeleteDTO, ClientValidationContext>, ClientDeleteValidator>();
+            services.AddScoped<IValidator<ClientDTO,ClientCrudDataAccesor, ClientValidationContext>, ClientCreateUniqueValidator>();
+            services.AddScoped<IValidator<ClientChangeDTO, ClientCrudDataAccesor,ClientValidationContext>, ClientUpdateUnique>();
+            services.AddScoped<IValidator<ClientDeleteDTO, ClientCrudDataAccesor, ClientValidationContext>, ClientDeleteValidator>();
             // Global
-            services.AddScoped(typeof(IGlobalValidator<>), typeof(GlobalKkmValidator<>));
-            services.AddScoped<IGlobalValidator<ValidationContext>, GlobalCashierValidator>();
-            services.AddScoped<IGlobalValidator<ValidationContext>, GlobalShiftOpenValidator>();    
-            services.AddScoped<IGlobalValidator<ClientValidationContext>, GlobalClientValidator>();
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
+            services.AddScoped<IGlobalValidator<IClientDataAccessor,ClientValidationContext >, GlobalClientValidator>();
 
             return services;
         }

@@ -1,4 +1,6 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
@@ -6,20 +8,19 @@ using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalCashierValidator : IGlobalValidator<ValidationContext>
+    public class GlobalCashierValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TContext : IValidationContext where TData : ICashierDataAccessor
     {
-        CashierRepository _cashierRepository;
-        public void Validate(object request, ISession session, ValidationContext validationContext)
+        public void Validate(object request, TData validationData, TContext validationContext)
         {
             if (request is not ICashierNameRequire cashierRequest)
-               return;
-            _cashierRepository = new CashierRepository(session);
-            var cashier = _cashierRepository.GetByName(cashierRequest.CashierName);
+               return; 
+            var cashier = validationData.Cashiers.GetByName(cashierRequest.CashierName);
             if (cashier == null)
             {
                 throw new CashierException($"Cashier with name {cashierRequest.CashierName} does not exist.");
             }
-            validationContext.Cashier = cashier;
+            if (validationContext is ICashierValidationContextRequire cashierValidationContext)
+                cashierValidationContext.Cashier = cashier;
         }
     }
 }

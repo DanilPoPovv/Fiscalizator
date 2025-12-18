@@ -1,22 +1,23 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Requests;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
-using ISession = NHibernate.ISession;
+using NHibernate.SqlCommand;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalKkmValidator<TContext> : IGlobalValidator<TContext> where TContext : IValidationContext
-    {
-        public void Validate(object request, ISession session, TContext validationContext)
+    public class GlobalKkmValidator<TData, TContext> : IGlobalValidator<TData, TContext> where TContext : IValidationContext where TData : IKkmDataAccessor
+    { 
+        public void Validate(object request, TData validationData, TContext validationContext)
         {
             if (request is not ISerialNumberRequire kkmRequest)
             {
                 return;
             }
-            KkmRepository kkmRepository = new KkmRepository(session);
-            Kkm kkm = kkmRepository.GetBySerialNumber(kkmRequest.SerialNumber);
+            Kkm kkm = validationData.Kkms.GetBySerialNumber(kkmRequest.SerialNumber);
             if (kkm == null)
             {
                 throw new KkmException($"Kkm with serial number {kkmRequest.SerialNumber} does not exist.");

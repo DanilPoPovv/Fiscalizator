@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Requests;
 
-namespace Fiscalizator.FiscalizationClasses.Dto
+namespace Fiscalizator.FiscalizationClasses.Dto.Kkm
 {
-    public class KkmUpdateDTO  : ISerialNumberRequire
+    public class KkmUpdateDTO : ISerialNumberRequire
     {
         public int ClientCode { get; set; }
         public int SerialNumber { get; set; }

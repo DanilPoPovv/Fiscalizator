@@ -2,7 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Requests;
 using System.Xml.Serialization;
 
-namespace Fiscalizator.FiscalizationClasses.Dto
+namespace Fiscalizator.FiscalizationClasses.Dto.Shift
 {
     public class CloseShiftDTO : ISerialNumberRequire, ICashierNameRequire, IOpenShiftRequire
     {

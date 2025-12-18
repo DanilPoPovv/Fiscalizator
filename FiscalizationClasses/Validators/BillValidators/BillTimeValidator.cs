@@ -1,17 +1,17 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
-using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
 {
-    public class BillTimeValidator : IValidator<BillDTO, ValidationContext>
+    public class BillTimeValidator : IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>
     {
-        public void Validate(BillDTO request, ISession session, ValidationContext validationContext)
+        public void Validate(BillDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
         {
-            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.CurrentShift);
-            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.CurrentShift);
+            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.Shift);
+            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.Shift);
         }
 
         private void ValidateEarlierThanLastBill(DateTime billTime, Shift shift)
