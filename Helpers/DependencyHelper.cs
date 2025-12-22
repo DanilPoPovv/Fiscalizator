@@ -14,6 +14,8 @@ using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.Dto.Kkm;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
+using Fiscalizator.FiscalizationClasses.Dto.Cashier;
+using Fiscalizator.FiscalizationClasses.Validators.CashierCrudValidators;
 
 namespace Fiscalizator.Helpers
 {
@@ -45,11 +47,14 @@ namespace Fiscalizator.Helpers
             services.AddScoped<IValidator<ClientDTO,ClientCrudDataAccesor, ClientValidationContext>, ClientCreateUniqueValidator>();
             services.AddScoped<IValidator<ClientChangeDTO, ClientCrudDataAccesor,ClientValidationContext>, ClientUpdateUnique>();
             services.AddScoped<IValidator<ClientDeleteDTO, ClientCrudDataAccesor, ClientValidationContext>, ClientDeleteValidator>();
+
+            //Cashier
+            services.AddScoped<IValidator<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext>, CashierAddvalidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
-            services.AddScoped<IGlobalValidator<IClientDataAccessor,ClientValidationContext >, GlobalClientValidator>();
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalClientValidator<,>));
 
             return services;
         }
@@ -63,6 +68,7 @@ namespace Fiscalizator.Helpers
             services.AddScoped<OpenShiftHandler>();
             services.AddScoped<BillValidator>();
             services.AddScoped<KkmService>();
+            services.AddScoped<CashierService>();
 
             return services;
         }

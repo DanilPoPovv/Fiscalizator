@@ -1,4 +1,4 @@
-﻿using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+﻿using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {
