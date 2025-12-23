@@ -1,6 +1,6 @@
 ﻿using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.GlobalValidators;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 
 namespace Fiscalizator.FiscalizationClasses.Validators
 {

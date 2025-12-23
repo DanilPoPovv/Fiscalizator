@@ -1,7 +1,7 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Kkm;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
-using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators
 {
@@ -9,6 +9,11 @@ namespace Fiscalizator.FiscalizationClasses.Validators.KkmCrudValidators
     {
         public void Validate(KkmDeleteDTO request, KkmCrudDataAccessor validationData, KkmValidationContext validationContext)
         {
+            if (validationContext.Kkm.Bills.Count > 0) 
+            {
+                throw new KkmException("Cannot delete KKM with associated bills.");
+            }
+
         }
     }
 }

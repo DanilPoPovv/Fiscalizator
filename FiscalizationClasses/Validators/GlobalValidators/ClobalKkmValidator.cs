@@ -3,7 +3,7 @@ using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 using Fiscalizator.Repository;
 using NHibernate.SqlCommand;
 

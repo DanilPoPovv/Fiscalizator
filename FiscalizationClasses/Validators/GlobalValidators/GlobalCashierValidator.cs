@@ -2,13 +2,14 @@
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalCashierValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TContext : IValidationContext where TData : ICashierDataAccessor
+    public class GlobalCashierValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TContext : IValidationContext 
+        where TData : ICashierDataAccessor
     {
         public void Validate(object request, TData validationData, TContext validationContext)
         {

@@ -4,13 +4,15 @@ using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalClientValidator : IGlobalValidator<IClientDataAccessor, ClientValidationContext>
+    public class GlobalClientValidator<TData,TContext> : IGlobalValidator<TData, TContext> where TData : IClientDataAccessor
+        where TContext : ValidationContext 
     {
-        public void Validate(object request, IClientDataAccessor validationData, ClientValidationContext validationContext)
+        public void Validate(object request, TData validationData, TContext validationContext)
         {
             if (request is not IClientCodeRequire clientRequest)
                 return;
@@ -19,7 +21,8 @@ namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
             {
                 throw new ClientException("Client with the specified code does not exist.");
             }
-            validationContext.Client = client;
+            if (validationContext is IClientValidationContextRequire validationContextClient)
+                validationContextClient.Client = client;
         }
     }
 }

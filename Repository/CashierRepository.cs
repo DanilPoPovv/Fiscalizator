@@ -10,5 +10,9 @@ namespace Fiscalizator.Repository
         {
             return _session.Query<Cashier>().FirstOrDefault(c => c.Name == name);
         }
+        public IEnumerable<Cashier> GetAllClientCashier(int ClientCode)
+        {
+            return _session.Query<Cashier>().Where(c => c.Client.Code == ClientCode).ToList();
+        }
     }
 }
