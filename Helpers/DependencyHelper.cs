@@ -50,6 +50,7 @@ namespace Fiscalizator.Helpers
 
             //Cashier
             services.AddScoped<IValidator<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext>, CashierAddvalidator>();
+            services.AddScoped<IValidator<CashierUpdateDto, CashierCrudDataAccessor, CashierValidationContext>, CashierUpdateValidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));

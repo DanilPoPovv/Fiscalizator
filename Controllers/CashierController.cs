@@ -27,7 +27,7 @@ namespace Fiscalizator.Controllers
                 _cashierService.AddCashier(request);
                 return Ok();
             }
-            catch (ClientException ex)
+            catch (CashierException ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
@@ -39,33 +39,34 @@ namespace Fiscalizator.Controllers
 
         [HttpPut("Change")]
         [Produces("application/json"), Consumes("application/json")]
-        public ActionResult UpdateCashier(ClientChangeDTO request)
+        public ActionResult UpdateCashier(CashierUpdateDto request)
         {
             try
             {
-                _cashierService.UpdateCashier();
+                _cashierService.UpdateCashier(request);
                 return Ok();
             }
-            catch (ClientException ex)
+            catch (CashierException ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
+                Console.WriteLine(ex);
+                return StatusCode(500, "An unexpected error occurred: " + ex.Message);            
             }
         }
 
         [HttpDelete("Delete")]
         [Produces("application/json")]
-        public ActionResult DeleteCashier(ClientDeleteDTO clientDeleteDTO)
+        public ActionResult DeleteCashier(CashierDeleteDTO cashierDeleteDTO)
         {
             try
             {
-                _cashierService.DeleteCashier();
+                _cashierService.DeleteCashier(cashierDeleteDTO);
                 return Ok();
             }
-            catch (ClientException ex)
+            catch (CashierException ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
