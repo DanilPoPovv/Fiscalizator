@@ -71,6 +71,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             using (var transaction = _session.BeginTransaction())
             {
                 _cashierRepository.Delete(cashier);
+                transaction.Commit();
             }
         }
         public IEnumerable<Cashier> GetAllClientCashiers(int ClientCode)

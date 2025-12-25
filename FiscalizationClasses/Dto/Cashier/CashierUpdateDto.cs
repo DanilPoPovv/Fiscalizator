@@ -6,7 +6,7 @@ namespace Fiscalizator.FiscalizationClasses.Dto.Cashier
     {
         public int ClientCode { get; set; }
         public string CashierName { get; set; }
-        public string NewCashierName { get; set; }
+        public string? NewCashierName { get; set; }
         public int? NewSystemId { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.CashierCrudValidators
         {
             Cashier Cashier = validationContext.Cashier;
 
-            if (string.IsNullOrEmpty(request.CashierName) && validationContext.Client.Cashiers.Any(c => c.Name == request.NewCashierName))
+            if (!string.IsNullOrEmpty(request.CashierName) && validationContext.Client.Cashiers.Any(c => c.Name == request.NewCashierName))
                 throw new CashierException($"Cashier with name {request.NewCashierName} already exists.");
 
             if (request.NewSystemId != null && validationContext.Client.Cashiers.Any(c => c.SystemId == request.NewSystemId))
