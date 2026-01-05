@@ -1,4 +1,5 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
+using Fiscalizator.FiscalizationClasses.Dto.Service;
 using Fiscalizator.FiscalizationClasses.Dto.Shift;
 using Fiscalizator.FiscalizationClasses.OperationHandlers;
 using Fiscalizator.FiscalizationClasses.Requests;
@@ -9,16 +10,20 @@ using System.Runtime.CompilerServices;
 
 public class FiscalizationService
 {
-    public readonly Logger _logger;
-    public readonly OpenShiftHandler _openShiftHandler;
-    public readonly CloseShiftHandler _closeShiftHandler;
-    public readonly BillHandler _billHandler;
-    public FiscalizationService(Logger logger,OpenShiftHandler openShiftHandler,CloseShiftHandler closeShiftHandler, BillHandler billHandler)
+    private readonly Logger _logger;
+    private readonly OpenShiftHandler _openShiftHandler;
+    private readonly CloseShiftHandler _closeShiftHandler;
+    private readonly BillHandler _billHandler;
+    private readonly IncomeHandler _incomeHandler;
+    //private readonly OutcomeHandler _outcomeHandler;
+    public FiscalizationService(Logger logger,OpenShiftHandler openShiftHandler,
+        CloseShiftHandler closeShiftHandler, BillHandler billHandler, IncomeHandler incomeHandler)
     {
         _logger = logger;
         _openShiftHandler = openShiftHandler;
         _closeShiftHandler = closeShiftHandler;
         _billHandler = billHandler;
+        _incomeHandler = incomeHandler;
     }
     public OperationResponse Sell(BillDTO bill)
     {
@@ -36,6 +41,12 @@ public class FiscalizationService
     {
         OperationResponse operationResponse;
         operationResponse = _closeShiftHandler.ProcessCloseShift(closeShiftRequest);
+        return operationResponse;
+    }
+    public OperationResponse Income(IncomeOperationDto incomeDto)
+    {
+        OperationResponse operationResponse;
+        operationResponse = _incomeHandler.Income(incomeDto);
         return operationResponse;
     }
 }

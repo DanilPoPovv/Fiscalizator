@@ -39,13 +39,16 @@ namespace Fiscalizator.FiscalizationClasses.Services
             var validationContext = new KkmValidationContext();
 
             _validator.ValidateAll(kkmDTO, _dataAccessor, validationContext);
-
             var kkm = _kkmMapper.Map(kkmDTO);
             kkm.Client = _clientRepository.GetByCode(kkmDTO.ClientCode);
-
             using (var transaction = _session.BeginTransaction())
             {
                 _kkmRepository.Add(kkm);
+                _session.Flush();
+
+                Counter counter = new Counter(kkm);
+                _session.Save(counter);
+
                 transaction.Commit();
             }
         }

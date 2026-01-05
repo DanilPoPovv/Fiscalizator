@@ -18,6 +18,7 @@ namespace Fiscalizator.NHibernate
             References(x => x.Client)
                 .Column("ClientId")
                 .Not.Nullable();
+
         }
     }
 }

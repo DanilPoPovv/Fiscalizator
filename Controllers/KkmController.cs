@@ -24,7 +24,7 @@ namespace Fiscalizator.Controllers
                 _kkmService.AddKkm(kkmDTO);
                 return Ok();
             }
-            catch (InvalidOperationException ex)
+            catch (KkmException ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
@@ -42,7 +42,7 @@ namespace Fiscalizator.Controllers
                 _kkmService.UpdateKkm(kkmDTO);
                 return Ok();
             }
-            catch (InvalidOperationException ex)
+            catch (KkmException ex)
             {
                 return BadRequest(new { error = ex.Message });
             }

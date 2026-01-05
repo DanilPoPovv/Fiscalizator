@@ -51,12 +51,15 @@ namespace Fiscalizator.Helpers
             //Cashier
             services.AddScoped<IValidator<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext>, CashierAddvalidator>();
             services.AddScoped<IValidator<CashierUpdateDto, CashierCrudDataAccessor, CashierValidationContext>, CashierUpdateValidator>();
+
+            //Income
+
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalClientValidator<,>));
-
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashValidator<,>));
             return services;
         }
         public static IServiceCollection AddAppServices(this IServiceCollection services)
@@ -70,6 +73,7 @@ namespace Fiscalizator.Helpers
             services.AddScoped<BillValidator>();
             services.AddScoped<KkmService>();
             services.AddScoped<CashierService>();
+            services.AddScoped<IncomeHandler>();
 
             return services;
         }

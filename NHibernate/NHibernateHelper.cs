@@ -27,7 +27,8 @@ public static class NHibernateHelper
                         .AddFromAssemblyOf<CashierMap>()
                         .AddFromAssemblyOf<KkmMap>()
                         .AddFromAssemblyOf<ShiftMap>()
-                        .AddFromAssemblyOf<ClientMap>())
+                        .AddFromAssemblyOf<ClientMap>()
+                        .AddFromAssemblyOf<CounterMap>())
                     .BuildConfiguration();
 
                 var update = new SchemaUpdate(cfg);
