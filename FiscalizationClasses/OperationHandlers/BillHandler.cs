@@ -34,8 +34,11 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
                 _logger.FileLog($"Processing bill for amount: {request.Amount}");
 
-                CreateNewBill(request, validationContext);
-
+                Bill bill = CreateNewBill(request, validationContext);
+                using var uow = new UnitOfWork(_session);
+                uow.Bills.Add(bill);
+                validationContext.Shift.LastOperationDateTime = bill.OperationDateTime;
+                uow.Commit();
                 return new BillResponse { Message = "Bill processed successfully" };
             }
             catch (Exception ex)
@@ -46,15 +49,13 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 };
             }
         }
-        private void CreateNewBill(BillDTO request, ValidationContext validationContext)
+        private Bill CreateNewBill(BillDTO request, ValidationContext validationContext)
         {
             Bill bill = _mapper.MapToModel(request);
             bill.Kkm = validationContext.Kkm;
             bill.Shift = validationContext.Shift;
             bill.Cashier = validationContext.Cashier;
-            using var uow = new UnitOfWork(_session);
-            uow.Bills.Add(bill);
-            uow.Commit();
+            return bill;
         }
 
     }

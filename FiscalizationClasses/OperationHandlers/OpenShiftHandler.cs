@@ -32,8 +32,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 ValidationContext validationContext = new ValidationContext();
                 _validatorManager.ValidateAll(request, _dataAccessor, validationContext);
                 CreateNewShift(request, validationContext);
-                _logger.FileLog($"Shift has been opened at {request.OpenShiftTime}");
-                return new OpenShiftResponse { Message = "Shift opened successfully", OpenShiftTime = request.OpenShiftTime };
+                
+                return new OpenShiftResponse { Message = "Shift opened successfully", OpenShiftTime = request.OperationDateTime };
             }
             catch (Exception ex)
             {
@@ -49,8 +49,9 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             Shift shift = new Shift
             {
                 Kkm = validationContext.Kkm,
-                OpeningDateTime = request.OpenShiftTime,
-                ShiftNumber = validationContext.Kkm.Shifts.LastOrDefault() != null ? validationContext.Kkm.Shifts.Last().ShiftNumber + 1 : 1
+                OpeningDateTime = request.OperationDateTime,
+                ShiftNumber = validationContext.Kkm.Shifts.LastOrDefault() != null ? validationContext.Kkm.Shifts.Last().ShiftNumber + 1 : 1,
+                LastOperationDateTime = request.OperationDateTime
             };
             _unitOfWork.shiftRepository.Add(shift);
             _unitOfWork.Commit();

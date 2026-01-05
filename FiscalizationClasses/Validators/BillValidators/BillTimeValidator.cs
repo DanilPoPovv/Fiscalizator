@@ -1,40 +1,40 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto.Bill;
-using Fiscalizator.FiscalizationClasses.Entities;
-using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
-using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
+﻿//using Fiscalizator.FiscalizationClasses.Dto.Bill;
+//using Fiscalizator.FiscalizationClasses.Entities;
+//using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
+//using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+//using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 
-namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
-{
-    public class BillTimeValidator : IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>
-    {
-        public void Validate(BillDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
-        {
-            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.Shift);
-            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.Shift);
-        }
+//namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
+//{
+//    public class BillTimeValidator : IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>
+//    {
+//        public void Validate(BillDTO request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
+//        {
+//            ValidateLaterThanShiftOutOfTime(request.OperationDateTime, validationContext.Shift);
+//            ValidateEarlierThanLastBill(request.OperationDateTime, validationContext.Shift);
+//        }
 
-        private void ValidateEarlierThanLastBill(DateTime billTime, Shift shift)
-        {
-            var lastBill = shift.Bills.LastOrDefault();
-            if (lastBill != null && billTime <= lastBill.OperationDateTime)
-            {
-                throw new BillException($"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}.");
-            }
+//        private void ValidateEarlierThanLastBill(DateTime billTime, Shift shift)
+//        {
+//            var lastBill = shift.Bills.LastOrDefault();
+//            if (lastBill != null && billTime <= lastBill.OperationDateTime)
+//            {
+//                throw new BillException($"Bill time {billTime} is earlier than last bill time {lastBill.OperationDateTime}.");
+//            }
 
-            if (lastBill == null && billTime < shift.OpeningDateTime)
-            {
-                throw new BillException($"Bill time {billTime} is earlier than shift opening time {shift.OpeningDateTime}.");
-            }
-        }
+//            if (lastBill == null && billTime < shift.OpeningDateTime)
+//            {
+//                throw new BillException($"Bill time {billTime} is earlier than shift opening time {shift.OpeningDateTime}.");
+//            }
+//        }
 
-        private void ValidateLaterThanShiftOutOfTime(DateTime billTime, Shift shift)
-        {
-            var shiftEndTime = shift.OpeningDateTime.AddHours(24);
-            if (billTime > shiftEndTime)
-            {
-                throw new BillException($"Bill time {billTime} is later than shift out of time {shiftEndTime}.");
-            }
-        }
-    }
-}
+//        private void ValidateLaterThanShiftOutOfTime(DateTime billTime, Shift shift)
+//        {
+//            var shiftEndTime = shift.OpeningDateTime.AddHours(24);
+//            if (billTime > shiftEndTime)
+//            {
+//                throw new BillException($"Bill time {billTime} is later than shift out of time {shiftEndTime}.");
+//            }
+//        }
+//    }
+//}

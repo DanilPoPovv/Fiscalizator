@@ -11,5 +11,13 @@ namespace Fiscalizator.Repository
         {
             _session.Update(shift);
         }
+        public Shift GetLastKkmShift(int kkmId)
+        {
+            return _session.Query<Shift>()
+            .Where(s => s.Kkm.Id == kkmId)
+            .OrderByDescending(x => x.ClosureDateTime)
+            .FirstOrDefault()!;  
+
+        }
+        }
     }
-}

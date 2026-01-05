@@ -48,7 +48,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                         OperationDateTime = incomeDto.OperationDateTime
                     };
                     _cashOperationRepository.Add(cashOperation);
-                   transaction.Commit();
+                    validationContext.Shift.LastOperationDateTime = incomeDto.OperationDateTime;
+                    transaction.Commit();
                 }
                 return new OperationResponse { Message = $"Income operation processed successfully, current cash {counter.CashValue}" };
             }

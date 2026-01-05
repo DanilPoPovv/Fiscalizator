@@ -11,7 +11,7 @@ namespace Fiscalizator.NHibernate
             Map(x => x.OpeningDateTime).Not.Nullable();
             Map(x => x.ClosureDateTime).Nullable();
             Map(x => x.ShiftNumber).Not.Nullable();
-
+            Map(x => x.LastOperationDateTime).Not.Nullable();
             References(x => x.Kkm)
                 .Column("KkmId")
                 .Not.Nullable();

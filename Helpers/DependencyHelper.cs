@@ -27,7 +27,7 @@ namespace Fiscalizator.Helpers
 
             // Bill validators
             //services.AddScoped<IValidator<BillDTO, ValidationContext>, OpenShiftValidator>();
-            services.AddScoped<IValidator<BillDTO,BaseOperationDataAccessor, ValidationContext>, BillTimeValidator>();
+            //services.AddScoped<IValidator<BillDTO,BaseOperationDataAccessor, ValidationContext>, BillTimeValidator>();
             services.AddScoped<IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>, BillValidator>();
 
             // Close shift
@@ -60,6 +60,7 @@ namespace Fiscalizator.Helpers
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalClientValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashValidator<,>));
+            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalOperationTimeValidator<,>));
             return services;
         }
         public static IServiceCollection AddAppServices(this IServiceCollection services)

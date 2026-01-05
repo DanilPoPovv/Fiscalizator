@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Bill
 {
-    public class BillDTO : ICashierNameRequire, ISerialNumberRequire, IOpenShiftRequire
+    public class BillDTO : ICashierNameRequire, ISerialNumberRequire, IOpenShiftRequire, IHasOperationTime
     {
         [XmlElement("Amount")]
         public decimal Amount { get; set; }

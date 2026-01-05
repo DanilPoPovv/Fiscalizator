@@ -15,11 +15,11 @@ namespace Fiscalizator.FiscalizationClasses.Validators.OpenShift
             {
                 return;
             }
-            else if (request.OpenShiftTime > DateTime.Now)
+            else if (request.OperationDateTime > DateTime.Now)
             {
                 throw new ShiftException("Opening date and time cannot be in the future.");
             }
-            else if (request.OpenShiftTime <= lastShift.ClosureDateTime)
+            else if (request.OperationDateTime <= lastShift.ClosureDateTime)
             {
                 throw new ShiftException("Opening date and time cannot be earlier or equal than the last shift's closing date and time.");
             }

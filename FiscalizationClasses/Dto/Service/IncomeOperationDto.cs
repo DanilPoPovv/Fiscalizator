@@ -2,7 +2,7 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Service
 {
-    public class IncomeOperationDto : ISerialNumberRequire, IOpenShiftRequire, ICashierNameRequire
+    public class IncomeOperationDto : ISerialNumberRequire, IOpenShiftRequire, ICashierNameRequire, IHasOperationTime
     {
         public DateTime OperationDateTime { get; set; }
         public int SerialNumber { get; set; }

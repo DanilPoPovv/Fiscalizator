@@ -49,6 +49,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 }
 
                 _unitOfWork.shiftRepository.CloseShift(shift);
+                validationContext.Shift.LastOperationDateTime = (DateTime)shift.ClosureDateTime;
                 _unitOfWork.Commit();
 
                 return new CloseShiftResponse

@@ -2,5 +2,6 @@
 {
     public interface IHasOperationTime
     {
+        public DateTime OperationDateTime { get; set; }
     }
 }
