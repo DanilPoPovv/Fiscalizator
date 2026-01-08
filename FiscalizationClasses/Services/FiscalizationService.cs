@@ -15,15 +15,16 @@ public class FiscalizationService
     private readonly CloseShiftHandler _closeShiftHandler;
     private readonly BillHandler _billHandler;
     private readonly IncomeHandler _incomeHandler;
-    //private readonly OutcomeHandler _outcomeHandler;
+    private readonly OutcomeHandler _outcomeHandler;
     public FiscalizationService(Logger logger,OpenShiftHandler openShiftHandler,
-        CloseShiftHandler closeShiftHandler, BillHandler billHandler, IncomeHandler incomeHandler)
+        CloseShiftHandler closeShiftHandler, BillHandler billHandler, IncomeHandler incomeHandler, OutcomeHandler outcomeHandler)
     {
         _logger = logger;
         _openShiftHandler = openShiftHandler;
         _closeShiftHandler = closeShiftHandler;
         _billHandler = billHandler;
         _incomeHandler = incomeHandler;
+        _outcomeHandler = outcomeHandler;
     }
     public OperationResponse Sell(BillDTO bill)
     {
@@ -47,6 +48,12 @@ public class FiscalizationService
     {
         OperationResponse operationResponse;
         operationResponse = _incomeHandler.Income(incomeDto);
+        return operationResponse;
+    }
+    public OperationResponse Outcome(OutcomeOperationDto outcomeDto)
+    {
+        OperationResponse operationResponse;
+        operationResponse = _outcomeHandler.Outcome(outcomeDto);
         return operationResponse;
     }
 }

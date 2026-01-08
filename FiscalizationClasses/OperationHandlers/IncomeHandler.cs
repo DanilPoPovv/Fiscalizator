@@ -5,9 +5,7 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
-using Microsoft.AspNetCore.Http.Features;
 using NHibernate;
-using System.Transactions;
 using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.OperationHandlers
@@ -19,6 +17,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         private readonly ISession session;
         private readonly BaseOperationDataAccessor _dataAccessor;
         private readonly CashOperationRepository _cashOperationRepository;
+        private readonly ValidationContext _validationContext;
+
         public IncomeHandler(ValidatorManager<IncomeOperationDto, BaseOperationDataAccessor, ValidationContext> incomeValidator)
         {
             _incomeValidator = incomeValidator;
@@ -26,29 +26,29 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             _cashRepository = new CashRepository(session);
             _dataAccessor = new BaseOperationDataAccessor(session);
             _cashOperationRepository = new CashOperationRepository(session);
+            _validationContext = new ValidationContext();
         }
         public OperationResponse Income(IncomeOperationDto incomeDto)
         {
-            ValidationContext validationContext = new ValidationContext();
             try
             {
                 Counter counter;
-                _incomeValidator.ValidateAll(incomeDto, _dataAccessor, validationContext);
+                _incomeValidator.ValidateAll(incomeDto, _dataAccessor, _validationContext);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                   counter = _cashRepository.GetByKkmId(validationContext.Kkm.Id);
+                   counter = _cashRepository.GetByKkmId(_validationContext.Kkm.Id);
                    counter.CashValue += incomeDto.Amount;
                     CashOperation cashOperation = new CashOperation
                     {
-                        Cashier = validationContext.Cashier,
-                        Shift = validationContext.Shift,
-                        Kkm = validationContext.Kkm,
+                        Cashier = _validationContext.Cashier,
+                        Shift = _validationContext.Shift,
+                        Kkm = _validationContext.Kkm,
                         Amount = incomeDto.Amount,
                         OperationType = CashOperationType.Income,
                         OperationDateTime = incomeDto.OperationDateTime
                     };
                     _cashOperationRepository.Add(cashOperation);
-                    validationContext.Shift.LastOperationDateTime = incomeDto.OperationDateTime;
+                    _validationContext.Shift.LastOperationDateTime = incomeDto.OperationDateTime;
                     transaction.Commit();
                 }
                 return new OperationResponse { Message = $"Income operation processed successfully, current cash {counter.CashValue}" };

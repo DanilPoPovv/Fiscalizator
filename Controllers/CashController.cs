@@ -20,9 +20,10 @@ namespace Fiscalizator.Controllers
             return Ok(response);
         }
         [HttpPost("Outcome")]
-        public ActionResult Outcome(IncomeOperationDto outcomeDto) 
+        public ActionResult Outcome(OutcomeOperationDto outcomeDto) 
         {
-            return Ok("Cash operation executed.");
+            OperationResponse response = _fiscalizationService.Outcome(outcomeDto);
+            return Ok(response);
         }
     }
 }

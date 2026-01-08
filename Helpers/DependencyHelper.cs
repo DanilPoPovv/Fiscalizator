@@ -16,6 +16,8 @@ using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Dto.Cashier;
 using Fiscalizator.FiscalizationClasses.Validators.CashierCrudValidators;
+using Fiscalizator.FiscalizationClasses.Dto.Service;
+using Fiscalizator.FiscalizationClasses.Validators.ServiceOperationValidators;
 
 namespace Fiscalizator.Helpers
 {
@@ -52,8 +54,8 @@ namespace Fiscalizator.Helpers
             services.AddScoped<IValidator<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext>, CashierAddvalidator>();
             services.AddScoped<IValidator<CashierUpdateDto, CashierCrudDataAccessor, CashierValidationContext>, CashierUpdateValidator>();
 
-            //Income
-
+            //Outcome
+            services.AddScoped<IValidator<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext>, OutcomeOperationValidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
@@ -75,7 +77,7 @@ namespace Fiscalizator.Helpers
             services.AddScoped<KkmService>();
             services.AddScoped<CashierService>();
             services.AddScoped<IncomeHandler>();
-
+            services.AddScoped<OutcomeHandler>();
             return services;
         }
     }

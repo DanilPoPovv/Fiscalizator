@@ -4,9 +4,9 @@ using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.ServiceOperationValidators
 {
-    public class OutcomeOperationValidator : IValidator<IncomeOperationDto,BaseOperationDataAccessor,ValidationContext>
+    public class OutcomeOperationValidator : IValidator<OutcomeOperationDto,BaseOperationDataAccessor,OutcomeCashVContext>
     {
-        public void Validate(IncomeOperationDto request, BaseOperationDataAccessor validationData, ValidationContext validationContext)
+        public void Validate(OutcomeOperationDto request, BaseOperationDataAccessor validationData, OutcomeCashVContext validationContext)
         {
            
         }
