@@ -1,6 +1,8 @@
 ﻿namespace Fiscalizator.FiscalizationClasses.Entities
 {
-    public class UserRole
+    public enum UserRole
     {
+        Admin = 1,
+        User = 2,
     }
 }

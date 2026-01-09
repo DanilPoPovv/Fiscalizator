@@ -1,5 +1,4 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
-using NHibernate.Linq;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.Repository
 {

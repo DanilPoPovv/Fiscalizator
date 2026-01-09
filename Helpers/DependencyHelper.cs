@@ -18,6 +18,9 @@ using Fiscalizator.FiscalizationClasses.Dto.Cashier;
 using Fiscalizator.FiscalizationClasses.Validators.CashierCrudValidators;
 using Fiscalizator.FiscalizationClasses.Dto.Service;
 using Fiscalizator.FiscalizationClasses.Validators.ServiceOperationValidators;
+using Fiscalizator.FiscalizationClasses.OtherClassess;
+using Microsoft.AspNetCore.Identity;
+using Fiscalizator.FiscalizationClasses.Entities;
 
 namespace Fiscalizator.Helpers
 {
@@ -78,6 +81,9 @@ namespace Fiscalizator.Helpers
             services.AddScoped<CashierService>();
             services.AddScoped<IncomeHandler>();
             services.AddScoped<OutcomeHandler>();
+            services.AddScoped<AuthorizationService>();
+            services.AddScoped<JwtTokenGenerator>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             return services;
         }
     }
