@@ -16,9 +16,11 @@ public static class NHibernateHelper
         {
             if (_sessionFactory == null)
             {
+                string connectionString = @"Server=192.168.44.242,1433;Database=Roflanizator;User Id=dockerUser;Password=strongPassword;TrustServerCertificate=True;";
+                Console.WriteLine($"Conn: {connectionString}");
                 var cfg = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012
-                        .ConnectionString(@"Server=dpopov\ROFLANIZATOR;Database=Roflanizator;Integrated Security=True;")
+                        .ConnectionString(connectionString)
                         .Driver<NHibernate.Driver.SqlClientDriver>()
                         .ShowSql())
                     .Mappings(m => m.FluentMappings
