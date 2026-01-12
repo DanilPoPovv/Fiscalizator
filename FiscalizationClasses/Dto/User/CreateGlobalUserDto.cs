@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.FiscalizationClasses.Dto.Authorize
+namespace Fiscalizator.FiscalizationClasses.Dto.User
 {
-    public class CreateUserDto
+    public class CreateGlobalUserDto
     {
         public string Username { get; set; }
         public UserRole Role { get; set; }

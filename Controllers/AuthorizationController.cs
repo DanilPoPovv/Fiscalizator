@@ -1,6 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Authorize;
+using Fiscalizator.FiscalizationClasses.Dto.User;
 using Fiscalizator.FiscalizationClasses.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Fiscalizator.Controllers
 {
@@ -30,12 +32,34 @@ namespace Fiscalizator.Controllers
             }
             return Ok();
         }
-        [HttpPost("CreateUser")]
-        public IActionResult CreateUser(CreateUserDto createUserDto)
+        [HttpPost("CreateGlobalUser")]
+        public IActionResult CreateGlobalUser(CreateGlobalUserDto createUserDto)
         {
             try
             {
-                _authorizationService.CreateUser(createUserDto);
+                _authorizationService.CreateGlobalUser(createUserDto);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(500);
+            }
+            return Ok();
+        }
+        [HttpPost("CreateClientUser")]
+        public IActionResult CreateClientUser(CreateClientUserDto createClientUserDto)
+        {
+            try
+            {
+                _authorizationService.CreateClientUser(createClientUserDto);
+            }
+            catch(ValidationException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (Exception ex)
             {

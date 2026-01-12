@@ -12,7 +12,8 @@ namespace Fiscalizator.FiscalizationClasses.OtherClassess
             Claim[] claims =
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim("clientId", user.ClientId.ToString())
             };
 
             SymmetricSecurityKey key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("THIS_IS_A_VERY_LONG_SUPER_SECRET_KEY_32_BYTES!"));

@@ -11,6 +11,7 @@ namespace Fiscalizator.NHibernate
             Map(x => x.Username).Not.Nullable().Length(50);
             Map(x => x.Role).CustomType<UserRole>().Not.Nullable();
             Map(x => x.PasswordHash).Not.Nullable();
+            Map(x => x.ClientId).Nullable();
         }
     }
 }

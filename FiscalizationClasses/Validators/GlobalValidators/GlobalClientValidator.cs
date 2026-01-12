@@ -10,7 +10,7 @@ using Fiscalizator.Repository;
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
     public class GlobalClientValidator<TData,TContext> : IGlobalValidator<TData, TContext> where TData : IClientDataAccessor
-        where TContext : ValidationContext 
+        where TContext : IValidationContext 
     {
         public void Validate(object request, TData validationData, TContext validationContext)
         {

@@ -21,6 +21,8 @@ using Fiscalizator.FiscalizationClasses.Validators.ServiceOperationValidators;
 using Fiscalizator.FiscalizationClasses.OtherClassess;
 using Microsoft.AspNetCore.Identity;
 using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.FiscalizationClasses.Validators.Authorization;
+using Fiscalizator.FiscalizationClasses.Dto.User;
 
 namespace Fiscalizator.Helpers
 {
@@ -59,6 +61,10 @@ namespace Fiscalizator.Helpers
 
             //Outcome
             services.AddScoped<IValidator<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext>, OutcomeOperationValidator>();
+
+            //User
+            services.AddScoped<IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>, ClientUserValidator>();
+            services.AddScoped<IValidator<CreateGlobalUserDto, UserDataAccessor, UserValidationContext>, GlobalUserValidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
