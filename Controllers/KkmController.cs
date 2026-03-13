@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace Fiscalizator.Controllers
 {
-    [Route("Client/Kkm")]
+    [Route("Kkm")]
     [ApiController]
     public class KkmController : ControllerBase
     {
@@ -16,26 +16,26 @@ namespace Fiscalizator.Controllers
         {
             _kkmService = kkmService;
         }
-        [HttpPost("createKkm")]
+        [HttpPost]
         public ActionResult CreateKkm(KkmDTO kkmDTO)
         {
              _kkmService.AddKkm(kkmDTO);
              return Ok();
         }
-        [HttpPut("updateKkm")]
+        [HttpPut]
         [Consumes("application/json"), Produces("application/json")]
         public ActionResult UpdateKkm(KkmUpdateDTO kkmDTO)
         {
              _kkmService.UpdateKkm(kkmDTO);
              return Ok();
         }
-        [HttpDelete("deleteKkm")]
+        [HttpDelete]
         public ActionResult DeleteKkm(KkmDeleteDTO deleteDTO)
         {
                 _kkmService.DeleteKkm(deleteDTO);
                 return Ok();  
         }
-        [HttpGet("getKkms")]
+        [HttpGet]
         public ActionResult GetAllClientKkms(int clientCode)
         {
             var kkms = _kkmService.GetAllClientKkm(clientCode);

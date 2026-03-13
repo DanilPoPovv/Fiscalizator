@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Fiscalizator.Controllers
 {
     [ApiController]
+    [Route("auth")]
     public class AuthorizationController : ControllerBase 
     {
         private readonly AuthorizationService _authorizationService;
@@ -14,7 +15,7 @@ namespace Fiscalizator.Controllers
         {
             _authorizationService = authorizationService;
         }
-        [HttpPost("Authorize")]
+        [HttpPost("login")]
         public IActionResult Authorize(AuthorizeDto authorizeDto)
         {
             var token = _authorizationService.Login(authorizeDto);

@@ -19,7 +19,7 @@ namespace Fiscalizator.Controllers
             _cashierService = cashierService;
         }
 
-        [HttpPost("Add/{inn}")]
+        [HttpPost]
         [Produces("application/json"), Consumes("application/json")]
         [Authorize(Policy = "SameClientOnly")]
         public ActionResult AddCashier(CashierAddDto request)
@@ -39,7 +39,7 @@ namespace Fiscalizator.Controllers
             }
         }
 
-        [HttpPut("Change")]
+        [HttpPut]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult UpdateCashier(CashierUpdateDto request)
         {
@@ -59,7 +59,7 @@ namespace Fiscalizator.Controllers
             }
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete]
         [Produces("application/json")]
         public ActionResult DeleteCashier(CashierDeleteDTO cashierDeleteDTO)
         {
@@ -67,7 +67,7 @@ namespace Fiscalizator.Controllers
             return Ok();
         }
 
-        [HttpGet("GetAllClientCashier")]
+        [HttpGet]
         [Produces("application/json")]
         public ActionResult<IEnumerable<Client>> GetAllClientCashier(int ClientCode)
         {
