@@ -19,7 +19,8 @@ namespace Fiscalizator.Controllers
         {
             try
             {
-                _authorizationService.Login(authorizeDto);
+                var token = _authorizationService.Login(authorizeDto);
+                return Ok(token);
             }
             catch(UnauthorizedAccessException)
             {
@@ -30,7 +31,6 @@ namespace Fiscalizator.Controllers
                 Console.WriteLine(ex);
                 return StatusCode(500);
             }
-            return Ok();
         }
         [HttpPost("CreateGlobalUser")]
         public IActionResult CreateGlobalUser(CreateGlobalUserDto createUserDto)
