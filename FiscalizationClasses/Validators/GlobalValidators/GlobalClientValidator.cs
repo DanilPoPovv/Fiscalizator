@@ -9,14 +9,14 @@ using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalClientValidator<TData,TContext> : IGlobalValidator<TData, TContext> where TData : IClientDataAccessor
+    public class GlobalClientValidator<TRequest,TData,TContext> : IGlobalValidator<TRequest,TData, TContext>
+        where TData : IClientDataAccessor
         where TContext : IValidationContext 
+        where TRequest : IClientCodeRequire
     {
-        public void Validate(object request, TData validationData, TContext validationContext)
+        public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            if (request is not IClientCodeRequire clientRequest)
-                return;
-            Client client = validationData.Clients.GetByCode(clientRequest.ClientCode);
+            Client client = validationData.Clients.GetByCode(request.ClientCode);
             if (client == null)
             {
                 throw new ClientException("Client with the specified code does not exist.");

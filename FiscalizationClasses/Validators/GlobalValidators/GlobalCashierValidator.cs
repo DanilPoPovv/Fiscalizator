@@ -8,17 +8,17 @@ using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalCashierValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TContext : IValidationContext 
+    public class GlobalCashierValidator<TRequest,TData,TContext> : IGlobalValidator<TRequest, TData,TContext> 
+        where TContext : IValidationContext 
         where TData : ICashierDataAccessor
+        where TRequest : ICashierNameRequire
     {
-        public void Validate(object request, TData validationData, TContext validationContext)
+        public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            if (request is not ICashierNameRequire cashierRequest)
-               return; 
-            var cashier = validationData.Cashiers.GetByName(cashierRequest.CashierName);
+            var cashier = validationData.Cashiers.GetByName(request.CashierName);
             if (cashier == null)
             {
-                throw new CashierException($"Cashier with name {cashierRequest.CashierName} does not exist.");
+                throw new CashierException($"Cashier with name {request.CashierName} does not exist.");
             }
             if (validationContext is ICashierValidationContextRequire cashierValidationContext)
                 cashierValidationContext.Cashier = cashier;

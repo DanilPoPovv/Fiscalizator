@@ -13,16 +13,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     {
         private readonly Logger.Logger _logger;
         private readonly ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> _validatorManager;
-        private readonly UnitOfWork _unitOfWork;
-        private ISession _session;
-        private readonly BaseOperationDataAccessor _dataAccessor;
         public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> validator)
         {
             _logger = logger;
-            _session = NHibernateHelper.SessionFactory.OpenSession();
-            _unitOfWork = new UnitOfWork(_session);
             _validatorManager = validator;
-            _dataAccessor = new BaseOperationDataAccessor(_session);
         }
 
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
@@ -31,7 +25,9 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
             try
             {
-                _validatorManager.ValidateAll(request, _dataAccessor, validationContext);
+                using var session = NHibernateHelper.OpenSession();
+                var dataAccessor = new BaseOperationDataAccessor(session);
+                _validatorManager.ValidateAll(request, dataAccessor, validationContext);
 
                 _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
 
@@ -47,10 +43,9 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 {
                     shift.ClosureDateTime = lastBill.OperationDateTime.AddSeconds(1);
                 }
-
-                _unitOfWork.shiftRepository.CloseShift(shift);
+                var shiftRepository = new ShiftRepository(session);
+                shiftRepository.CloseShift(shift);
                 validationContext.Shift.LastOperationDateTime = (DateTime)shift.ClosureDateTime;
-                _unitOfWork.Commit();
 
                 return new CloseShiftResponse
                 {

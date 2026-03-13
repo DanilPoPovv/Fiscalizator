@@ -64,12 +64,12 @@ namespace Fiscalizator.Helpers
             services.AddScoped<IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>, ClientUserValidator>();
             services.AddScoped<IValidator<CreateGlobalUserDto, UserDataAccessor, UserValidationContext>, GlobalSystemUserValidator>();
             // Global
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalShiftOpenValidator<,>));
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalClientValidator<,>));
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashValidator<,>));
-            services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalOperationTimeValidator<,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalKkmValidator<,,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalCashierValidator<,,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalShiftOpenValidator<,,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalClientValidator<,,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalCashValidator<,,>));
+            services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalOperationTimeValidator<,,>));
             return services;
         }
         public static IServiceCollection AddAppServices(this IServiceCollection services)

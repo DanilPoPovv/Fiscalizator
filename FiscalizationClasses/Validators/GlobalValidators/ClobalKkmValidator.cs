@@ -9,18 +9,17 @@ using NHibernate.SqlCommand;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalKkmValidator<TData, TContext> : IGlobalValidator<TData, TContext> where TContext : IValidationContext where TData : IKkmDataAccessor
+    public class GlobalKkmValidator<TRequest,TData, TContext> : IGlobalValidator<TRequest, TData, TContext> 
+        where TContext : IValidationContext 
+        where TData : IKkmDataAccessor
+        where TRequest : ISerialNumberRequire
     { 
-        public void Validate(object request, TData validationData, TContext validationContext)
+        public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            if (request is not ISerialNumberRequire kkmRequest)
-            {
-                return;
-            }
-            Kkm kkm = validationData.Kkms.GetBySerialNumber(kkmRequest.SerialNumber);
+            Kkm kkm = validationData.Kkms.GetBySerialNumber(request.SerialNumber);
             if (kkm == null)
             {
-                throw new KkmException($"Kkm with serial number {kkmRequest.SerialNumber} does not exist.");
+                throw new KkmException($"Kkm with serial number {request.SerialNumber} does not exist.");
             }
             if (validationContext is IKkmValidationContextRequire kkmValidationContext)
             {

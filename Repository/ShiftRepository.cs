@@ -8,7 +8,9 @@ namespace Fiscalizator.Repository
 
         public void CloseShift(Shift shift)
         {
+            
             _session.Update(shift);
+            
         }
         public Shift GetLastKkmShift(int kkmId)
         {

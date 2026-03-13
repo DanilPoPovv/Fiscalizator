@@ -8,16 +8,15 @@ using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalCashValidator<TData,TContext> : IGlobalValidator<TData,TContext> where TData : ICashDataAccessor where TContext : OutcomeCashVContext
+    public class GlobalCashValidator<TRequest, TData,TContext> : IGlobalValidator<TRequest,TData, TContext> 
+        where TData : ICashDataAccessor
+        where TContext : OutcomeCashVContext
+        where TRequest : IEnoughCashRequire
     {
-        public void Validate(object request, TData validationData, TContext validationContext)
+        public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            if (request is not IEnoughCashRequire cashRegisterRequest)
-            {
-                return;
-            }
             Counter counter = validationData.GetCounter(validationContext.Kkm.Id);
-            if (counter.CashValue < cashRegisterRequest.Amount)
+            if (counter.CashValue < request.Amount)
             {
                 throw new NotEnoughCashException("Not enough cash in the cash register.");
             }

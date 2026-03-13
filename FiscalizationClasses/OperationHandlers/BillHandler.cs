@@ -15,30 +15,27 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         private readonly Logger.Logger _logger;
         private readonly ValidatorManager<BillDTO, BaseOperationDataAccessor,ValidationContext> _validatorManager;
         private readonly BillMapper _mapper = new BillMapper();
-        private readonly ISession _session;
-        private readonly BaseOperationDataAccessor _baseOperationDataAccessor;
         public BillHandler(Logger.Logger logger, ValidatorManager<BillDTO, BaseOperationDataAccessor,ValidationContext> validatorManager)
         {
             _logger = logger;
             _validatorManager = validatorManager;
-            _session = NHibernateHelper.SessionFactory.OpenSession();
-            _baseOperationDataAccessor = new BaseOperationDataAccessor(_session);
         }
 
         public OperationResponse ProcessBill(BillDTO request)
         {
             try
             {
+                using var session = NHibernateHelper.SessionFactory.OpenSession();
+
                 ValidationContext validationContext = new ValidationContext();
-                _validatorManager.ValidateAll(request, _baseOperationDataAccessor, validationContext);
+                var dataAccessor = new BaseOperationDataAccessor(session);
+                _validatorManager.ValidateAll(request, dataAccessor, validationContext);
 
                 _logger.FileLog($"Processing bill for amount: {request.Amount}");
 
                 Bill bill = CreateNewBill(request, validationContext);
-                using var uow = new UnitOfWork(_session);
-                uow.Bills.Add(bill);
-                validationContext.Shift.LastOperationDateTime = bill.OperationDateTime;
-                uow.Commit();
+                var repository = new Repository<Bill>(session);
+                repository.Add(bill);
                 return new BillResponse { Message = "Bill processed successfully" };
             }
             catch (Exception ex)

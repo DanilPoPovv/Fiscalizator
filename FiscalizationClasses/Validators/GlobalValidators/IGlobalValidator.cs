@@ -2,8 +2,8 @@
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public interface IGlobalValidator<TData, TContext> where TContext : IValidationContext
+    public interface IGlobalValidator<TRequest,TData, TContext> where TContext : IValidationContext
     {
-        public void Validate(object request, TData validationData, TContext validationContext);
+        public void Validate(TRequest request, TData validationData, TContext validationContext);
     }
 }

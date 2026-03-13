@@ -1,20 +1,18 @@
-﻿using Fiscalizator.FiscalizationClasses.Entities;
+﻿
 using Fiscalizator.FiscalizationClasses.Requests;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
-using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
-using FluentNHibernate.MappingModel;
-using NHibernate.SqlCommand;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
 {
-    public class GlobalOperationTimeValidator<TData, TContext> : IGlobalValidator<TData,TContext> where TContext : ValidationContext where TData : IShiftDataAccessor
+    public class GlobalOperationTimeValidator<TRequest,TData, TContext> : IGlobalValidator<TRequest,TData,TContext> 
+        where TContext : ValidationContext 
+        where TData : IShiftDataAccessor
+        where TRequest : IHasOperationTime
     {
-        public void Validate(object request, TData validationData, TContext validationContext)
+        public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            if (request is not IHasOperationTime requestTime)
-                return;
-            if (validationContext.Shift != null && requestTime.OperationDateTime <= validationContext.Shift.LastOperationDateTime)
+            if (validationContext.Kkm.Bills.Last().OperationDateTime >= request.OperationDateTime)
             {
                throw new Exception("Operation time cannot be earlier than the last operation time in the current shift.");
             }

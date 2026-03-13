@@ -7,8 +7,8 @@ namespace Fiscalizator.FiscalizationClasses.Validators
     public class ValidatorManager<TRequest,TData,TContext> where TContext : IValidationContext
     {
         private readonly IEnumerable<IValidator<TRequest,TData,TContext>> _validators;
-        private readonly IEnumerable<IGlobalValidator<TData, TContext>> _globalValidators;
-        public ValidatorManager(IEnumerable<IValidator<TRequest, TData, TContext>> validators, IEnumerable<IGlobalValidator<TData, TContext>> GlobalValidators)
+        private readonly IEnumerable<IGlobalValidator<TRequest, TData, TContext>> _globalValidators;
+        public ValidatorManager(IEnumerable<IValidator<TRequest, TData, TContext>> validators, IEnumerable<IGlobalValidator<TRequest, TData, TContext>> GlobalValidators)
         {
             _validators = validators;
             _globalValidators = GlobalValidators;
