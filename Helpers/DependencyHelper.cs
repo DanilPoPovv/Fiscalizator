@@ -23,6 +23,8 @@ using Microsoft.AspNetCore.Identity;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators.Authorization;
 using Fiscalizator.FiscalizationClasses.Dto.User;
+using Microsoft.AspNetCore.Authorization;
+using Fiscalizator.FiscalizationClasses.Authorization;
 
 namespace Fiscalizator.Helpers
 {
@@ -64,7 +66,7 @@ namespace Fiscalizator.Helpers
 
             //User
             services.AddScoped<IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>, ClientUserValidator>();
-            services.AddScoped<IValidator<CreateGlobalUserDto, UserDataAccessor, UserValidationContext>, GlobalUserValidator>();
+            services.AddScoped<IValidator<CreateGlobalUserDto, UserDataAccessor, UserValidationContext>, GlobalSystemUserValidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalKkmValidator<,>));
             services.AddScoped(typeof(IGlobalValidator<,>), typeof(GlobalCashierValidator<,>));
@@ -90,6 +92,8 @@ namespace Fiscalizator.Helpers
             services.AddScoped<AuthorizationService>();
             services.AddScoped<JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IAuthorizationHandler, SameClientAuthorizationHandler>();
+            services.AddHttpContextAccessor();
             return services;
         }
     }

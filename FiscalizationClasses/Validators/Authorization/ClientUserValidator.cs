@@ -15,7 +15,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.Authorization
             }
             if (createClientUserDto.Role == Entities.UserRole.GlobalAdmin)
             {
-                throw new ValidationException("You can not creare a Global Admin for Client.");
+                throw new ValidationException("You can not create a Global Admin for Client.");
             }
         }
     }

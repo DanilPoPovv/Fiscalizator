@@ -2,6 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiscalizator.Controllers
@@ -19,6 +20,7 @@ namespace Fiscalizator.Controllers
 
         [HttpPost("Add")]
         [Produces("application/json"), Consumes("application/json")]
+        [Authorize(Roles = "GlobalAdmin")]
         public ActionResult AddClient(ClientDTO request)
         {
             try

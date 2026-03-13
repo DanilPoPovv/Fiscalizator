@@ -3,6 +3,7 @@ using Fiscalizator.FiscalizationClasses.Dto.Client;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiscalizator.Controllers
@@ -18,8 +19,9 @@ namespace Fiscalizator.Controllers
             _cashierService = cashierService;
         }
 
-        [HttpPost("Add")]
+        [HttpPost("Add/{inn}")]
         [Produces("application/json"), Consumes("application/json")]
+        [Authorize(Policy = "SameClientOnly")]
         public ActionResult AddCashier(CashierAddDto request)
         {
             try

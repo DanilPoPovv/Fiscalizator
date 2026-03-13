@@ -1,7 +1,6 @@
+using Fiscalizator.FiscalizationClasses.Authorization;
 using Fiscalizator.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddXmlSerializerFormatters().AddJsonOptions(options =>
@@ -20,9 +19,20 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAppServices();
 builder.Services.AddFiscalizatorValidators();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SameClientOnly", policy =>
+        policy.Requirements.Add(new SameClientRequirement()));
+
+    //options.AddPolicy("GlobalAdmin", policy =>
+    //    policy.Requirements.Add(new GlobalAdminRequirement()));
+});
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.AddSwaggerBearer();
+
+
+builder.AddBearerAuthentication();
 
 
 var app = builder.Build();

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.Authorization
 {
-    public class GlobalUserValidator : IValidator<CreateGlobalUserDto,UserDataAccessor,UserValidationContext>
+    public class GlobalSystemUserValidator : IValidator<CreateGlobalUserDto,UserDataAccessor,UserValidationContext>
     {
         public void Validate(CreateGlobalUserDto createGlobalUserDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
