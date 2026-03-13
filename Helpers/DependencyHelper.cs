@@ -33,18 +33,14 @@ namespace Fiscalizator.Helpers
         public static IServiceCollection AddFiscalizatorValidators(this IServiceCollection services)
         {
             services.AddScoped(typeof(ValidatorManager<,,>));
-
+            ///TODO : Separate to private methods
             // Bill validators
-            //services.AddScoped<IValidator<BillDTO, ValidationContext>, OpenShiftValidator>();
-            //services.AddScoped<IValidator<BillDTO,BaseOperationDataAccessor, ValidationContext>, BillTimeValidator>();
             services.AddScoped<IValidator<BillDTO, BaseOperationDataAccessor, ValidationContext>, BillValidator>();
 
             // Close shift
-            //services.AddScoped<IValidator<CloseShiftDTO, ValidationContext>, CloseShiftValidator>();
             services.AddScoped<IValidator<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext>, ShiftClosedValidator>();
 
             // Open shift
-            //services.AddScoped<IValidator<OpenShiftDTO, ValidationContext>, OpenShiftBaseValidator>();
             services.AddScoped<IValidator<OpenShiftDTO, BaseOperationDataAccessor, ValidationContext>, ShiftOpenedValidator>();
             services.AddScoped<IValidator<OpenShiftDTO, BaseOperationDataAccessor, ValidationContext>, OpenShiftTimeValidator>();
 

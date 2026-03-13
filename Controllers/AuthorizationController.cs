@@ -17,55 +17,19 @@ namespace Fiscalizator.Controllers
         [HttpPost("Authorize")]
         public IActionResult Authorize(AuthorizeDto authorizeDto)
         {
-            try
-            {
-                var token = _authorizationService.Login(authorizeDto);
-                return Ok(token);
-            }
-            catch(UnauthorizedAccessException)
-            {
-                return Unauthorized();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-                return StatusCode(500);
-            }
+            var token = _authorizationService.Login(authorizeDto);
+            return Ok(token);
         }
         [HttpPost("CreateGlobalUser")]
         public IActionResult CreateGlobalUser(CreateGlobalUserDto createUserDto)
         {
-            try
-            {
-                _authorizationService.CreateGlobalUser(createUserDto);
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return StatusCode(500);
-            }
+            _authorizationService.CreateGlobalUser(createUserDto);
             return Ok();
         }
         [HttpPost("CreateClientUser")]
         public IActionResult CreateClientUser(CreateClientUserDto createClientUserDto)
         {
-            try
-            {
-                _authorizationService.CreateClientUser(createClientUserDto);
-            }
-            catch(ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return StatusCode(500);
-            }
+            _authorizationService.CreateClientUser(createClientUserDto);
             return Ok();
         }
     }

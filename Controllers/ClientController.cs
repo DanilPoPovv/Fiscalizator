@@ -23,72 +23,33 @@ namespace Fiscalizator.Controllers
         [Authorize(Roles = "GlobalAdmin")]
         public ActionResult AddClient(ClientDTO request)
         {
-            try
-            {
-                _clientService.AddClient(request);
-                return Ok();
-            }
-            catch (ClientException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+            _clientService.AddClient(request);
+            return Ok();
         }
 
         [HttpPut("Change")]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult UpdateClient(ClientChangeDTO request)
         {
-            try
-            {
-                _clientService.UpdateClient(request);
-                return Ok();
-            }
-            catch (ClientException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+            _clientService.UpdateClient(request);
+            return Ok();
         }
 
         [HttpDelete("Delete")]
         [Produces("application/json")]
         public ActionResult DeleteClient(ClientDeleteDTO clientDeleteDTO)
         {
-            try
-            {
-                _clientService.DeleteClient(clientDeleteDTO);
-                return Ok();
-            }
-            catch (ClientException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+             _clientService.DeleteClient(clientDeleteDTO);
+             return Ok();
         }
 
         [HttpGet("GetAll")]
         [Produces("application/json")]
         public ActionResult<IEnumerable<Client>> GetAllClients()
         {
-            try
-            {
-                var clients = _clientService.GetAllClients();
-                return Ok(clients);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+             var clients = _clientService.GetAllClients();
+             return Ok(clients);
+
         }
     }
 }

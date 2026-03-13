@@ -19,55 +19,21 @@ namespace Fiscalizator.Controllers
         [HttpPost("createKkm")]
         public ActionResult CreateKkm(KkmDTO kkmDTO)
         {
-            try
-            {
-                _kkmService.AddKkm(kkmDTO);
-                return Ok();
-            }
-            catch (KkmException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+             _kkmService.AddKkm(kkmDTO);
+             return Ok();
         }
         [HttpPut("updateKkm")]
         [Consumes("application/json"), Produces("application/json")]
         public ActionResult UpdateKkm(KkmUpdateDTO kkmDTO)
         {
-            try
-            {
-                _kkmService.UpdateKkm(kkmDTO);
-                return Ok();
-            }
-            catch (KkmException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+             _kkmService.UpdateKkm(kkmDTO);
+             return Ok();
         }
         [HttpDelete("deleteKkm")]
         public ActionResult DeleteKkm(KkmDeleteDTO deleteDTO)
         {
-            try
-            {
                 _kkmService.DeleteKkm(deleteDTO);
-                return Ok();
-            }
-            catch (KkmException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
-            
+                return Ok();  
         }
         [HttpGet("getKkms")]
         public ActionResult GetAllClientKkms(int clientCode)

@@ -38,7 +38,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             User user = _userRepository.GetByUserName(authorizeDto.Username);
             if (user == null || _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, authorizeDto.Password) != PasswordVerificationResult.Success) 
             {
-                throw new UnauthorizedAccessException();
+                throw new UnauthorizedAccessException("Password or username is incorrect");
             }
             return _jwtTokenGenerator.Generate(user);
         }

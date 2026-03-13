@@ -63,34 +63,16 @@ namespace Fiscalizator.Controllers
         [Produces("application/json")]
         public ActionResult DeleteCashier(CashierDeleteDTO cashierDeleteDTO)
         {
-            try
-            {
-                _cashierService.DeleteCashier(cashierDeleteDTO);
-                return Ok();
-            }
-            catch (CashierException ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+            _cashierService.DeleteCashier(cashierDeleteDTO);
+            return Ok();
         }
 
         [HttpGet("GetAllClientCashier")]
         [Produces("application/json")]
         public ActionResult<IEnumerable<Client>> GetAllClientCashier(int ClientCode)
         {
-            try
-            {
-                var cashiers = _cashierService.GetAllClientCashiers(ClientCode);
-                return Ok(cashiers);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "An unexpected error occurred: " + ex.Message);
-            }
+             var cashiers = _cashierService.GetAllClientCashiers(ClientCode);
+             return Ok(cashiers);
         }
     }
 }
