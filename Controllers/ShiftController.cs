@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fiscalizator.Controllers
 {
+    [ApiController]
     public class ShiftController : ControllerBase 
     {
         private readonly OpenShiftHandler _openShiftHandler;

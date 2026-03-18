@@ -9,12 +9,13 @@ using ISession = NHibernate.ISession;
 using Microsoft.AspNetCore.Identity;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.FiscalizationClasses.Validators;
+using Fiscalizator.Repository.Interfaces;
 
 namespace Fiscalizator.FiscalizationClasses.Services
 {
     public class AuthorizationService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly JwtTokenGenerator _jwtTokenGenerator;
         private readonly ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> _clientUserValidator;
@@ -27,8 +28,8 @@ namespace Fiscalizator.FiscalizationClasses.Services
         {
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = new UserRepository(NHibernateHelper.OpenSession());
             _session = NHibernateHelper.OpenSession();
+            _userRepository = new UserRepository(_session);
             _userDataAccessor = new UserDataAccessor(_session);
             _clientUserValidator = clientUserValidator;
             _globalUserValidator = globalUserValidator;

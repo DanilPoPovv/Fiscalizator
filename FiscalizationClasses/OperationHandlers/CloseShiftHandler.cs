@@ -30,8 +30,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 
             try
             {
-                using var session = NHibernateHelper.OpenSession();
-                var dataAccessor = new BaseOperationDataAccessor(session);
+                var dataAccessor = new BaseOperationDataAccessor(_session);
                 _validatorManager.ValidateAll(request, dataAccessor, validationContext);
 
                 _logger.FileLog($"Processing close shift for KKM: {request.SerialNumber}");
@@ -48,10 +47,11 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 {
                     shift.ClosureDateTime = lastBill.OperationDateTime.AddSeconds(1);
                 }
-                var shiftRepository = new ShiftRepository(session);
-                _shiftRepository.CloseShift(shift);
-                ///TODO : Убрать это, как в коде так и как поле сущности в базе.
-                validationContext.Shift.LastOperationDateTime = (DateTime)shift.ClosureDateTime;
+                using (var transaction = _session.BeginTransaction()) 
+                {
+                    validationContext.Shift.LastOperationDateTime = (DateTime)shift.ClosureDateTime;
+                    transaction.Commit();
+                }
 
                 return new CloseShiftResponse
                 {
