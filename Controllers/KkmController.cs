@@ -2,6 +2,7 @@
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 
@@ -17,6 +18,7 @@ namespace Fiscalizator.Controllers
             _kkmService = kkmService;
         }
         [HttpPost]
+        [Authorize(Policy = "SameClientOnly")]
         public ActionResult CreateKkm(KkmDTO kkmDTO)
         {
              _kkmService.AddKkm(kkmDTO);
