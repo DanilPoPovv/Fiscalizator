@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 namespace Fiscalizator.FiscalizationClasses.Authorization
 {
+    ///TODO : ПЕРЕДЕЛАТЬ НОРМАЛЬНО
     public static class ClaimsPrincipalHelper
     {
         public static int? GetClientId(this ClaimsPrincipal user)

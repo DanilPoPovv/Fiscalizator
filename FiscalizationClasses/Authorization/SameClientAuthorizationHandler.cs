@@ -1,5 +1,6 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Repository;
+using Fiscalizator.Repository.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -7,7 +8,7 @@ namespace Fiscalizator.FiscalizationClasses.Authorization
 {
     public class SameClientAuthorizationHandler : AuthorizationHandler<SameClientRequirement>
     {
-        private readonly ClientRepository _client;
+        private readonly IClientRepository _client;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public SameClientAuthorizationHandler(IHttpContextAccessor httpContextAccessor)
@@ -33,14 +34,7 @@ namespace Fiscalizator.FiscalizationClasses.Authorization
                 return Task.CompletedTask;
             }
 
-            var routeValues = _httpContextAccessor.HttpContext?.Request.RouteValues;
-
-            if (!routeValues.TryGetValue("inn", out var innObj))
-                return Task.CompletedTask;
-
-            if (!int.TryParse(innObj?.ToString(), out var inn))
-                return Task.CompletedTask;
-            Client client = _client.GetByCode(inn);
+            Client client = _client.GetById(userClientId.Value);
             if (client == null)
             {
                 return Task.CompletedTask;

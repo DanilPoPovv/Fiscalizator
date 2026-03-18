@@ -29,7 +29,9 @@
             };
 
             context.Response.StatusCode = statusCode;
-
+            Console.WriteLine(ex.Message + "\n");
+            Console.WriteLine(ex.StackTrace + "\n");
+            Console.WriteLine(ex.Source + "\n");
             var response = new
             {
                 status = statusCode,
