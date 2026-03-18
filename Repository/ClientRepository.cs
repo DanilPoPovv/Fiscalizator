@@ -3,7 +3,7 @@ using NHibernate.Linq;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.Repository
 {
-    public class ClientRepository : Repository<Client>
+    public class ClientRepository : BaseRepository<Client>, IClientRepository
     {
         public ClientRepository(ISession session) : base(session) { }
 

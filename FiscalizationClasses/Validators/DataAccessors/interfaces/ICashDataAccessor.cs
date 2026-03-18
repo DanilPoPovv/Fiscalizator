@@ -5,7 +5,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces
 {
     public interface ICashDataAccessor
     {
-        public CashRepository Cash { get; }
+        public CounterRepository Cash { get; }
         public Counter GetCounter(int kkmId);
     }
 }

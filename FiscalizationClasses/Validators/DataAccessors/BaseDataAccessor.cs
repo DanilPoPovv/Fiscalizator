@@ -10,14 +10,14 @@ namespace Fiscalizator.FiscalizationClasses.Validators.DataAccessors
         public KkmRepository Kkms { get; }
         public ShiftRepository Shifts { get; }
         public CashierRepository Cashiers { get; }
-        public CashRepository Cash { get; }
+        public CounterRepository Cash { get; }
 
         public BaseOperationDataAccessor(ISession session)
         {
             Kkms = new KkmRepository(session);
             Shifts = new ShiftRepository(session);
             Cashiers = new CashierRepository(session);
-            Cash = new CashRepository(session); 
+            Cash = new CounterRepository(session); 
         }
         public Counter GetCounter(int kkmId)
         {

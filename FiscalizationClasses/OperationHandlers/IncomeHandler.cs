@@ -12,7 +12,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class IncomeHandler
     {
-        private readonly CashRepository _cashRepository;
+        private readonly CounterRepository _cashRepository;
         private readonly ValidatorManager<IncomeOperationDto, BaseOperationDataAccessor, ValidationContext> _incomeValidator;
         private readonly ISession session;
         private readonly BaseOperationDataAccessor _dataAccessor;
@@ -23,7 +23,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         {
             _incomeValidator = incomeValidator;
             session = NHibernateHelper.SessionFactory.OpenSession();
-            _cashRepository = new CashRepository(session);
+            _cashRepository = new CounterRepository(session);
             _dataAccessor = new BaseOperationDataAccessor(session);
             _cashOperationRepository = new CashOperationRepository(session);
             _validationContext = new ValidationContext();

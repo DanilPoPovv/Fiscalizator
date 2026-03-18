@@ -34,7 +34,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                 _logger.FileLog($"Processing bill for amount: {request.Amount}");
 
                 Bill bill = CreateNewBill(request, validationContext);
-                var repository = new Repository<Bill>(session);
+                var repository = new BaseRepository<Bill>(session);
                 repository.Add(bill);
                 return new BillResponse { Message = "Bill processed successfully" };
             }

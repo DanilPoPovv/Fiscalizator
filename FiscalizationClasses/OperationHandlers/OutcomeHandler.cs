@@ -11,7 +11,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class OutcomeHandler
     {
-        private readonly CashRepository _cashRepository;
+        private readonly CounterRepository _cashRepository;
         private readonly ValidatorManager<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext> _outcomeValidator;
         private readonly ISession session;
         private readonly BaseOperationDataAccessor _dataAccessor;
@@ -20,7 +20,7 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
         public OutcomeHandler(ValidatorManager<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext> outcomeValidator)
         {
             session = NHibernateHelper.SessionFactory.OpenSession();
-            _cashRepository = new CashRepository(session);
+            _cashRepository = new CounterRepository(session);
             _outcomeValidator = outcomeValidator;
             _dataAccessor = new BaseOperationDataAccessor(session);
             _cashOperationRepository = new CashOperationRepository(session);

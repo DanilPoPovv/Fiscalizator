@@ -2,7 +2,7 @@
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.Repository
 {
-    public class CashierRepository : Repository<Cashier>
+    public class CashierRepository : Repository<Cashier>, ICashierRepository
     {
         public CashierRepository(ISession session) : base(session) { }
 

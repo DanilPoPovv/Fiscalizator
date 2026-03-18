@@ -2,7 +2,7 @@
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.Repository
 {
-    public class UserRepository : Repository<User>
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
         public UserRepository(ISession session) : base(session) { }
         public User GetByUserName(string username)
