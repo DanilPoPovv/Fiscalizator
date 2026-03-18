@@ -6,6 +6,7 @@ using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Mappers;
 using Fiscalizator.NHibernate;
 using Fiscalizator.Repository;
+using Fiscalizator.Repository.Interfaces;
 using NHibernate;
 using ISession = NHibernate.ISession;
 
@@ -18,8 +19,8 @@ namespace Fiscalizator.FiscalizationClasses.Services
         private readonly ValidatorManager<KkmDTO,KkmCrudDataAccessor, KkmValidationContext> _validator;
         private readonly ValidatorManager<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext> _validatorUpdate;
         private readonly ValidatorManager<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext> _validatorDelete;
-        private readonly KkmRepository _kkmRepository;
-        private readonly ClientRepository _clientRepository;
+        private readonly IKkmRepository _kkmRepository;
+        private readonly IClientRepository _clientRepository;
         private readonly KkmCrudDataAccessor _dataAccessor;
 
         public KkmService(ValidatorManager<KkmDTO, KkmCrudDataAccessor, KkmValidationContext> validator, 

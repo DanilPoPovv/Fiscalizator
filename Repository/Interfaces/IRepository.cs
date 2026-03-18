@@ -1,10 +1,11 @@
-﻿namespace Fiscalizator.Repository
+﻿namespace Fiscalizator.Repository.Interfaces
 {
-    public interface IRepository<T> where T : class 
+    public interface IBaseRepository<T> where T : class
     {
-        public void Add(T entity);
-        public T GetById(int id);
-        public void Delete(T entity);
-        public void Update(T entity);
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(T entity);
+        T GetById(int id);
+        IQueryable<T> Query();
     }
 }

@@ -4,13 +4,14 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
+using Fiscalizator.Repository.Interfaces;
 using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.Services
 {
     public class CashierService
     {
-        private readonly CashierRepository _cashierRepository;
+        private readonly ICashierRepository _cashierRepository;
         private readonly ISession _session;
         private readonly ValidatorManager<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext> _addCashierValidator;
         private readonly ValidatorManager<CashierUpdateDto, CashierCrudDataAccessor, CashierValidationContext> _updateCashierValidator;

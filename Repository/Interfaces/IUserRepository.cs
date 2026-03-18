@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.Repository
+namespace Fiscalizator.Repository.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
         bool ExistsInClient(string userName, int clientId);
         User GetByUserName(string username);

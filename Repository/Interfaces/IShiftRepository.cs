@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.Repository
+namespace Fiscalizator.Repository.Interfaces
 {
-    public interface IShiftRepository
+    public interface IShiftRepository : IBaseRepository<Shift>
     {
         void CloseShift(Shift shift);
         Shift GetLastKkmShift(int kkmId);

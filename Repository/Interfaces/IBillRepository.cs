@@ -2,7 +2,7 @@
 
 namespace Fiscalizator.Repository.Interfaces
 {
-    public interface ICashOperationRepository : IBaseRepository<CashOperation>
+    public interface IBillRepository : IBaseRepository<Bill>
     {
     }
 }

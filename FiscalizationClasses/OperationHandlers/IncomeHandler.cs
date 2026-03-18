@@ -5,6 +5,7 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
+using Fiscalizator.Repository.Interfaces;
 using NHibernate;
 using ISession = NHibernate.ISession;
 
@@ -12,18 +13,18 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class IncomeHandler
     {
-        private readonly CounterRepository _cashRepository;
+        private readonly ICounterRepository _counterRepository;
         private readonly ValidatorManager<IncomeOperationDto, BaseOperationDataAccessor, ValidationContext> _incomeValidator;
         private readonly ISession session;
         private readonly BaseOperationDataAccessor _dataAccessor;
-        private readonly CashOperationRepository _cashOperationRepository;
+        private readonly ICashOperationRepository _cashOperationRepository;
         private readonly ValidationContext _validationContext;
 
         public IncomeHandler(ValidatorManager<IncomeOperationDto, BaseOperationDataAccessor, ValidationContext> incomeValidator)
         {
             _incomeValidator = incomeValidator;
             session = NHibernateHelper.SessionFactory.OpenSession();
-            _cashRepository = new CounterRepository(session);
+            _counterRepository = new CounterRepository(session);
             _dataAccessor = new BaseOperationDataAccessor(session);
             _cashOperationRepository = new CashOperationRepository(session);
             _validationContext = new ValidationContext();
@@ -34,9 +35,10 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
             {
                 Counter counter;
                 _incomeValidator.ValidateAll(incomeDto, _dataAccessor, _validationContext);
+                /// TODO : UNIT OF WORK!!!!!!!
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                   counter = _cashRepository.GetByKkmId(_validationContext.Kkm.Id);
+                   counter = _counterRepository.GetByKkmId(_validationContext.Kkm.Id);
                    counter.CashValue += incomeDto.Amount;
                     CashOperation cashOperation = new CashOperation
                     {

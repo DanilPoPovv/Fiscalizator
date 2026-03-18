@@ -4,8 +4,8 @@ using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.Repository
 {
-    public class CashOperationRepository : BaseRepository<CashOperation>, ICashOperationRepository
+    public class BillRepository : BaseRepository<Bill>,IBillRepository
     {
-        public CashOperationRepository(ISession session) : base(session) { }
+        public BillRepository(ISession session) : base(session) { }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.Repository
+namespace Fiscalizator.Repository.Interfaces
 {
-    public interface ICounterRepository
+    public interface ICounterRepository : IBaseRepository<Counter>
     {
         Counter GetByKkmId(int kkmId);
     }

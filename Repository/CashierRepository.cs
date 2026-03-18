@@ -1,8 +1,9 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
+using Fiscalizator.Repository.Interfaces;
 using ISession = NHibernate.ISession;
 namespace Fiscalizator.Repository
 {
-    public class CashierRepository : Repository<Cashier>, ICashierRepository
+    public class CashierRepository : BaseRepository<Cashier>, ICashierRepository
     {
         public CashierRepository(ISession session) : base(session) { }
 

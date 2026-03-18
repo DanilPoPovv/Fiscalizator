@@ -11,25 +11,23 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
 {
     public class OutcomeHandler
     {
-        private readonly CounterRepository _cashRepository;
         private readonly ValidatorManager<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext> _outcomeValidator;
-        private readonly ISession session;
+        private readonly ISession _session;
         private readonly BaseOperationDataAccessor _dataAccessor;
         private readonly CashOperationRepository _cashOperationRepository;
         private readonly OutcomeCashVContext _validationContext;
+        private readonly UnitOfWork _unitOfWork;
         public OutcomeHandler(ValidatorManager<OutcomeOperationDto, BaseOperationDataAccessor, OutcomeCashVContext> outcomeValidator)
         {
-            session = NHibernateHelper.SessionFactory.OpenSession();
-            _cashRepository = new CounterRepository(session);
+            _session = NHibernateHelper.SessionFactory.OpenSession();
             _outcomeValidator = outcomeValidator;
-            _dataAccessor = new BaseOperationDataAccessor(session);
-            _cashOperationRepository = new CashOperationRepository(session);
+            _dataAccessor = new BaseOperationDataAccessor(_session);
+            _cashOperationRepository = new CashOperationRepository(_session);
             _validationContext = new OutcomeCashVContext();
+            _unitOfWork = new UnitOfWork(_session);
         }
         public OperationResponse Outcome(OutcomeOperationDto outcomeOperationDto)
         {
-            try
-            {
                 _outcomeValidator.ValidateAll(outcomeOperationDto, _dataAccessor, _validationContext);
                 Counter counter = _validationContext.Cash;
                 CashOperation cashOperation = new CashOperation
@@ -41,22 +39,14 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                     OperationType = CashOperationType.Outcome,
                     OperationDateTime = outcomeOperationDto.OperationDateTime
                 };
-                using (var transaction = session.BeginTransaction())
+                using (_unitOfWork)
                 {
                     counter.CashValue -= outcomeOperationDto.Amount;
-                    _cashOperationRepository.Add(cashOperation);
+                    _unitOfWork.cashOperationRepository.Add(cashOperation);
                     _validationContext.Shift.LastOperationDateTime = outcomeOperationDto.OperationDateTime;
-                    transaction.Commit();
+                    _unitOfWork.Commit();
                 }
                 return new OperationResponse { Message = $"Outcome operation processed successfully, current cash {counter.CashValue}" };
-            }
-            catch (Exception ex)
-            {
-                return new OperationResponse
-                {
-                    Message = $"Outcome operation processing failed: {ex.Message}"
-                };
-            }
         }
     }
 }

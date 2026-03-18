@@ -1,8 +1,8 @@
 ﻿using Fiscalizator.FiscalizationClasses.Entities;
 
-namespace Fiscalizator.Repository
+namespace Fiscalizator.Repository.Interfaces
 {
-    public interface IClientRepository
+    public interface IClientRepository : IBaseRepository<Client>
     {
         void DeleteByCode(int code);
         List<Client> GetAll();

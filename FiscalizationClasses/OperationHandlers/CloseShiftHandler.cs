@@ -5,6 +5,7 @@ using Fiscalizator.FiscalizationClasses.Validators;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.Repository;
+using Fiscalizator.Repository.Interfaces;
 using ISession = NHibernate.ISession;
 
 namespace Fiscalizator.FiscalizationClasses.OperationHandlers
@@ -13,10 +14,14 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
     {
         private readonly Logger.Logger _logger;
         private readonly ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> _validatorManager;
+        private readonly IShiftRepository _shiftRepository;
+        private readonly ISession _session;
         public CloseShiftHandler(Logger.Logger logger, ValidatorManager<CloseShiftDTO, BaseOperationDataAccessor, ValidationContext> validator)
         {
             _logger = logger;
             _validatorManager = validator;
+            _session = NHibernateHelper.OpenSession();
+            _shiftRepository = new ShiftRepository(_session);
         }
 
         public CloseShiftResponse ProcessCloseShift(CloseShiftDTO request)
@@ -44,7 +49,8 @@ namespace Fiscalizator.FiscalizationClasses.OperationHandlers
                     shift.ClosureDateTime = lastBill.OperationDateTime.AddSeconds(1);
                 }
                 var shiftRepository = new ShiftRepository(session);
-                shiftRepository.CloseShift(shift);
+                _shiftRepository.CloseShift(shift);
+                ///TODO : Убрать это, как в коде так и как поле сущности в базе.
                 validationContext.Shift.LastOperationDateTime = (DateTime)shift.ClosureDateTime;
 
                 return new CloseShiftResponse

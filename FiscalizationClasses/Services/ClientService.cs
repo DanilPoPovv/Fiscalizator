@@ -7,6 +7,7 @@ using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Dto.Client;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
+using Fiscalizator.Repository.Interfaces;
 
 public class ClientService
 {
@@ -14,7 +15,7 @@ public class ClientService
     private readonly ValidatorManager<ClientChangeDTO, IClientDataAccessor, ClientValidationContext> _updateValidator;
     private readonly ValidatorManager<ClientDeleteDTO, IClientDataAccessor, ClientValidationContext> _deleteValidator;
 
-    private readonly ClientRepository _clientRepository;
+    private readonly IClientRepository _clientRepository;
     private readonly ClientMapper _clientMapper;
     private readonly ISession _session;
     private readonly ClientCrudDataAccesor _dataAccessor;
