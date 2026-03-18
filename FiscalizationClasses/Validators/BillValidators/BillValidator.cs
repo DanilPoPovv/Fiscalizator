@@ -40,7 +40,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
                 commoditiesSum += commodity.Price * commodity.Quantity;
 
                 if (commodity.Tax != null)
-                    ValidateTax(commodity.Tax, commoditiesSum);
+                    ValidateTax(commodity.Tax, commodity.Sum);
             }
 
             if (commoditiesSum != amount)
@@ -56,10 +56,14 @@ namespace Fiscalizator.FiscalizationClasses.Validators.BillValidators
                 throw new BillException("Tax percent cannot be negative.");
 
             if (tax.Sum != commoditySum * tax.Percent / 100)
+            {
+                Console.WriteLine(tax.Sum);
+                Console.WriteLine((commoditySum * tax.Percent / 100).ToString());
                 throw new BillException("Tax sum does not match the calculated value.");
-        }
+            }
+            }
 
-        private void ValidatePayment(PaymentDTO payment, decimal billAmount)
+            private void ValidatePayment(PaymentDTO payment, decimal billAmount)
         {
             if (!EnumHelper.IsDefined<PaymentType>(payment.PaymentType))
                 throw new BillException($"Invalid payment type: {payment.PaymentType}");
