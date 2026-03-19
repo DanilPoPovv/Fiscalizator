@@ -2,7 +2,7 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Kkm
 {
-    public class KkmDTO
+    public class KkmDTO : IClientCodeRequire
     {
         public int SerialNumber { get; set; }
         public int ClientCode { get; set; }

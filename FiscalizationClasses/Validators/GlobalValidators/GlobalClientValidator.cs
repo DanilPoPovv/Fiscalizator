@@ -14,12 +14,24 @@ namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
         where TContext : IValidationContext 
         where TRequest : IClientCodeRequire
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GlobalClientValidator(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
         public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
             Client client = validationData.Clients.GetByCode(request.ClientCode);
             if (client == null)
             {
                 throw new ClientException("Client with the specified code does not exist.");
+            }
+
+            if (_httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "clientId").Value != client.Id.ToString() &&
+                _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "role").Value != UserRole.GlobalAdmin.ToString()
+                )
+            {
+                throw new Exception("Your account belongs to another client.");
             }
             if (validationContext is IClientValidationContextRequire validationContextClient)
                 validationContextClient.Client = client;

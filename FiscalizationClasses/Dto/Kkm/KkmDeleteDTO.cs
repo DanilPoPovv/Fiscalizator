@@ -2,8 +2,9 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Kkm
 {
-    public class KkmDeleteDTO : ISerialNumberRequire
+    public class KkmDeleteDTO : ISerialNumberRequire, IClientCodeRequire
     {
         public int SerialNumber { get; set; }
+        public int ClientCode { get; set; }
     }
 }

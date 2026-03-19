@@ -1,7 +1,5 @@
 using Fiscalizator.CustomMidlwares;
-using Fiscalizator.FiscalizationClasses.Authorization;
 using Fiscalizator.Helpers;
-using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,15 +16,10 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAppServices();
 builder.Services.AddFiscalizatorValidators();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("SameClientOnly", policy =>
-        policy.Requirements.Add(new SameClientRequirement()));
-
-});
+builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.AddSwaggerBearer();

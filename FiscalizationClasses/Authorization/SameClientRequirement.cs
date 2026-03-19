@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿//using Microsoft.AspNetCore.Authorization;
 
-namespace Fiscalizator.FiscalizationClasses.Authorization
-{
-    public class SameClientRequirement : IAuthorizationRequirement
-    {
-    }
-}
+//namespace Fiscalizator.FiscalizationClasses.Authorization
+//{
+//    public class SameClientRequirement : IAuthorizationRequirement
+//    {
+//    }
+//}

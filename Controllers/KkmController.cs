@@ -18,7 +18,7 @@ namespace Fiscalizator.Controllers
             _kkmService = kkmService;
         }
         [HttpPost]
-        [Authorize(Policy = "SameClientOnly")]
+        [Authorize(Roles = "GlobalAdmin,ClientAdmin")]
         public ActionResult CreateKkm(KkmDTO kkmDTO)
         {
              _kkmService.AddKkm(kkmDTO);

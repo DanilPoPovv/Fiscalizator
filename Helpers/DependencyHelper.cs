@@ -88,7 +88,6 @@ namespace Fiscalizator.Helpers
             services.AddScoped<AuthorizationService>();
             services.AddScoped<JwtTokenGenerator>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddScoped<IAuthorizationHandler, SameClientAuthorizationHandler>();
             services.AddHttpContextAccessor();
             return services;
         }

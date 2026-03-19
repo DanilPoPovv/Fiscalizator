@@ -2,7 +2,7 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Client
 {
-    public class ClientDTO 
+    public class ClientDTO : IClientCodeRequire
     {
         public int ClientCode { get; set; }
         public string Name { get; set; }
