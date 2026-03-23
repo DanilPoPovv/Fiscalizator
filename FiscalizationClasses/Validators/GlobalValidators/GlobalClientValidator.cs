@@ -5,6 +5,7 @@ using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts.interfaces;
+using Fiscalizator.Helpers;
 using Fiscalizator.Repository;
 
 namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
@@ -21,17 +22,16 @@ namespace Fiscalizator.FiscalizationClasses.Validators.GlobalValidators
         }
         public void Validate(TRequest request, TData validationData, TContext validationContext)
         {
-            Client client = validationData.Clients.GetByCode(request.ClientCode);
-            if (client == null)
+            var user = _httpContextAccessor.HttpContext.User;
+            var userRole = user.GetRole();
+            var userClientId = user.GetClientId();
+            var client = validationData.Clients.GetByCode(request.ClientCode);
+            if (userRole != UserRole.GlobalAdmin.ToString())
             {
-                throw new ClientException("Client with the specified code does not exist.");
-            }
-
-            if (_httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "clientId").Value != client.Id.ToString() &&
-                _httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "role").Value != UserRole.GlobalAdmin.ToString()
-                )
-            {
-                throw new Exception("Your account belongs to another client.");
+                if (userClientId == null || userClientId != client.Id.ToString())
+                {
+                    throw new Exception("Your account belongs to another client.");
+                }
             }
             if (validationContext is IClientValidationContextRequire validationContextClient)
                 validationContextClient.Client = client;

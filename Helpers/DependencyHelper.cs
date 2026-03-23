@@ -23,8 +23,6 @@ using Microsoft.AspNetCore.Identity;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Validators.Authorization;
 using Fiscalizator.FiscalizationClasses.Dto.User;
-using Microsoft.AspNetCore.Authorization;
-using Fiscalizator.FiscalizationClasses.Authorization;
 
 namespace Fiscalizator.Helpers
 {
