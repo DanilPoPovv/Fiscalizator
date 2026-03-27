@@ -18,7 +18,7 @@ public class ClientService
     private readonly IClientRepository _clientRepository;
     private readonly ClientMapper _clientMapper;
     private readonly ISession _session;
-    private readonly ClientCrudDataAccesor _dataAccessor;
+    private readonly IClientDataAccessor _dataAccessor;
 
     public ClientService(
         ValidatorManager<ClientDTO, IClientDataAccessor, ClientValidationContext> createValidator,
@@ -58,17 +58,18 @@ public class ClientService
 
     public void UpdateClient(ClientChangeDTO dto)
     {
+        ///TODO : добавить валидацию полей, либо самому либо через modelState
+        /// А ЕЩЕ не использовать тут транзакцию напрямую, надо UOW
+      
         using var transaction = _session.BeginTransaction();
-
         var context = new ClientValidationContext();
         _updateValidator.ValidateAll(dto, _dataAccessor, context);
 
-        Client client = context.Client;
+        Client client = _clientRepository.GetById(dto.ClientId);
+        client.Code = dto.Code;
         client.Name = dto.Name;
         client.Address = dto.Location;
-        client.Code = dto.NewCode;
-
-        _clientRepository.Update(client);
+       
 
         transaction.Commit();
     }

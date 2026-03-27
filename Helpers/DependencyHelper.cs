@@ -47,9 +47,9 @@ namespace Fiscalizator.Helpers
             services.AddScoped<IValidator<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
             services.AddScoped<IValidator<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmDeleteValidator>();
             // Client
-            services.AddScoped<IValidator<ClientDTO,ClientCrudDataAccesor, ClientValidationContext>, ClientCreateUniqueValidator>();
-            services.AddScoped<IValidator<ClientChangeDTO, ClientCrudDataAccesor,ClientValidationContext>, ClientUpdateUnique>();
-            services.AddScoped<IValidator<ClientDeleteDTO, ClientCrudDataAccesor, ClientValidationContext>, ClientDeleteValidator>();
+            services.AddScoped<IValidator<ClientDTO,IClientDataAccessor, ClientValidationContext>, ClientCreateUniqueValidator>();
+            services.AddScoped<IValidator<ClientChangeDTO, IClientDataAccessor, ClientValidationContext>, ClientUpdateUnique>();
+            services.AddScoped<IValidator<ClientDeleteDTO, IClientDataAccessor, ClientValidationContext>, ClientDeleteValidator>();
 
             //Cashier
             services.AddScoped<IValidator<CashierAddDto, CashierCrudDataAccessor, CashierValidationContext>, CashierAddvalidator>();

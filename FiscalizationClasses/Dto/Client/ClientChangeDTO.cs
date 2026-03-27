@@ -2,10 +2,10 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.Client
 {
-    public class ClientChangeDTO : IClientCodeRequire
+    public class ClientChangeDTO 
     {
-        public int ClientCode { get; set; }
-        public int NewCode { get; set; }
+        public int ClientId { get; set; }
+        public int Code { get; set; }
         public string Location {  get; set; }
         public string Name { get; set; }
     }
