@@ -16,7 +16,9 @@ public static class NHibernateHelper
         {
             if (_sessionFactory == null)
             {
-                string connectionString = @"Server=192.168.44.242,1433;Database=Roflanizator;User Id=dockerUser;Password=strongPassword";
+                /// TODO: КОГДА НИБУДЬ УЖЕ В КОНФИГ НО ПОКА ИСПОЛЬЗОВАТЬ ЭТУ СТРОКУ ЕСЛИ РАБОТАЕШЬ С ДОМАШНЕЙ БД 
+                /// Server=DESKTOP-E7O5CEM\MYSQLSERV;Database=Roflanizator;Trusted_Connection=True;TrustServerCertificate=True;
+                string connectionString = @"Server=DESKTOP-E7O5CEM\MYSQLSERV;Database=Roflanizator;Trusted_Connection=True;TrustServerCertificate=True;";
                 Console.WriteLine($"Conn: {connectionString}");
                 var cfg = Fluently.Configure()
                     .Database(MsSqlConfiguration.MsSql2012

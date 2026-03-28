@@ -24,7 +24,8 @@ namespace Fiscalizator.FiscalizationClasses.Services
         private readonly KkmCrudDataAccessor _dataAccessor;
 
         public KkmService(ValidatorManager<KkmDTO, KkmCrudDataAccessor, KkmValidationContext> validator, 
-            ValidatorManager<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext> updateValidator, ValidatorManager<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext> validatorDelete)
+            ValidatorManager<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext> updateValidator, 
+            ValidatorManager<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext> validatorDelete)
         {
             _session = NHibernateHelper.OpenSession();
             _validator = validator;

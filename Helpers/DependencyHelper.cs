@@ -44,7 +44,7 @@ namespace Fiscalizator.Helpers
 
             // KKM
             services.AddScoped<IValidator<KkmDTO,KkmCrudDataAccessor, KkmValidationContext>, KkmUniqueSerialNumberCreateValidator>();
-            services.AddScoped<IValidator<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmUniqueSerialNumberUpdateValidator>();
+            services.AddScoped<IValidator<KkmUpdateDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmUpdateValidator>();
             services.AddScoped<IValidator<KkmDeleteDTO, KkmCrudDataAccessor, KkmValidationContext>, KkmDeleteValidator>();
             // Client
             services.AddScoped<IValidator<ClientDTO,IClientDataAccessor, ClientValidationContext>, ClientCreateUniqueValidator>();
