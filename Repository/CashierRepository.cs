@@ -13,7 +13,7 @@ namespace Fiscalizator.Repository
         }
         public IEnumerable<Cashier> GetAllClientCashier(int ClientCode)
         {
-            return _session.Query<Cashier>().Where(c => c.Client.Code == ClientCode).ToList();
+            return _session.Query<Cashier>().Where(c => c.Client.ClientCode == ClientCode).ToList();
         }
     }
 }

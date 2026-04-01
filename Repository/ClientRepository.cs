@@ -10,7 +10,7 @@ namespace Fiscalizator.Repository
 
         public Client GetByCode(int Code)
         {
-            return _session.Query<Client>().FirstOrDefault(c => c.Code == Code)!;
+            return _session.Query<Client>().FirstOrDefault(c => c.ClientCode == Code)!;
         }
         public Client GetByName(string name)
         {
@@ -20,7 +20,7 @@ namespace Fiscalizator.Repository
         {
             using (var transaction = _session.BeginTransaction())
             {
-                var client = _session.Query<Client>().FirstOrDefault(c => c.Code == code);
+                var client = _session.Query<Client>().FirstOrDefault(c => c.ClientCode == code);
                 if (client != null)
                 {
                     _session.Delete(client);
@@ -30,7 +30,7 @@ namespace Fiscalizator.Repository
         }
         public List<Kkm> GetAllClientKkm(int ClientCode)
         {
-            return _session.Query<Client>().Where(c => c.Code == ClientCode)
+            return _session.Query<Client>().Where(c => c.ClientCode == ClientCode)
                 .SelectMany(c => c.Kkms)
                 .ToList();
         }

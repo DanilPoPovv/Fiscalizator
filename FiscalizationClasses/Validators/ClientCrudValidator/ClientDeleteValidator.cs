@@ -9,6 +9,11 @@ namespace Fiscalizator.FiscalizationClasses.Validators.ClientCrudValidator
 {
     public class ClientDeleteValidator : IValidator<ClientDeleteDTO, IClientDataAccessor ,ClientValidationContext>
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ClientDeleteValidator(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
         public void Validate(ClientDeleteDTO clientDeleteDTO, IClientDataAccessor validationData, ClientValidationContext validationContext)
         {
             Client client = validationData.Clients.GetByCode(clientDeleteDTO.ClientCode);

@@ -23,16 +23,16 @@ namespace Fiscalizator.Controllers
         [Authorize(Roles = "GlobalAdmin")]
         public ActionResult AddClient(ClientDTO request)
         {
-            _clientService.AddClient(request);
-            return Ok();
+            var client = _clientService.AddClient(request);
+            return Ok(client);
         }
 
         [HttpPut]
         [Produces("application/json"), Consumes("application/json")]
         public ActionResult UpdateClient(ClientChangeDTO request)
         {
-            _clientService.UpdateClient(request);
-            return Ok();
+            var updatedClient = _clientService.UpdateClient(request);
+            return Ok(updatedClient);
         }
 
         [HttpDelete]
@@ -40,7 +40,7 @@ namespace Fiscalizator.Controllers
         public ActionResult DeleteClient(ClientDeleteDTO clientDeleteDTO)
         {
              _clientService.DeleteClient(clientDeleteDTO);
-             return Ok();
+            return NoContent();
         }
 
         [HttpGet]

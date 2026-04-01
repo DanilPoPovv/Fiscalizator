@@ -10,17 +10,17 @@ namespace Fiscalizator.NHibernate
             Table("Clients");
 
             Id(x => x.Id).GeneratedBy.Identity();
-            Map(x => x.Code).Not.Nullable().Unique().Update();
+            Map(x => x.ClientCode).Not.Nullable().Unique().Update();
             Map(x => x.Name).Not.Nullable();
             Map(x => x.Address).Nullable();
 
             HasMany(x => x.Kkms)
-                .KeyColumn("ClientId")
+                .KeyColumn("Id")
                 .Cascade.All()
                 .Inverse();
 
             HasMany(x => x.Cashiers)
-                .KeyColumn("ClientId")
+                .KeyColumn("Id")
                 .Cascade.All()
                 .Inverse();
         }

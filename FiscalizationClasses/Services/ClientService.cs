@@ -35,13 +35,15 @@ public class ClientService
         _dataAccessor = new ClientCrudDataAccesor(_session);
     }
 
-    public void AddClient(ClientDTO dto)
+    public Client AddClient(ClientDTO dto)
     {
         var context = new ClientValidationContext();
         _createValidator.ValidateAll(dto, _dataAccessor, context);
 
         var client = _clientMapper.Map(dto);
         _clientRepository.Add(client);
+        client = _clientRepository.GetByCode(client.ClientCode);
+        return client;
     }
 
     public void DeleteClient(ClientDeleteDTO dto)
@@ -56,22 +58,23 @@ public class ClientService
         transaction.Commit();
     }
 
-    public void UpdateClient(ClientChangeDTO dto)
+    public Client UpdateClient(ClientChangeDTO dto)
     {
-        ///TODO : добавить валидацию полей, либо самому либо через modelState
+        ///TODO : добавить валидацию полей, либо самому, либо через modelState
         /// А ЕЩЕ не использовать тут транзакцию напрямую, надо UOW
       
         using var transaction = _session.BeginTransaction();
         var context = new ClientValidationContext();
         _updateValidator.ValidateAll(dto, _dataAccessor, context);
 
-        Client client = _clientRepository.GetById(dto.ClientId);
-        client.Code = dto.Code;
+        Client client = _clientRepository.GetById(dto.Id);
+        client.ClientCode = dto.ClientCode;
         client.Name = dto.Name;
-        client.Address = dto.Location;
-       
+        client.Address = dto.Address;
 
         transaction.Commit();
+
+        return client;
     }
 
     public List<Client> GetAllClients()

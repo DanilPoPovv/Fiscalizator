@@ -4,9 +4,9 @@ namespace Fiscalizator.FiscalizationClasses.Dto.Client
 {
     public class ClientChangeDTO 
     {
-        public int ClientId { get; set; }
-        public int Code { get; set; }
-        public string Location {  get; set; }
+        public int Id { get; set; }
+        public int ClientCode { get; set; }
+        public string Address {  get; set; }
         public string Name { get; set; }
     }
 }
