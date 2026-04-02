@@ -76,7 +76,10 @@ public class ClientService
 
         return client;
     }
-
+    public IEnumerable<Client> Search(ClientFilterDTO filter)
+    {
+        return _clientRepository.Search(filter);
+    }
     public List<Client> GetAllClients()
     {
     return _clientRepository.GetAll();

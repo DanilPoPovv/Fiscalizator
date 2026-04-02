@@ -51,5 +51,13 @@ namespace Fiscalizator.Controllers
              return Ok(clients);
 
         }
+        [HttpPost("Search")]
+        [Produces("application/json")]
+        public ActionResult<IEnumerable<Client>> Search(ClientFilterDTO filterDto)
+        {
+            var clients = _clientService.Search(filterDto);
+            return Ok(clients);
+
+        }
     }
 }

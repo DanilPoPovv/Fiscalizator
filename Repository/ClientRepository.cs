@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Entities;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Repository.Interfaces;
 using NHibernate.Linq;
 using ISession = NHibernate.ISession;
@@ -37,6 +38,21 @@ namespace Fiscalizator.Repository
         public List<Client> GetAll()
         {
             return _session.Query<Client>().ToList();
+        }
+        public IEnumerable<Client> Search(ClientFilterDTO filter)
+        {
+            var query = _session.Query<Client>();
+
+            if (!string.IsNullOrWhiteSpace(filter.ClientCode))
+                query = query.Where(c => c.ClientCode.ToString().Contains(filter.ClientCode));
+
+            if (!string.IsNullOrWhiteSpace(filter.Name))
+                query = query.Where(c => c.Name.Contains(filter.Name));
+
+            if (!string.IsNullOrWhiteSpace(filter.Address))
+                query = query.Where(c => c.Address.Contains(filter.Address));
+
+            return query.ToList();
         }
     }
 }
