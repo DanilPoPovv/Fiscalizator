@@ -8,6 +8,7 @@ using Fiscalizator.FiscalizationClasses.Dto.Client;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors.interfaces;
 using Fiscalizator.Repository.Interfaces;
+using Fiscalizator.FiscalizationClasses.Dto.Pagination;
 
 public class ClientService
 {
@@ -76,13 +77,23 @@ public class ClientService
 
         return client;
     }
-    public IEnumerable<Client> Search(ClientFilterDTO filter)
+    public PagedResult<Client> Search(ClientFilterDTO filter)
     {
-        return _clientRepository.Search(filter);
+        if (filter.Page <= 0)
+            filter.Page = 1;
+        if (filter.PageSize <= 0)
+            filter.PageSize = 10;
+        
+        var pagedData = _clientRepository.Search(filter);
+        return new PagedResult<Client>()
+        {
+            Items = pagedData.Items,
+            Page = filter.Page,
+            PageSize = filter.PageSize,
+            TotalCount = pagedData.TotalCount
+        };
+        
     }
-    public List<Client> GetAllClients()
-    {
-    return _clientRepository.GetAll();
-    }
+
 }
 

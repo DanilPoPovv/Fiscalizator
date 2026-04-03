@@ -1,4 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto.Client;
+﻿using Fiscalizator.FiscalizationClasses.Dto;
+using Fiscalizator.FiscalizationClasses.Dto.Client;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
@@ -20,7 +21,7 @@ namespace Fiscalizator.Controllers
 
         [HttpPost]
         [Produces("application/json"), Consumes("application/json")]
-        [Authorize(Roles = "GlobalAdmin")]
+///        [Authorize(Roles = "GlobalAdmin")]
         public ActionResult AddClient(ClientDTO request)
         {
             var client = _clientService.AddClient(request);
@@ -37,23 +38,16 @@ namespace Fiscalizator.Controllers
 
         [HttpDelete]
         [Produces("application/json")]
+        [Authorize(Roles="GlobalAdmin")]
         public ActionResult DeleteClient(ClientDeleteDTO clientDeleteDTO)
         {
              _clientService.DeleteClient(clientDeleteDTO);
             return NoContent();
         }
 
-        [HttpGet]
-        [Produces("application/json")]
-        public ActionResult<IEnumerable<Client>> GetAllClients()
-        {
-             var clients = _clientService.GetAllClients();
-             return Ok(clients);
-
-        }
         [HttpPost("Search")]
         [Produces("application/json")]
-        public ActionResult<IEnumerable<Client>> Search(ClientFilterDTO filterDto)
+        public ActionResult<PagedResult<Client>> Search(ClientFilterDTO filterDto)
         {
             var clients = _clientService.Search(filterDto);
             return Ok(clients);

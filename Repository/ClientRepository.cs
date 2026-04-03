@@ -1,4 +1,5 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Dto.Pagination;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.Repository.Interfaces;
 using NHibernate.Linq;
@@ -35,11 +36,7 @@ namespace Fiscalizator.Repository
                 .SelectMany(c => c.Kkms)
                 .ToList();
         }
-        public List<Client> GetAll()
-        {
-            return _session.Query<Client>().ToList();
-        }
-        public IEnumerable<Client> Search(ClientFilterDTO filter)
+        public PagedData<Client> Search(ClientFilterDTO filter)
         {
             var query = _session.Query<Client>();
 
@@ -52,7 +49,13 @@ namespace Fiscalizator.Repository
             if (!string.IsNullOrWhiteSpace(filter.Address))
                 query = query.Where(c => c.Address.Contains(filter.Address));
 
-            return query.ToList();
+            var totalCount = query.Count();
+
+            var Clients = query.Skip((filter.Page - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
+
+            return new PagedData<Client>() { Items = Clients, TotalCount = totalCount};
         }
     }
 }
