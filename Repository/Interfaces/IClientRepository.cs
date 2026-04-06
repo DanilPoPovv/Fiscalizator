@@ -1,4 +1,5 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Dto.Pagination;
 using Fiscalizator.FiscalizationClasses.Entities;
 
 namespace Fiscalizator.Repository.Interfaces
@@ -9,6 +10,6 @@ namespace Fiscalizator.Repository.Interfaces
         List<Kkm> GetAllClientKkm(int ClientCode);
         Client GetByCode(int Code);
         Client GetByName(string name);
-        IEnumerable<Client> Search(ClientFilterDTO filter);
+        PagedData<Client> Search(ClientFilterDTO filter);
     }
 }

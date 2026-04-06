@@ -1,5 +1,5 @@
-﻿using Fiscalizator.FiscalizationClasses.Dto;
-using Fiscalizator.FiscalizationClasses.Dto.Client;
+﻿using Fiscalizator.FiscalizationClasses.Dto.Client;
+using Fiscalizator.FiscalizationClasses.Dto.Pagination;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Services;
 using Fiscalizator.FiscalizationClasses.Validators.Exceptions;
@@ -38,7 +38,6 @@ namespace Fiscalizator.Controllers
 
         [HttpDelete]
         [Produces("application/json")]
-        [Authorize(Roles="GlobalAdmin")]
         public ActionResult DeleteClient(ClientDeleteDTO clientDeleteDTO)
         {
              _clientService.DeleteClient(clientDeleteDTO);
