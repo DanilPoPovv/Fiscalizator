@@ -3,7 +3,7 @@ using Fiscalizator.FiscalizationClasses.Requests;
 
 namespace Fiscalizator.FiscalizationClasses.Dto.User
 {
-    public class CreateClientUserDto : CreateGlobalUserDto, IClientCodeRequire
+    public class CreateClientUserDto : CreateGlobalAdminDto, IClientCodeRequire
     {
         public int ClientCode { get; set; }
 

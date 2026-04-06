@@ -6,6 +6,6 @@ namespace Fiscalizator.Repository.Interfaces
     {
         bool ExistsInClient(string userName, int clientId);
         User GetByUserName(string username);
-        User GetGlobalUserByName(string userName);
+        
     }
 }

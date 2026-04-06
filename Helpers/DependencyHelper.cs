@@ -60,7 +60,7 @@ namespace Fiscalizator.Helpers
 
             //User
             services.AddScoped<IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>, ClientUserValidator>();
-            services.AddScoped<IValidator<CreateGlobalUserDto, UserDataAccessor, UserValidationContext>, GlobalSystemUserValidator>();
+            services.AddScoped<IValidator<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext>, GlobalSystemUserValidator>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalKkmValidator<,,>));
             services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalCashierValidator<,,>));

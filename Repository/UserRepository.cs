@@ -14,9 +14,6 @@ namespace Fiscalizator.Repository
         {
             return _session.Query<User>().Any(u => u.Username == userName && u.ClientId == clientId);
         }
-        public User GetGlobalUserByName(string userName)
-        {
-            return _session.Query<User>().FirstOrDefault(u => u.Username == userName && u.ClientId == null)!;
-        }
+        
     }
 }

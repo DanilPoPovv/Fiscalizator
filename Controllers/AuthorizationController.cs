@@ -22,7 +22,7 @@ namespace Fiscalizator.Controllers
             return Ok(token);
         }
         [HttpPost("CreateGlobalUser")]
-        public IActionResult CreateGlobalUser(CreateGlobalUserDto createUserDto)
+        public IActionResult CreateGlobalUser(CreateGlobalAdminDto createUserDto)
         {
             _authorizationService.CreateGlobalUser(createUserDto);
             return Ok();

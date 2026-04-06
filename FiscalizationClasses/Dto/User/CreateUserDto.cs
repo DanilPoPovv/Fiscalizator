@@ -2,11 +2,13 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.User
 {
-    public class CreateGlobalUserDto
+    public class CreateUserDto
     {
         public string Username { get; set; }
         public UserRole Role { get; set; }
         public string Password { get; set; }
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public int? ClientCode { get; set; }
+
     }
 }

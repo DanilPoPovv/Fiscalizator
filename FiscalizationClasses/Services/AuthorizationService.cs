@@ -19,7 +19,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly JwtTokenGenerator _jwtTokenGenerator;
         private readonly ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> _clientUserValidator;
-        private readonly ValidatorManager<CreateGlobalUserDto, UserDataAccessor, UserValidationContext> _globalUserValidator;
+        private readonly ValidatorManager<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext> _globalUserValidator;
         private readonly UserDataAccessor _userDataAccessor;
         private readonly ISession _session;
 
@@ -27,7 +27,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             IPasswordHasher<User> passwordHasher,
             JwtTokenGenerator jwtTokenGenerator,
             ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> clientUserValidator,
-            ValidatorManager<CreateGlobalUserDto, UserDataAccessor, UserValidationContext> globalUserValidator)
+            ValidatorManager<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext> globalUserValidator)
         {
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
@@ -45,7 +45,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             return _jwtTokenGenerator.Generate(user);
         }
 
-        public User CreateGlobalUser(CreateGlobalUserDto createUserDto)
+        public User CreateGlobalUser(CreateGlobalAdminDto createUserDto)
         {
             UserValidationContext validationContext = new UserValidationContext();
             _globalUserValidator.ValidateAll(createUserDto, _userDataAccessor, validationContext);
@@ -68,7 +68,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             return user;
         }
 
-        private User CreateUser(CreateGlobalUserDto request)
+        private User CreateUser(CreateGlobalAdminDto request)
         {
             User newUser = new User
             {
