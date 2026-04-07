@@ -1,4 +1,5 @@
 ﻿using Fiscalizator.FiscalizationClasses.Dto.User;
+using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,42 +9,49 @@ namespace Fiscalizator.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-        public UserController(UserService userService) 
+        public UserController(UserService userService)
         {
             _userService = userService;
         }
-        public class UserSearchFilterDto
-        {
-            public string? Name { get; set; }
-            public string? Email { get; set; }
-        }
-       
+
         [HttpPost("SearchAdmin")]
         public ActionResult SearchGlobalAdmins(UserSearchFilterDto userSearchFilterDto)
         {
-            
+            var globalAdmins = _userService.SearchAdmins(userSearchFilterDto);
+            return Ok(globalAdmins);
         }
         [HttpPost("SearchUsers")]
-        public ActionResult SearchUsers(UserSearchFilterDto userSearchFilterDto)
+        public ActionResult SearchClientUsers(UserSearchFilterDto userSearchFilterDto)
         {
-
+            return Ok();
         }
-        /// У меня в системе есть глобальные админы, чья область видимости не ограничена и локальные пользователи и админы, их область ограничена страницей 
-        // клиента стоит ли разделять эндпоинты?
-        [HttpPost]
-        public ActionResult CreateUser(CreateUserDto createUserDto)
+        [HttpPost("CreateClientUser")]
+        public ActionResult CreateClientUser(CreateClientUserDto createUserDto)
         {
-
+            return Ok();
         }
-        [HttpPut]
-        public ActionResult UpdateUser(UpdateUserDto updateUserDto)
+        [HttpPost("CreateGlobalAdmin")]
+        public ActionResult CreateGlobalAdmin(CreateAdminDto createAdminDto)
         {
-
+            var admin = _userService.CreateAdmin(createAdminDto);
+            return Ok(admin);
         }
-        [HttpDelete]
+        [HttpPut("UpdateAdmin")]
+        public ActionResult UpdateAdmin(UpdateAdminDto updateUserDto)
+        {
+            var updatedAdmin = _userService.UpdateAdmin(updateUserDto);
+            return Ok(updatedAdmin);
+        }
+        [HttpPut("UpdateUser")]
+        public ActionResult UpdateClientUser(UpdateClientUserDto updateUserDto)
+        {
+            return Ok();
+        }
+        [HttpDelete("Delete")]
         public ActionResult DeleteUser(UserDeleteDto userDeleteDto)
         {
-
+            _userService.DeleteUser(userDeleteDto);
+            return Ok();
         }
     }
 }

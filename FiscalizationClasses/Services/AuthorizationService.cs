@@ -2,7 +2,6 @@
 using Fiscalizator.FiscalizationClasses.Dto.User;
 using Fiscalizator.FiscalizationClasses.Entities;
 using Fiscalizator.FiscalizationClasses.OtherClassess;
-using Fiscalizator.FiscalizationClasses.Validators.Authorization;
 using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.Repository;
 using ISession = NHibernate.ISession;
@@ -45,41 +44,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
             return _jwtTokenGenerator.Generate(user);
         }
 
-        public User CreateGlobalUser(CreateGlobalAdminDto createUserDto)
-        {
-            UserValidationContext validationContext = new UserValidationContext();
-            _globalUserValidator.ValidateAll(createUserDto, _userDataAccessor, validationContext);
-
-            var user = CreateUser(createUserDto);
-            _userRepository.Add(user);
-
-            return user;
-        }
-
-        public User CreateClientUser(CreateClientUserDto createClientUserDto)
-        {
-            UserValidationContext validationContext = new UserValidationContext();
-            _clientUserValidator.ValidateAll(createClientUserDto, _userDataAccessor, validationContext);
-
-            User user = CreateUser(createClientUserDto);
-            user.ClientId = validationContext.Client.Id;
-
-            _userRepository.Add(user);
-            return user;
-        }
-
-        private User CreateUser(CreateGlobalAdminDto request)
-        {
-            User newUser = new User
-            {
-                Username = request.Username,
-                PasswordHash = _passwordHasher.HashPassword(null, request.Password),
-                Role = request.Role,
-            };
-
-            return newUser;
-        }
-
+        ///TODO : Separate to helper because the same logic have in validators    
         private void CheckUserPassword(User user, string requestPassword)
         {
             if (user == null ||

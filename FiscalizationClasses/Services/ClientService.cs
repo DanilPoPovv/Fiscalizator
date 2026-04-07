@@ -79,10 +79,6 @@ public class ClientService
     }
     public PagedResult<Client> Search(ClientFilterDTO filter)
     {
-        if (filter.Page <= 0)
-            filter.Page = 1;
-        if (filter.PageSize <= 0)
-            filter.PageSize = 10;
         
         var pagedData = _clientRepository.Search(filter);
         return new PagedResult<Client>()

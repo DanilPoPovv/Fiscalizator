@@ -3,13 +3,13 @@ using Fiscalizator.FiscalizationClasses.Validators.DataAccessors;
 using Fiscalizator.FiscalizationClasses.Validators.ValidationContexts;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fiscalizator.FiscalizationClasses.Validators.Authorization
+namespace Fiscalizator.FiscalizationClasses.Validators
 {
-    public class ClientUserValidator : IValidator<CreateClientUserDto,UserDataAccessor,UserValidationContext>
+    public class ClientUserValidator : IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>
     {
         public void Validate(CreateClientUserDto createClientUserDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
-            if (userDataAccessor.Users.ExistsInClient(createClientUserDto.Username, userValidationContext.Client.Id))
+            if (userDataAccessor.Users.ExistsInClient(createClientUserDto.UserName, userValidationContext.Client.Id))
             {
                 throw new ValidationException("Username is already taken.");
             }

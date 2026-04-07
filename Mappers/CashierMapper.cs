@@ -9,7 +9,7 @@
 //        {
 //            return new Cashier
 //            {
-//                Name = cashierDTO.Name
+//                UserName = cashierDTO.UserName
 //            };
 //        }
 //    }

@@ -1,6 +1,5 @@
 ﻿namespace Fiscalizator.FiscalizationClasses.Dto.User
 {
-    public class UserSearchFilter
-    {
-    }
+    public class CreateAdminDto : BaseCreateUser
+    {}
 }

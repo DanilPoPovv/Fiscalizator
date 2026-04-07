@@ -21,17 +21,5 @@ namespace Fiscalizator.Controllers
             var token = _authorizationService.Login(authorizeDto);
             return Ok(token);
         }
-        [HttpPost("CreateGlobalUser")]
-        public IActionResult CreateGlobalUser(CreateGlobalAdminDto createUserDto)
-        {
-            _authorizationService.CreateGlobalUser(createUserDto);
-            return Ok();
-        }
-        [HttpPost("CreateClientUser")]
-        public IActionResult CreateClientUser(CreateClientUserDto createClientUserDto)
-        {
-            _authorizationService.CreateClientUser(createClientUserDto);
-            return Ok();
-        }
     }
 }

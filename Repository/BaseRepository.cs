@@ -23,7 +23,7 @@ namespace Fiscalizator.Repository
 
         public void Delete(T entity)
         {            
-            _session.Delete(entity);          
+            _session.Delete(entity);
         }
 
         public T GetById(int id)

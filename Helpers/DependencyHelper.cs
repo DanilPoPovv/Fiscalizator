@@ -21,8 +21,10 @@ using Fiscalizator.FiscalizationClasses.Validators.ServiceOperationValidators;
 using Fiscalizator.FiscalizationClasses.OtherClassess;
 using Microsoft.AspNetCore.Identity;
 using Fiscalizator.FiscalizationClasses.Entities;
-using Fiscalizator.FiscalizationClasses.Validators.Authorization;
 using Fiscalizator.FiscalizationClasses.Dto.User;
+using ISession = NHibernate.ISession;
+using Fiscalizator.Repository.Interfaces;
+using Fiscalizator.Repository;
 
 namespace Fiscalizator.Helpers
 {
@@ -60,7 +62,18 @@ namespace Fiscalizator.Helpers
 
             //User
             services.AddScoped<IValidator<CreateClientUserDto, UserDataAccessor, UserValidationContext>, ClientUserValidator>();
-            services.AddScoped<IValidator<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext>, GlobalSystemUserValidator>();
+            services.AddScoped<IValidator<CreateAdminDto, UserDataAccessor, UserValidationContext>, CreateAdminValidator>();
+            services.AddScoped<IValidator<UpdateAdminDto, UserDataAccessor, UserValidationContext>, UpdateAdminValidator>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            //Session 
+            services.AddScoped<ISession>(provider => NHibernateHelper.OpenSession());
+
+            //Data Accessor
+            services.AddScoped<UserDataAccessor>();
+            services.AddScoped<IUserDataAccessor>(provider => provider.GetRequiredService<UserDataAccessor>());
+
+            //validation contexts
+            services.AddScoped<UserValidationContext>();
             // Global
             services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalKkmValidator<,,>));
             services.AddScoped(typeof(IGlobalValidator<,,>), typeof(GlobalCashierValidator<,,>));
@@ -85,6 +98,7 @@ namespace Fiscalizator.Helpers
             services.AddScoped<OutcomeHandler>();
             services.AddScoped<AuthorizationService>();
             services.AddScoped<JwtTokenGenerator>();
+            services.AddScoped<UserService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
             return services;
