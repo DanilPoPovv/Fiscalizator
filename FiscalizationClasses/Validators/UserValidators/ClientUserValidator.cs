@@ -11,7 +11,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
         {
             if (userDataAccessor.Users.ExistsInClient(createClientUserDto.UserName, userValidationContext.Client.Id))
             {
-                throw new ValidationException("Username is already taken.");
+                throw new ValidationException("Name is already taken.");
             }
             if (createClientUserDto.Role == Entities.UserRole.GlobalAdmin)
             {

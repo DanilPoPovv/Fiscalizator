@@ -8,7 +8,7 @@ namespace Fiscalizator.NHibernate
         public UserMap()
         {
             Id(x => x.Id).GeneratedBy.Identity();
-            Map(x => x.Username).Not.Nullable().Length(50);
+            Map(x => x.Name).Not.Nullable().Length(50);
             Map(x => x.Email).Nullable().Length(50);
             Map(x => x.Role).CustomType<UserRole>().Not.Nullable();
             Map(x => x.PasswordHash).Not.Nullable();

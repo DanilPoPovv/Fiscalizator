@@ -10,15 +10,15 @@ namespace Fiscalizator.Repository
         public UserRepository(ISession session) : base(session) { }
         public User GetByUserName(string username)
         {
-            return _session.Query<User>().FirstOrDefault(u => u.Username == username)!;
+            return _session.Query<User>().FirstOrDefault(u => u.Name == username)!;
         }
         public User GetAdminByName(string adminName)
         {
-            return _session.Query<User>().FirstOrDefault(u => u.Username == adminName && u.Role == UserRole.GlobalAdmin);
+            return _session.Query<User>().FirstOrDefault(u => u.Name == adminName && u.Role == UserRole.GlobalAdmin);
         }
         public bool ExistsInClient(string userName, int clientId)
         {
-            return _session.Query<User>().Any(u => u.Username == userName && u.ClientId == clientId);
+            return _session.Query<User>().Any(u => u.Name == userName && u.ClientId == clientId);
         }
 
         public PagedData<User> SearchAdmins(UserSearchFilterDto userFilterDto)
@@ -26,7 +26,7 @@ namespace Fiscalizator.Repository
             var users = _session.Query<User>().Where(u => u.Role == UserRole.GlobalAdmin);
 
             if (!string.IsNullOrWhiteSpace(userFilterDto.Name))
-                users = users.Where(u => u.Username.Contains(userFilterDto.Name));
+                users = users.Where(u => u.Name.Contains(userFilterDto.Name));
             if(!string.IsNullOrWhiteSpace(userFilterDto.Email))
                 users = users.Where(u => u.Email.Contains(userFilterDto.Email));
 
