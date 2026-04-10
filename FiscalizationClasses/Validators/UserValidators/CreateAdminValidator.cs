@@ -9,7 +9,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
     {
         public void Validate(CreateAdminDto createGlobalUserDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
-            if (userDataAccessor.Users.GetByUserName(createGlobalUserDto.UserName) != null)
+            if (userDataAccessor.Users.GetByUserName(createGlobalUserDto.Name) != null)
             {
                 throw new ValidationException("Name is already taken.");
             }

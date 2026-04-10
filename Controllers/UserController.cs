@@ -51,7 +51,7 @@ namespace Fiscalizator.Controllers
         public ActionResult DeleteUser(UserDeleteDto userDeleteDto)
         {
             _userService.DeleteUser(userDeleteDto);
-            return Ok();
+            return NoContent();
         }
     }
 }

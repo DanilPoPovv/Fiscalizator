@@ -18,15 +18,13 @@ namespace Fiscalizator.FiscalizationClasses.Services
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly JwtTokenGenerator _jwtTokenGenerator;
         private readonly ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> _clientUserValidator;
-        private readonly ValidatorManager<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext> _globalUserValidator;
         private readonly UserDataAccessor _userDataAccessor;
         private readonly ISession _session;
 
         public AuthorizationService(
             IPasswordHasher<User> passwordHasher,
             JwtTokenGenerator jwtTokenGenerator,
-            ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> clientUserValidator,
-            ValidatorManager<CreateGlobalAdminDto, UserDataAccessor, UserValidationContext> globalUserValidator)
+            ValidatorManager<CreateClientUserDto, UserDataAccessor, UserValidationContext> clientUserValidator)
         {
             _passwordHasher = passwordHasher;
             _jwtTokenGenerator = jwtTokenGenerator;
@@ -34,7 +32,6 @@ namespace Fiscalizator.FiscalizationClasses.Services
             _userRepository = new UserRepository(_session);
             _userDataAccessor = new UserDataAccessor(_session);
             _clientUserValidator = clientUserValidator;
-            _globalUserValidator = globalUserValidator;
         }
 
         public string Login(AuthorizeDto authorizeDto)

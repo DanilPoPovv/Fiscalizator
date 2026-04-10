@@ -5,7 +5,7 @@ namespace Fiscalizator.FiscalizationClasses.Dto.Bill
 {
     public class CommodityDTO
     {
-        [XmlElement("UserName")]
+        [XmlElement("Name")]
         public string Name { get; set; }
         [XmlElement("Price")]
         public int Price { get; set; }

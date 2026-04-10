@@ -15,11 +15,11 @@ using Fiscalizator.FiscalizationClasses.Validators;
         }
         public void Validate(UpdateAdminDto updateAdminDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
-            if(updateAdminDto.UserName!= null && userDataAccessor.Users.GetAdminByName(updateAdminDto.UserName) != null)
+            if(updateAdminDto.Name!= null && userDataAccessor.Users.GetAdminByName(updateAdminDto.Name) != null)
             {
-                throw new Exception($"Admin with name {updateAdminDto.UserName} is already exists among admins");
+                throw new Exception($"Admin with name {updateAdminDto.Name} is already exists among admins");
             }
-            if(updateAdminDto.OldPassword != null && updateAdminDto.NewPassword != null)
+            if(!string.IsNullOrWhiteSpace(updateAdminDto.OldPassword) && !string.IsNullOrWhiteSpace(updateAdminDto.NewPassword))
                 {
                 var user = userDataAccessor.Users.GetById(updateAdminDto.Id);
                     if(user == null || _passwordHasher.VerifyHashedPassword(user,user.PasswordHash, updateAdminDto.OldPassword) != PasswordVerificationResult.Success)

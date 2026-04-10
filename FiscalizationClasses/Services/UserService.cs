@@ -63,14 +63,14 @@ namespace Fiscalizator.FiscalizationClasses.Services
         public User UpdateAdmin(UpdateAdminDto updateAdminDto)
         {
             _updateAdminValidator.ValidateAll(updateAdminDto, _userDataAccessor, _userValidationContext);
-
-            var user = _userValidationContext.User;
+            
+            var user = _userValidationContext.User ?? _userRepository.GetById(updateAdminDto.Id);
             using var transaction = _session.BeginTransaction();
-            if (!string.IsNullOrWhiteSpace(updateAdminDto.UserName))
-                user.Name = updateAdminDto.UserName;
+            if (!string.IsNullOrWhiteSpace(updateAdminDto.Name))
+                user.Name = updateAdminDto.Name;
 
-            if (!string.IsNullOrEmpty(updateAdminDto.UserEmail))
-                user.Email = updateAdminDto.UserEmail;
+            if (!string.IsNullOrEmpty(updateAdminDto.Email))
+                user.Email = updateAdminDto.Email;
 
             if (!string.IsNullOrEmpty(updateAdminDto.NewPassword))
                 user.PasswordHash = _passwordHasher.HashPassword(user, updateAdminDto.NewPassword);
@@ -93,7 +93,7 @@ namespace Fiscalizator.FiscalizationClasses.Services
         {   
             User newUser = new User
             {
-                Name = request.UserName,
+                Name = request.Name,
                 PasswordHash = _passwordHasher.HashPassword(null, request.Password),
                 Email = request.Email
             };

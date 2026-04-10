@@ -2,11 +2,8 @@
 
 namespace Fiscalizator.FiscalizationClasses.Dto.User
 {
-    public class CreateGlobalAdminDto
+    public class CreateGlobalAdminDto : BaseCreateUser
     {
-        public string Username { get; set; }
         public UserRole Role { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
     }
 }

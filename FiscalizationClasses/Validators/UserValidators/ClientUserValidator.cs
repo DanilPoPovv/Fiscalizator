@@ -9,7 +9,7 @@ namespace Fiscalizator.FiscalizationClasses.Validators
     {
         public void Validate(CreateClientUserDto createClientUserDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
-            if (userDataAccessor.Users.ExistsInClient(createClientUserDto.UserName, userValidationContext.Client.Id))
+            if (userDataAccessor.Users.ExistsInClient(createClientUserDto.Name, userValidationContext.Client.Id))
             {
                 throw new ValidationException("Name is already taken.");
             }
