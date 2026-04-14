@@ -15,10 +15,8 @@ using Fiscalizator.FiscalizationClasses.Validators;
         }
         public void Validate(UpdateAdminDto updateAdminDto, UserDataAccessor userDataAccessor, UserValidationContext userValidationContext)
         {
-            if(updateAdminDto.Name!= null && userDataAccessor.Users.GetAdminByName(updateAdminDto.Name) != null)
-            {
-                throw new Exception($"Admin with name {updateAdminDto.Name} is already exists among admins");
-            }
+            IsAdminNameAlreadyTaken(updateAdminDto.Name, userDataAccessor);
+
             if(!string.IsNullOrWhiteSpace(updateAdminDto.OldPassword) && !string.IsNullOrWhiteSpace(updateAdminDto.NewPassword))
                 {
                 var user = userDataAccessor.Users.GetById(updateAdminDto.Id);
@@ -29,5 +27,17 @@ using Fiscalizator.FiscalizationClasses.Validators;
             userValidationContext.User = user;
                 }
             }
+    private void IsAdminNameAlreadyTaken(string adminName, UserDataAccessor userDataAccessor)
+    {
+        if (adminName!= null && userDataAccessor.Users.GetAdminByName(adminName) != null)
+        {
+            throw new Exception($"Admin with name {adminName} is already exists among admins");
         }
+    }
+    private bool IsAdminNameModified(int userId, string requestAdminName, UserDataAccessor userDataAccessor, ValidationContext valContext)
+    {
+        if(userDataAccessor.Clients.GetById(userId))
+    }
+        }
+
 
